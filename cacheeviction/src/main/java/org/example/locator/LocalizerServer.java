@@ -67,4 +67,8 @@ public class LocalizerServer implements Loggable {
 
         communicator.disconnect();
     }
+
+    public static void main(String[] args) {
+        new LocalizerServer();
+    }
 }
