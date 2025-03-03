@@ -27,7 +27,7 @@ public class LocalizerServer implements Loggable {
 
     private void createServerSocket() {
         try {
-            serverSocket = new ServerSocket(port);
+            serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179"));
             logger().info("Servidor Localizador rodando na porta: {}", serverSocket.getLocalPort());
             System.out.println("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort());
 
