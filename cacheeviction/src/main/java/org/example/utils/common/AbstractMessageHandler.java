@@ -1,23 +1,31 @@
 package org.example.utils.common;
 
 import org.example.utils.JsonSerializable;
+import org.example.utils.Loggable;
 import org.example.utils.common.interfaces.MessageHandler;
 
 import java.io.*;
 
-public class AbstractMessageHandler implements MessageHandler, JsonSerializable {
+public class AbstractMessageHandler implements MessageHandler, JsonSerializable, Loggable {
     protected PrintWriter out;
     protected BufferedReader in;
 
     public AbstractMessageHandler(OutputStream out, InputStream in) {
         this.out = new PrintWriter(out, true);
         this.in = new BufferedReader(new InputStreamReader(in));
+
+        if (this.out == null) {
+            throw new RuntimeException("Erro ao tentar abrir Fluxo de Dados!");
+        }
+
+        logger().info("Fluxo de Dados aberto com sucesso!");
+        System.out.println("Fluxo de Dados aberto com sucesso!");
     }
 
     public void sendTextMessage(String message) {
-        if (out != null && message != null && !message.isEmpty()) {
-            out.println(message);
-        }
+        out.println(message);
+
+        logger().info("Mensagem enviada: {}", message);
     }
 
     public void sendJsonMessage(Object message) {
@@ -25,20 +33,16 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable 
             String jsonMessage = message instanceof JsonSerializable ? ((JsonSerializable) message).toJson() : message.toString();  // Fallback para string, caso não seja serializável
             sendTextMessage(jsonMessage);
         }
+
+        logger().info("Mensagem enviada: {}", message);
     }
 
     public String receiveTextMessage() {
         if (in != null) {
             try {
-                StringBuilder message = new StringBuilder();
-                char[] buffer = new char[4096];
-                int bytesRead;
-
-                while ((bytesRead = in.read(buffer)) != -1) {
-                    message.append(buffer, 0, bytesRead);
-                }
-
-                return message.toString();
+                String message = in.readLine();
+                logger().info("Mensagem recebida: {}", message);
+                return message;
             } catch (IOException e) {
                 return "Erro: " + e;
             }
@@ -50,7 +54,11 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable 
     public <T> T receiveJsonMessage(Class<T> clas) {
         if (in != null) {
             try {
-                return JsonSerializable.objectMapper.readValue(in, clas);
+                T objeto = JsonSerializable.objectMapper.readValue(in, clas);
+
+                logger().info("Mensagem recebida: {}", objeto);
+
+                return objeto;
             } catch (IOException e) {
                 throw new RuntimeException("Erro ao desserializar JSON", e);
             }

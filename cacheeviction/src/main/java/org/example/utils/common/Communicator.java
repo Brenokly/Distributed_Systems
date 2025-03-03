@@ -14,6 +14,13 @@ public class Communicator {
         this.connection = new AbstractSocketConnection();
     }
 
+    public Communicator(Socket socket) {
+        this.connection = new AbstractSocketConnection(socket);
+        if (connection.isConnected()) {
+            createIOHandler();
+        }
+    }
+
     public void connect(String host, int port) {
         connection.connect(host, port);
         if (connection.isConnected()) {

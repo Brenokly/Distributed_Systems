@@ -27,7 +27,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
     public Client() {
         this.scanner = new Scanner(System.in);
-        this.addressLocator = new ProxyInfo("localhost", 12345);
+        this.addressLocator = new ProxyInfo("localhost", 15551);
         this.id = ++clients;
 
         initializeDefaultActions();
@@ -86,17 +86,28 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     private void connectLocator() {
         connect(addressLocator.getHost(), addressLocator.getPort());
 
-        if (isConnected()) {
+        String mensage;
+
+        System.out.println("Aguardando mensagem do Localizador...");
+
+        mensage = receiveTextMessage();
+        System.out.println("Mensagem recebida do Localizador: " + mensage);
+
+        if (mensage.equals("OK")) {
             sendTextMessage("GET_PROXY");
+            System.out.println("Solicitando endereço do servidor Proxy: GET_PROXY");
+            logger().info("Solicitando endereço do servidor Proxy: GET_PROXY");
+
             addressProxy = receiveJsonMessage(ProxyInfo.class);
-            disconnect();
+
             if (addressProxy != null) {
                 actions.put(1, this::connectProxy);
-            } else {
-                System.out.println("Erro ao obter endereço do servidor Proxy!");
             }
-        } else {
-            System.out.println("Falha ao conectar ao Localizador!");
+
+            System.out.println("Mensagem recebida do Localizador: " + addressProxy);
+            logger().info("Mensagem recebida do Localizador: {}", addressProxy);
+
+            disconnect();
         }
     }
 

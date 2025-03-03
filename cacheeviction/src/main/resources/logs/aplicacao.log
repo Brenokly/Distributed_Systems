@@ -1,5 +1,12 @@
-2025-03-03 02:20:49 [main] ERROR o.e.u.c.AbstractSocketConnection - Erro ao conectar ao servidor: Connection refused: connect
-2025-03-03 02:21:02 [main] ERROR o.e.u.c.AbstractSocketConnection - Erro ao conectar ao servidor: Connection refused: connect
-2025-03-03 02:21:03 [main] ERROR o.e.u.c.AbstractSocketConnection - Erro ao conectar ao servidor: Connection refused: connect
-2025-03-03 02:21:03 [main] ERROR o.e.u.c.AbstractSocketConnection - Erro ao conectar ao servidor: Connection refused: connect
-2025-03-03 02:21:04 [main] INFO  org.example.client.Client - Encerrando Cliente 1...
+2025-03-03 14:22:02 [main] INFO  o.e.u.c.AbstractSocketConnection - Conectado a localhost:15551
+2025-03-03 14:22:02 [main] INFO  o.e.u.common.AbstractMessageHandler - Fluxo de Dados aberto com sucesso!
+2025-03-03 14:22:02 [main] INFO  o.e.u.common.AbstractMessageHandler - Mensagem recebida: OK
+2025-03-03 14:22:02 [main] INFO  o.e.u.common.AbstractMessageHandler - Mensagem enviada: GET_PROXY
+2025-03-03 14:22:02 [main] INFO  org.example.client.Client - Solicitando endereço do servidor Proxy: GET_PROXY
+2025-03-03 14:22:02 [main] INFO  o.e.u.common.AbstractMessageHandler - Mensagem recebida: ProxyInfo(host=26.97.230.179, port=15552)
+2025-03-03 14:22:02 [main] INFO  org.example.client.Client - Mensagem recebida do Localizador: ProxyInfo(host=26.97.230.179, port=15552)
+FO  o.e.u.common.AbstractMessageHandler - Mensagem recebida: GET_PROXY
+2025-03-03 14:22:02 [Thread-0] INFO  org.example.locator.LocalizerServer - Localizador recebeu uma Mensagem: GET_PROXY
+2025-03-03 14:22:02 [Thread-0] INFO  org.example.locator.LocalizerServer - Localizador enviando a mensagem: 26.97.230.179:15556
+2025-03-03 14:22:02 [Thread-0] INFO  o.e.u.common.AbstractMessageHandler - Mensagem enviada: {"host":"26.97.230.179","port":15552}
+2025-03-03 14:22:02 [Thread-0] INFO  o.e.u.common.AbstractMessageHandler - Mensagem enviada: ProxyInfo(host=26.97.230.179, port=15552)

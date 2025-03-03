@@ -23,6 +23,16 @@ public class AbstractSocketConnection implements SocketConnection, Loggable {
         connections++;
     }
 
+    public AbstractSocketConnection(Socket socket) {
+        this.socket = socket;
+        host = socket.getInetAddress().getHostAddress();
+        port = socket.getPort();
+        inetAddress = socket.getInetAddress();
+        connections++;
+
+        System.out.println("Conectado a " + host + ":" + port);
+        logger().info("Conectado a {}:{}", host, port);
+    }
 
     @Override
     public synchronized void connect() {
