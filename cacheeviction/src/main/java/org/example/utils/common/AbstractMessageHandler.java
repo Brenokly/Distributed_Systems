@@ -1,6 +1,5 @@
 package org.example.utils.common;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.example.utils.JsonSerializable;
 import org.example.utils.common.interfaces.MessageHandler;
 

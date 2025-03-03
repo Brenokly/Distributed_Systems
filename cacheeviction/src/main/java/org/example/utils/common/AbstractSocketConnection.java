@@ -25,7 +25,7 @@ public class AbstractSocketConnection implements SocketConnection, Loggable {
 
 
     @Override
-    public void connect() {
+    public synchronized void connect() {
         if (isConnected()) {
             if (inetAddress.getHostName().equals(host) && socket.getPort() == port) {
                 System.out.println("Já está conectado a " + inetAddress.getHostName() + ":" + port);
@@ -50,7 +50,7 @@ public class AbstractSocketConnection implements SocketConnection, Loggable {
     }
 
     @Override
-    public synchronized void connect(String host, int port) {
+    public void connect(String host, int port) {
         this.host = host;
         this.port = port;
         connect();
