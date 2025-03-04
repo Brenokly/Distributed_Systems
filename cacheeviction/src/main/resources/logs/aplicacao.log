@@ -1,12 +1,13 @@
-2025-03-03 14:31:10 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
-2025-03-03 14:31:10 [main] INFO  org.example.locator.LocalizerServer - Aguardando conexão de um Cliente...
-2025-03-03 14:32:17 [main] INFO  org.example.locator.LocalizerServer - Cliente conectado: 26.137.178.91
-2025-03-03 14:32:17 [Thread-0] INFO  o.e.u.c.AbstractSocketConnection - Conectado a 26.137.178.91:56573
-2025-03-03 14:32:17 [Thread-0] INFO  o.e.u.common.AbstractMessageHandler - Fluxo de Dados aberto com sucesso!
-2025-03-03 14:32:17 [Thread-0] INFO  org.example.locator.LocalizerServer - Conexão estabelecida com o cliente!
-2025-03-03 14:32:17 [Thread-0] INFO  o.e.u.common.AbstractMessageHandler - Mensagem enviada: OK
-2025-03-03 14:32:17 [Thread-0] INFO  o.e.u.common.AbstractMessageHandler - Mensagem recebida: GET_PROXY
-2025-03-03 14:32:17 [Thread-0] INFO  org.example.locator.LocalizerServer - Localizador recebeu uma Mensagem: GET_PROXY
-2025-03-03 14:32:17 [Thread-0] INFO  org.example.locator.LocalizerServer - Localizador enviando a mensagem: 26.97.230.179:15556
-2025-03-03 14:32:17 [Thread-0] INFO  o.e.u.common.AbstractMessageHandler - Mensagem enviada: {"host":"26.97.230.179","port":15552}
-2025-03-03 14:32:17 [Thread-0] INFO  o.e.u.common.AbstractMessageHandler - Mensagem enviada: ProxyInfo(host=26.97.230.179, port=15552)
+2025-03-03 18:45:16 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-03 18:45:16 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-03 18:45:20 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-03 18:45:20 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 127.0.0.1:57165
+2025-03-03 18:45:20 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-03 18:45:21 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15551
+2025-03-03 18:45:21 [main] INFO  o.e.u.common.AbstractMessageHandler - O Client 1 abriu o Fluxo de Dados com sucesso!
+2025-03-03 18:45:21 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 enviou uma mensagem de texto: GET_PROXY
+2025-03-03 18:45:21 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-03 18:45:21 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma objeto JSON: class org.example.utils.ProxyInfo
+2025-03-03 18:45:21 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-03 18:45:21 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 recebeu uma mensagem JSON: class org.example.utils.ProxyInfo
+2025-03-03 18:45:21 [main] INFO  o.e.u.common.AbstractMessageHandler - O Client 1 fechou o Fluxo de Dados com sucesso!

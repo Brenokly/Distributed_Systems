@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.example.utils.common.OrderService;
 import org.example.utils.exceptions.ElementNotFoundException;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -98,6 +100,21 @@ public abstract class AbstractAAList implements ListAAInterface {
         }
 
         return data;
+    }
+
+    public List<OrderService> listAll() throws ElementNotFoundException {
+        if (head == null) {
+            throw new ElementNotFoundException("Lista vazia");
+        }
+
+        List<OrderService> list = new java.util.LinkedList<>();
+        NodeBase current = head;
+        while (current != null) {
+            list.add(current.data);
+            current = current.next;
+        }
+
+        return list;
     }
 
     public OrderService removeLast() throws ElementNotFoundException {

@@ -23,7 +23,7 @@ public class TreeAVL {
     private boolean rotated;            // Atributo para indicar se houve rotação
     private RotationType rotationType;  // Atributo para indicar o tipo de rotação
 
-    TreeAVL() {
+    public TreeAVL() {
         this.root = null;
         this.rotated = false;
         this.rotationType = RotationType.NONE;
@@ -38,13 +38,10 @@ public class TreeAVL {
     }
 
     private Node insert(Node root, OrderService data) throws NodeAlreadyExistsException {
-        if (root == null)
-            return new Node(data);
+        if (root == null) return new Node(data);
 
-        if (data.getCode() < root.data.getCode())
-            root.left = insert(root.left, data);
-        else if (data.getCode() > root.data.getCode())
-            root.right = insert(root.right, data);
+        if (data.getCode() < root.data.getCode()) root.left = insert(root.left, data);
+        else if (data.getCode() > root.data.getCode()) root.right = insert(root.right, data);
         else
             // Node com mesmo código já existe
             throw new NodeAlreadyExistsException("O nó com o código " + data.getCode() + " já existe na árvore.");
@@ -94,13 +91,13 @@ public class TreeAVL {
         return balance(root);
     }
 
-    public OrderService search(int codigo) throws NodeNotFoundException {
+    public OrderService search(int codigo) {
         return search(root, codigo);
     }
 
-    private OrderService search(Node root, int codigo) throws NodeNotFoundException {
+    private OrderService search(Node root, int codigo) {
         if (root == null) {
-            throw new NodeNotFoundException("O nó com o código " + codigo + " não existe na árvore.");
+            return null;
         }
 
         if (codigo < root.data.getCode()) {
@@ -125,9 +122,9 @@ public class TreeAVL {
         }
     }
 
-    public List<OrderService> list() throws NodeNotFoundException {
+    public List<OrderService> list() {
         if (root == null) {
-            throw new NodeNotFoundException("Árvore vazia.");
+            return new ArrayList<>();
         }
 
         List<OrderService> list = new ArrayList<>();
@@ -244,26 +241,22 @@ public class TreeAVL {
     }
 
     private Node minorKey(Node root) {
-        if (root == null)
-            return null;
+        if (root == null) return null;
 
         Node aux = root;
 
-        while (aux.left != null)
-            aux = aux.left;
+        while (aux.left != null) aux = aux.left;
 
         return aux;
     }
 
     private int height(Node root) {
-        if (root == null)
-            return -1;
+        if (root == null) return -1;
         return root.height;
     }
 
     private int getFB(Node root) {
-        if (root == null)
-            return 0;
+        if (root == null) return 0;
 
         return height(root.left) - height(root.right);
     }

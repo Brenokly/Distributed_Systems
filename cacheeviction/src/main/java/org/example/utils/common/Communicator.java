@@ -9,13 +9,16 @@ import java.net.Socket;
 public class Communicator {
     private final AbstractSocketConnection connection;
     private AbstractMessageHandler ioHandler;
+    private final String name;
 
-    public Communicator() {
-        this.connection = new AbstractSocketConnection();
+    public Communicator(String name) {
+        this.connection = new AbstractSocketConnection(name);
+        this.name = name;
     }
 
-    public Communicator(Socket socket) {
-        this.connection = new AbstractSocketConnection(socket);
+    public Communicator(Socket socket, String name) {
+        this.connection = new AbstractSocketConnection(socket, name);
+        this.name = name;
         if (connection.isConnected()) {
             createIOHandler();
         }
@@ -33,7 +36,7 @@ public class Communicator {
             if (ioHandler != null) {
                 ioHandler.close();
             }
-            ioHandler = new AbstractMessageHandler(connection.getSocket().getOutputStream(), connection.getSocket().getInputStream());
+            ioHandler = new AbstractMessageHandler(connection.getSocket().getOutputStream(), connection.getSocket().getInputStream(), name);
         } catch (IOException e) {
             throw new RuntimeException("Erro ao tentar abrir Fluxo de Dados!", e);
         }

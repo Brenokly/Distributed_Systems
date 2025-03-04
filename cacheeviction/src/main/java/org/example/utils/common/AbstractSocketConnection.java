@@ -14,48 +14,47 @@ public class AbstractSocketConnection implements SocketConnection, Loggable {
     private int port;
     @Setter
     private String host;
+    @Setter
+    private String name;
     private Socket socket;
-    private InetAddress inetAddress;
+    private InetAddress inet;
     @Getter
     static private int connections = 0;
 
-    public AbstractSocketConnection() {
+    public AbstractSocketConnection(String name) {
+        this.name = name;
         connections++;
     }
 
-    public AbstractSocketConnection(Socket socket) {
+    public AbstractSocketConnection(Socket socket, String name) {
         this.socket = socket;
+        this.name = name;
         host = socket.getInetAddress().getHostAddress();
         port = socket.getPort();
-        inetAddress = socket.getInetAddress();
+        inet = socket.getInetAddress();
         connections++;
-
-        System.out.println("Conectado a " + host + ":" + port);
-        logger().info("Conectado a {}:{}", host, port);
+        info(name + " conectado a " + host + ":" + port);
     }
 
     @Override
     public synchronized void connect() {
         if (isConnected()) {
-            if (inetAddress.getHostName().equals(host) && socket.getPort() == port) {
-                System.out.println("Já está conectado a " + inetAddress.getHostName() + ":" + port);
-                logger().warn("Já está conectado a {}:{}", inetAddress.getHostName(), port);
+            if (inet.getHostName().equals(host) && socket.getPort() == port) {
+                warn(name + " ja está conectado a " + inet.getHostName() + ":" + port);
                 return;
             } else {
-                System.out.println("Já está conectado a " + inetAddress.getHostName() + ". Desconectando antes de conectar...");
-                logger().warn("Já está conectado a {}. Desconectando antes de conectar...", inetAddress.getHostName());
+                warn(name + " já está conectado a " + inet.getHostName() + ". Desconectando antes de conectar...");
                 disconnect();
             }
         }
 
         try {
             socket = new Socket(host, port);
-            inetAddress = socket.getInetAddress();
-            System.out.println("Conectado a " + host + ":" + port);
-            logger().info("Conectado a {}:{}", host, port);
+            inet = socket.getInetAddress();
+
+            info(name + " conectado a " + host + ":" + port);
         } catch (IOException e) {
-            System.out.println("Erro ao conectar ao servidor: " + e.getMessage());
-            logger().error("Erro ao conectar ao servidor: {}", e.getMessage());
+            erro("Erro ao conectar ao servidor: " + e.getMessage());
         }
     }
 
@@ -71,12 +70,10 @@ public class AbstractSocketConnection implements SocketConnection, Loggable {
         try {
             if (socket != null && !socket.isClosed()) {
                 socket.close();
-                System.out.println("Conexão fechada com o " + inetAddress.getHostName() + ".");
-                logger().info("Conexão fechada com o {}.", inetAddress.getHostName());
+                info("Conexão de " + name + " fechada com o " + inet.getHostName() + ".");
             }
         } catch (IOException e) {
-            System.out.println("Erro ao desconectar: " + e.getMessage());
-            logger().error("Erro ao desconectar: {}", e.getMessage());
+            erro("Erro ao " + name + " tentar desconectar: " + e.getMessage());
         }
     }
 

@@ -1,8 +1,11 @@
 package org.example.utils.common;
 
 import lombok.Getter;
+import org.example.utils.Loggable;
 import org.example.utils.exceptions.ElementNotFoundException;
 import org.example.utils.listsAA.LinkedListAAMF;
+
+import java.util.List;
 
 /*
  * A classe Cache é responsável por gerenciar a cache de ordens de serviço.
@@ -17,7 +20,7 @@ import org.example.utils.listsAA.LinkedListAAMF;
  * é, graças a autoajustabilidade, o menos acessado.
  */
 
-public class Cache {
+public class Cache implements Loggable {
     private final int CAPACIDADE;
     private final LinkedListAAMF cache;
     @Getter
@@ -40,22 +43,24 @@ public class Cache {
         try {
             OrderService order = cache.search(code);
             hits++;
+            info("OrderService encontrado na cache");
             return order;
         } catch (ElementNotFoundException e) {
             misses++;
+            info("OrderService não encontrado na cache");
             return null;
         }
     }
 
     public void insert(OrderService orderService) {
         if (cache.size() == CAPACIDADE) {
-            // Remove o último elemento da cache
-            // Já que estamos usando a política de cache eviction LRU
+            // Remove o último elemento da cache já que estamos usando a política de cache eviction LRU
             OrderService removed = cache.removeLast();
+            info("Elemento removido da cache: " + removed);
         }
 
-        // Insere a nova ordem de serviço
         cache.insertFirst(orderService);
+        info("Elemento inserido na cache: " + orderService);
     }
 
     public boolean alter(OrderService orderService) {
@@ -76,6 +81,14 @@ public class Cache {
         }
 
         return true;
+    }
+
+    public List<OrderService> listAll() {
+        try {
+            return cache.listAll();
+        } catch (ElementNotFoundException e) {
+            return null;
+        }
     }
 
     public void show() {

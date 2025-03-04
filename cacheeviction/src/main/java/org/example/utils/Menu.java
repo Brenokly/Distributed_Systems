@@ -12,21 +12,21 @@ import java.util.Map;
 @NoArgsConstructor
 public class Menu {
     private String menu;
-    private final Map<Integer, Runnable> actions = new HashMap<>();
+    private final Map<Command, Runnable> actions = new HashMap<>();
 
-    public void updateActions(Map<Integer, Runnable> menuOptions) {
+    public void updateActions(Map<Command, Runnable> menuOptions) {
         actions.putAll(menuOptions);
     }
 
-    public void put(int option, Runnable action) {
+    public void put(Command option, Runnable action) {
         actions.put(option, action);
     }
 
     public Runnable get(int option) {
-        return actions.get(option);
+        return actions.get(Command.fromCode(option));
     }
 
-    private void buildMenuString(Map<Integer, String> menuOptions) {
+    private void buildMenuString(Map<Command, String> menuOptions) {
         StringBuilder menuBuilder = new StringBuilder();
         menuOptions.forEach((option, description) -> menuBuilder.append(option).append(" - ").append(description).append("\n"));
         menu = menuBuilder.toString();
@@ -37,7 +37,7 @@ public class Menu {
         actions.clear();
     }
 
-    public void updateMenu(Map<Integer, String> menuOptions) {
+    public void updateMenu(Map<Command, String> menuOptions) {
         clearMenu();
         buildMenuString(menuOptions);
     }
