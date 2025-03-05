@@ -28,7 +28,7 @@ public class Server implements Loggable, JsonSerializable {
     private volatile TreeAVL treeAVL;                                                            // Árvore AVL de dados
     private ServerSocket serverSocket;                                                           // Socket do servidor
     private final Object treeLock = new Object();                                                // Lock para sincronização da árvore
-    private volatile AtomicBoolean running = new AtomicBoolean(true);                   // Flag de controle de execução
+    private volatile AtomicBoolean running = new AtomicBoolean(true);               // Flag de controle de execução
     private static final ThreadLocal<Communicator> clientCommunicator = new ThreadLocal<>();     // Comunicador do cliente
 
     public Server() {

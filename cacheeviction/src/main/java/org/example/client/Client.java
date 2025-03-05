@@ -79,9 +79,9 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     }
 
     private void connectLocator() {
-        connect(addressLocator.getHost(), addressLocator.getPort());
+        connect(addressLocator.getHost(), addressLocator.getPort()); 
 
-        sendTextMessage("GET_PROXY");
+        sendTextMessage("GET_PROXY"); // Pede para o locator o IP do proxy!
 
         addressProxy = receiveJsonMessage(ProxyInfo.class);
 
@@ -90,7 +90,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
             actions.put(CONECT_PROXY, this::connectProxy);
         }
 
-        disconnect();
+        disconnect(); // disconecta do locator
     }
 
     private void connectProxy() {
