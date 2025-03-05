@@ -81,6 +81,7 @@ public class LocalizerServer implements Loggable {
                     break;
                 }
             }
+            scanner.close();
         }).start();
     }
 

@@ -285,6 +285,7 @@ public class Proxy implements Loggable, JsonSerializable {
                     break;
                 }
             }
+            scanner.close();
         }).start();
     }
 

@@ -203,6 +203,7 @@ public class Server implements Loggable, JsonSerializable {
                     break;
                 }
             }
+            scanner.close();
         }).start();
     }
 
