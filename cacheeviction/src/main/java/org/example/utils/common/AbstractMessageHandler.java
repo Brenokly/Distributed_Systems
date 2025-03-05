@@ -34,6 +34,8 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
             String jsonMessage = message instanceof JsonSerializable ? ((JsonSerializable) message).toJson() : message.toString();
             out.println(jsonMessage);
             message(name + " enviou uma mensagem json: " + jsonMessage);
+        } else {
+            out.println("Problem na mensagem enviada!");
         }
     }
 
@@ -56,7 +58,6 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
     public <T> T receiveJsonMessage(Class<T> clas) {
         if (in != null) {
             try {
-
                 String json = in.readLine();
 
                 if (json == null) {
@@ -69,12 +70,12 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
                 return JsonSerializable.objectMapper.readValue(json, clas);
             } catch (IOException e) {
                 erro("Erro ao desserializar JSON: " + e);
+                return null;
             }
         } else {
             erro("O buffer de entrada está nulo. Fluxo de Dados não aberto.");
+            return null;
         }
-
-        return null;
     }
 
     public void close() {

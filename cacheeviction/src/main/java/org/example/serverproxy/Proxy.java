@@ -27,7 +27,7 @@ public class Proxy implements Loggable, JsonSerializable {
     private final ProxyInfo serverInfo;                                                     // Informações do servidor principal
     private final Object cacheLock = new Object();                                          // Lock para sincronização da cache
     private final List<Command> commands = new ArrayList<>();                               // Lista de comandos
-    private volatile AtomicBoolean running = new AtomicBoolean(true);              // Flag de controle de exec
+    private volatile AtomicBoolean running = new AtomicBoolean(true);                       // Flag de controle de exec
     private static final ThreadLocal<Communicator> cliCommunicator = new ThreadLocal<>();   // Comunicador do cliente
     private static final ThreadLocal<Communicator> serCommunicator = new ThreadLocal<>();   // Comunicador do servidor
 
