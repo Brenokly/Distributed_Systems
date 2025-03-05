@@ -83,7 +83,7 @@ public class Proxy implements Loggable, JsonSerializable {
     }
 
     private void handleClient(Socket client) {
-        Communicator clientcommunicator = new Communicator(client, "Proxy");
+        Communicator clientcommunicator = new Communicator(client, "Proxy - Cliente");
         cliCommunicator.set(clientcommunicator);
         boolean exitClient = false;
 
@@ -151,7 +151,7 @@ public class Proxy implements Loggable, JsonSerializable {
         }
 
         // Conexão com o servidor principal
-        Communicator serverCommunicator = new Communicator("Proxy");
+        Communicator serverCommunicator = new Communicator("Proxy - Servidor");
         serverCommunicator.connect(serverInfo.getHost(), serverInfo.getPort());
         serCommunicator.set(serverCommunicator);
 

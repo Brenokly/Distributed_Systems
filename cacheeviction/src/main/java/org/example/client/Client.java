@@ -125,11 +125,12 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         os = receiveJsonMessage(OrderService.class); // Recebe a OS do servidor
 
-        if (os == null) {
+        if (os.getRequestTime() == null) {
             System.out.println("\nOrdem de Serviço não encontrada!");
         } else {
             System.out.println("\nOrdem de Serviço Encontrada: " + os);
         }
+        System.out.println("--------------------------------------------------------------");
     }
 
     private void registerOS() {
@@ -143,6 +144,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         String response = receiveTextMessage(); // Recebe a confirmação de cadastro
         System.out.println("\n" + response);
+        System.out.println("--------------------------------------------------------------");
     }
 
     private void listOS() {
@@ -151,12 +153,13 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         System.out.println("--------------------------------------------------------------");
         List<OrderService> osList = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
         });
-        System.out.println("\nLista de OS:");
+        System.out.println("Lista de OS:\n");
         if (osList.isEmpty()) {
             System.out.println("Nenhuma OS encontrada!");
         } else {
             osList.forEach(System.out::println);
         }
+        System.out.println("--------------------------------------------------------------");
     }
 
     private void updateOS() {
@@ -170,6 +173,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         String response = receiveTextMessage(); // Recebe a confirmação de alteração
         System.out.println("\n" + response);
+        System.out.println("--------------------------------------------------------------");
     }
 
     private void removeOS() {
@@ -184,6 +188,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         String response = receiveTextMessage();  // Recebe a confirmação de remoção
         System.out.println("\n" + response);
+        System.out.println("--------------------------------------------------------------");
     }
 
     private void getOSCount() {
@@ -193,6 +198,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         int response = Integer.parseInt(receiveTextMessage()); // Recebe a quantidade de registros
 
         System.out.println("Quantidade de registros: " + response);
+        System.out.println("--------------------------------------------------------------");
     }
 
     private void authenticate() {
@@ -232,7 +238,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     private void disconnectClient() {
         System.out.println("--------------------------------------------------------------");
         sendJsonMessage(DISCONECT);
-        info("\nClient " + id + ": Desconectado do Servidor Proxy.");
+        info("Client " + id + ": Desconectado do Servidor Proxy.");
         disconnect();
         actions.clearMenu();
         initializeDefaultActions();
