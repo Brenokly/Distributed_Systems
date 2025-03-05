@@ -2,6 +2,7 @@ package org.example.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 import java.util.*;
 
 @Data
@@ -20,7 +21,7 @@ public class Menu implements JsonSerializable {
 
     public void put(Command option, Runnable action) {
         actions.put(option, action);
-        buildMenuString(); // 🔥 Sempre atualiza o menu corretamente
+        buildMenuString();
     }
 
     public void remove(Command option) {

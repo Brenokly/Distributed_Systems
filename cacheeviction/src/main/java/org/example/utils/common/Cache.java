@@ -43,11 +43,11 @@ public class Cache implements Loggable {
         try {
             OrderService order = cache.search(code);
             hits++;
-            info("OrderService encontrado na cache HIT");
+            info("OrderService encontrado na cache HIT: " + hits);
             return order;
         } catch (ElementNotFoundException e) {
             misses++;
-            info("OrderService não encontrado na cache MISS");
+            info("OrderService não encontrado na cache MISS: " + misses);
             return null;
         }
     }
@@ -92,9 +92,9 @@ public class Cache implements Loggable {
     }
 
     public void show() {
-        System.out.println("-------------------- Cache --------------------");
+        System.out.println("--------------------- Estado da Cache ------------------------");
         cache.show();
-        System.out.println("-----------------------------------------------");
+        System.out.println("--------------------------------------------------------------");
     }
 
     public int size() {

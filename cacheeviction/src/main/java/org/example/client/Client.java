@@ -218,7 +218,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
             response = receiveJsonMessage(Command.class);
 
             if (response == SUCCESS) {
-                info("\nCliente autenticado com sucesso!");
+                info("Cliente autenticado com sucesso!");
                 actions.remove(AUTHENTICATE);
             } else if (ERROR == response) {
                 warn("Tu errou as credenciais 3 vezes, serious? Certeza que é Ariel.");

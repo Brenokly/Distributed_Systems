@@ -245,20 +245,21 @@ public class Proxy implements Loggable, JsonSerializable {
         OrderService osCache = cache.search(os.getCode());
 
         if (osCache == null) {
-            servecommunicator.sendJsonMessage(SEARCH); // Envia a ação de busca para o servidor principal
+            servecommunicator.sendJsonMessage(SEARCH);  // Envia a ação de busca para o servidor principal
 
-            servecommunicator.sendJsonMessage(os); // Envia para o server
+            servecommunicator.sendJsonMessage(os);      // Envia para o server
 
-            osCache = servecommunicator.receiveJsonMessage(OrderService.class); // Recebe do server
-
-            synchronized (cacheLock) { // Insiro na cache para futuras consultas
-                cache.insert(osCache);
+            osCache = servecommunicator.receiveJsonMessage(OrderService.class);
+            if (osCache.getRequestTime() != null) {
+                synchronized (cacheLock) {
+                    cache.insert(osCache);
+                }
             }
         }
 
         cache.show();
 
-        clientcommunicator.sendJsonMessage(osCache); // Envia para o cliente
+        clientcommunicator.sendJsonMessage(osCache);    // Envia para o cliente
     }
 
     private void startCommandListener() {

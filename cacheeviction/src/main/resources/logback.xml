@@ -1,14 +1,106 @@
 <configuration>
-    <!-- Define o formato do log -->
+    <!-- Logger geral (todos os logs vão para este arquivo) -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/aplicacao.log</file> <!-- Caminho para o arquivo de log -->
-        <append>True</append>
+        <file>src/main/resources/logs/geral.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Define que todos os logs serão gravados no arquivo -->
+    <!-- Log do Client -->
+    <appender name="CLIENT_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logs/client.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do LocalizerServer -->
+    <appender name="LOCALIZER_SERVER_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logs/localizer_server.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do Server -->
+    <appender name="SERVER_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logs/server.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do Proxy -->
+    <appender name="PROXY_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logs/proxy.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do Cache -->
+    <appender name="CACHE_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logs/cache.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do AbstractMessageHandler -->
+    <appender name="MESSAGE_HANDLER_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logs/message_handler.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do AbstractSocketConnection -->
+    <appender name="SOCKET_CONNECTION_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>src/main/resources/logs/socket_connection.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Definição dos loggers específicos para cada classe -->
+    <logger name="org.example.client.Client" level="info" additivity="true">
+        <appender-ref ref="CLIENT_LOG"/>
+    </logger>
+
+    <logger name="org.example.locator.LocalizerServer" level="info" additivity="true">
+        <appender-ref ref="LOCALIZER_SERVER_LOG"/>
+    </logger>
+
+    <logger name="org.example.server.Server" level="info" additivity="true">
+        <appender-ref ref="SERVER_LOG"/>
+    </logger>
+
+    <logger name="org.example.serverproxy.Proxy" level="info" additivity="true">
+        <appender-ref ref="PROXY_LOG"/>
+    </logger>
+
+    <logger name="org.example.utils.common.Cache" level="info" additivity="true">
+        <appender-ref ref="CACHE_LOG"/>
+    </logger>
+
+    <logger name="org.example.utils.common.AbstractMessageHandler" level="info" additivity="true">
+        <appender-ref ref="MESSAGE_HANDLER_LOG"/>
+    </logger>
+
+    <logger name="org.example.utils.common.AbstractSocketConnection" level="info" additivity="true">
+        <appender-ref ref="SOCKET_CONNECTION_LOG"/>
+    </logger>
+
+    <!-- Logger geral que recebe todos os logs -->
     <root level="info">
         <appender-ref ref="FILE"/>
     </root>

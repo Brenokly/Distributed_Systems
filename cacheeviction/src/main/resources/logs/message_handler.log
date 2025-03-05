@@ -1,0 +1,8 @@
+2025-03-05 02:30:04 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy - Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-05 02:30:04 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-05 02:30:06 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Cliente recebeu uma mensagem json: "DISCONECT"
+2025-03-05 02:30:06 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy - Cliente fechou o Fluxo de Dados com sucesso!
+ommon.AbstractMessageHandler - O Client 1 abriu o Fluxo de Dados com sucesso!
+2025-03-05 02:30:04 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 recebeu uma mensagem texto: ["AUTHENTICATE","DISCONECT"]
+2025-03-05 02:30:06 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 enviou uma mensagem json: "DISCONECT"
+2025-03-05 02:30:06 [main] INFO  o.e.u.common.AbstractMessageHandler - O Client 1 fechou o Fluxo de Dados com sucesso!

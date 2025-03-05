@@ -119,6 +119,7 @@ public class Server implements Loggable, JsonSerializable {
         try {
             order = treeAVL.search(order.getCode());
             communicator.sendJsonMessage(order);
+            info("Os dados foram encontrados e enviados!");
         } catch (NodeNotFoundException e) {
             warn("Os dados não foram encontrados na base de dados!");
             communicator.sendJsonMessage(new OrderService());
