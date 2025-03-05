@@ -66,7 +66,6 @@ public class Server implements Loggable, JsonSerializable {
                     new Thread(() -> handleClient(client)).start();
                 } catch (IOException e) {
                     erro("Erro ao tentar conectar com o Cliente: " + e.getMessage());
-                    throw new RuntimeException("Erro ao tentar conectar com o Cliente: " + e.getMessage());
                 }
             }
         } catch (Exception e) {
@@ -78,6 +77,11 @@ public class Server implements Loggable, JsonSerializable {
     }
 
     private void handleClient(Socket client) {
+        if (client == null) {
+            erro("Cliente nulo, não é possível continuar!");
+            return;
+        }
+
         Communicator communicator = new Communicator(client, "Servidor Principal");
         clientCommunicator.set(communicator); // Define o Communicator da thread atual
         boolean exitClient = false;
@@ -86,31 +90,37 @@ public class Server implements Loggable, JsonSerializable {
             communicator.sendJsonMessage(new ObjectMapper().writeValueAsString(actions.getCommands())); // Envia as opções de menu para o proxy
         } catch (JsonProcessingException e) {
             erro("Erro ao enviar menu ao Cliente: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-
-        while (running.get() && !exitClient && client.isConnected()) {
-            Command option = communicator.receiveJsonMessage(Command.class);
-
-            if (option == DISCONECT) {
-                exitClient = true;
-            }
-
-            if (actions.get(option) != null) {
-                actions.get(option).run();
-            } else {
-                erro("Cliente enviou uma opção inválida para o ServerMain!");
-            }
+            exitClient = true;
         }
 
         try {
-            if (client != null && !client.isClosed()) {
+            while (running.get() && !exitClient && client.isConnected()) {
+                Command option = communicator.receiveJsonMessage(Command.class);
+
+                if (option == DISCONECT) {
+                    exitClient = true;
+                }
+
+                if (actions.get(option) != null) {
+                    actions.get(option).run();
+                } else {
+                    erro("Cliente enviou uma opção inválida para o ServerMain!");
+                }
+            }
+        } catch (Exception e) {
+            erro("Erro com a conexão do Cliente: " + e.getMessage());
+        }
+
+        try {
+            if (!client.isClosed()) {
                 client.close();
             }
+            if (clientCommunicator.get() != null) {
+                clientCommunicator.get().disconnect();
+                clientCommunicator.remove();
+            }
         } catch (IOException e) {
-            logger().error("Erro ao fechar conexão com o cliente!", e);
-        } finally {
-            clientCommunicator.remove();
+            erro("Erro ao fechar conexão com o cliente: " + e);
         }
     }
 
@@ -145,7 +155,7 @@ public class Server implements Loggable, JsonSerializable {
             communicator.sendJsonMessage(JsonSerializable.objectMapper.writeValueAsString(found));
         } catch (JsonProcessingException e) {
             erro("Erro ao enviar lista para cliente (SERVER): " + e.getMessage());
-            throw new RuntimeException(e);
+            disconnectProgram(communicator);
         }
     }
 
@@ -178,7 +188,9 @@ public class Server implements Loggable, JsonSerializable {
     }
 
     public void disconnectProgram(Communicator communicator) {
-        communicator.disconnect();
+        if (communicator != null) {
+            communicator.disconnect();
+        }
     }
 
     private void startCommandListener() {

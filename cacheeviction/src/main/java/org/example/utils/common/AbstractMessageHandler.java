@@ -18,7 +18,6 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
 
         if (this.out == null) {
             erro("Erro ao tentar abrir Fluxo de Saída do " + name);
-            throw new RuntimeException("Erro ao tentar abrir Fluxo de Saída do " + name);
         }
 
         info("O " + name + " abriu o Fluxo de Dados com sucesso!");
@@ -61,7 +60,8 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
                 String json = in.readLine();
 
                 if (json == null) {
-                    throw new IOException("Conexão fechada pelo cliente.");
+                    erro("Erro ao receber mensagem json: Mensagem nula.");
+                    return null;
                 }
 
                 message(name + " recebeu uma mensagem json: " + json);
@@ -69,12 +69,12 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
                 return JsonSerializable.objectMapper.readValue(json, clas);
             } catch (IOException e) {
                 erro("Erro ao desserializar JSON: " + e);
-                throw new RuntimeException("Erro ao desserializar JSON", e);
             }
         } else {
             erro("O buffer de entrada está nulo. Fluxo de Dados não aberto.");
-            throw new RuntimeException("O buffer de entrada está nulo. Fluxo de Dados não aberto.");
         }
+
+        return null;
     }
 
     public void close() {
@@ -89,7 +89,6 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
             }
         } catch (IOException e) {
             erro("Erro ao fechar Fluxo de Dados: " + e);
-            throw new RuntimeException("Erro ao fechar Fluxo de Dados: " + e);
         }
     }
 }

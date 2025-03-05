@@ -83,6 +83,11 @@ public class Proxy implements Loggable, JsonSerializable {
     }
 
     private void handleClient(Socket client) {
+        if (client == null) {
+            erro("Erro ao tentar conectar com o Cliente: Socket nulo!");
+            return;
+        }
+
         Communicator clientcommunicator = new Communicator(client, "Proxy - Cliente");
         cliCommunicator.set(clientcommunicator);
         boolean exitClient = false;
@@ -92,36 +97,42 @@ public class Proxy implements Loggable, JsonSerializable {
             clientcommunicator.sendJsonMessage(new ObjectMapper().writeValueAsString(commands));
         } catch (JsonProcessingException e) {
             erro("Erro ao enviar menu ao Cliente: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-
-        // Intermediação de mensagens entre o cliente e o servidor principal
-        while (running.get() && !exitClient && client.isConnected()) {
-            Command option = clientcommunicator.receiveJsonMessage(Command.class);
-
-            if (option == DISCONECT) {
-                exitClient = true;
-            }
-
-            if (actions.get(option) != null) {
-                actions.get(option).run();
-            } else {
-                erro("Cliente enviou uma opção inválida para o Proxy!");
-            }
+            exitClient = true;
         }
 
         try {
-            if (client != null && !client.isClosed()) {
+            // Intermediação de mensagens entre o cliente e o servidor principal
+            while (running.get() && !exitClient && client.isConnected()) {
+                Command option = clientcommunicator.receiveJsonMessage(Command.class);
+
+                if (option == DISCONECT) {
+                    exitClient = true;
+                }
+
+                if (actions.get(option) != null) {
+                    actions.get(option).run();
+                } else {
+                    erro("Cliente enviou uma opção inválida para o Proxy!");
+                }
+            }
+            // Caso o cliente se desconecte abruptamente preciso capturar a exceção
+        } catch (Exception e) {
+            erro("Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: " + e.getMessage());
+        }
+
+        try {
+            if (client.isConnected()) {
                 client.close();
             }
-            if (serCommunicator != null) {
-                if (serCommunicator.get().isConnected()) serCommunicator.get().disconnect();
+            cliCommunicator.remove();
+            if (serCommunicator.get() != null) {
+                if (serCommunicator.get().isConnected()) {
+                    serCommunicator.get().disconnect();
+                }
+                serCommunicator.remove();
             }
         } catch (IOException e) {
             erro("Erro ao fechar conexão com o cliente: " + e);
-        } finally {
-            cliCommunicator.remove();
-            if (serCommunicator != null) serCommunicator.remove();
         }
     }
 
@@ -164,7 +175,7 @@ public class Proxy implements Loggable, JsonSerializable {
             clientcommunicator.sendJsonMessage(new ObjectMapper().writeValueAsString(serverCommands));
         } catch (JsonProcessingException e) {
             erro("Erro ao enviar menu do Proxy ao Cliente: " + e.getMessage());
-            throw new RuntimeException(e);
+            disconnectProgram(clientcommunicator, serverCommunicator);
         }
     }
 
@@ -173,8 +184,10 @@ public class Proxy implements Loggable, JsonSerializable {
             clientcommunicator.disconnect();
         }
 
-        servecommunicator.sendJsonMessage(DISCONECT);
-        servecommunicator.disconnect();
+        if (servecommunicator != null) {
+            servecommunicator.sendJsonMessage(DISCONECT);
+            servecommunicator.disconnect();
+        }
     }
 
     private void quantityRecords(Communicator clientcommunicator, Communicator servecommunicator) {
@@ -227,7 +240,7 @@ public class Proxy implements Loggable, JsonSerializable {
         } catch (JsonProcessingException e) {
             clientcommunicator.sendJsonMessage("Erro ao enviar lista de ordenes!");
             erro("Erro ao enviar lista de ordens de serviço (PROXY)!");
-            throw new RuntimeException(e);
+            disconnectProgram(clientcommunicator, servecommunicator);
         }
     }
 
