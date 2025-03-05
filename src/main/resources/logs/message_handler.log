@@ -1,0 +1,28 @@
+2025-03-05 15:02:37 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor Principal abriu o Fluxo de Dados com sucesso!
+2025-03-05 15:02:37 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-05 15:02:48 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal recebeu uma mensagem json: "SEARCH"
+2025-03-05 15:02:48 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal recebeu uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-05 15:02:48 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal enviou uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-05 15:03:00 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal recebeu uma mensagem json: "QUANTITY"
+2025-03-05 15:03:00 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal enviou uma mensagem texto: 0
+2025-03-05 15:04:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal recebeu uma mensagem json: "LIST"
+2025-03-05 15:04:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal enviou uma mensagem json: []
+2025-03-05 15:46:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor Principal recebeu uma mensagem json: "DISCONECT"
+2025-03-05 15:46:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor Principal fechou o Fluxo de Dados com sucesso!
+Proxy - Servido2025-03-05 15:02:48 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 recebeu uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-05 15:03:00 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 enviou uma mensagem json: "QUANTITY"
+2025-03-05 15:03:00 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 recebeu uma mensagem texto: 0
+2025-03-05 15:04:02 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 enviou uma mensagem json: "LIST"
+2025-03-05 15:04:02 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 recebeu uma mensagem texto: []
+2025-03-05 15:46:18 [main] INFO  o.e.u.common.AbstractMessageHandler - Client 1 enviou uma mensagem json: "DISCONECT"
+2025-03-05 15:46:18 [main] INFO  o.e.u.common.AbstractMessageHandler - O Client 1 fechou o Fluxo de Dados com sucesso!
+ad-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Servidor recebeu uma mensagem texto: 0
+2025-03-05 15:03:00 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Cliente enviou uma mensagem texto: 0
+2025-03-05 15:04:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Cliente recebeu uma mensagem json: "LIST"
+2025-03-05 15:04:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Servidor enviou uma mensagem json: "LIST"
+2025-03-05 15:04:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Servidor recebeu uma mensagem texto: []
+2025-03-05 15:04:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Cliente enviou uma mensagem json: []
+2025-03-05 15:46:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Cliente recebeu uma mensagem json: "DISCONECT"
+2025-03-05 15:46:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy - Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-05 15:46:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy - Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-05 15:46:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy - Servidor fechou o Fluxo de Dados com sucesso!

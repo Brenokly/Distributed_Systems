@@ -37,7 +37,8 @@ public class Proxy implements Loggable, JsonSerializable {
         //this.proxyInfo = new ProxyInfo("26.97.230.179", 15553);
         this.serverInfo = new ProxyInfo("localhost", 15553);
         this.actions = new Menu();
-        this.authenticator = new Authenticator("src/main/java/org/example/serverproxy/credenciais.txt");
+        //this.authenticator = new Authenticator("src/main/java/org/example/serverproxy/credenciais.txt");
+        this.authenticator = new Authenticator("C:\\GIT\\Distributed_Systems\\cacheeviction\\src\\main\\java\\org\\example\\serverproxy\\credenciais.txt");
         initializeDefaultActions();
         createServerSocket();
     }
