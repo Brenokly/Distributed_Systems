@@ -70,6 +70,7 @@ public class AbstractSocketConnection implements SocketConnection, Loggable {
         try {
             if (socket != null && !socket.isClosed()) {
                 socket.close();
+                socket = null;
                 info("Conexão de " + name + " fechada com o " + inet.getHostName() + ".");
             }
         } catch (IOException e) {

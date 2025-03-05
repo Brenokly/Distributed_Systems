@@ -6,22 +6,20 @@ import org.example.utils.*;
 import org.example.utils.common.Communicator;
 import org.example.utils.common.OrderService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import static org.example.utils.Command.*;
 
 @Getter
 public class Client extends Communicator implements Loggable, JsonSerializable {
-    private static int clients = 0;
-    private final int id;
-    private final Scanner scanner;
-    private ProxyInfo addressProxy;
-    private final ProxyInfo addressLocator;
-    private final Menu actions;
-    private boolean closed = false;
+    private final int id;                       // ID do cliente
+    private final Menu actions;                 // Menu de ações do cliente com base nas opções do servido
+    private final Scanner scanner;              // Scanner para leitura de dados
+    private boolean closed = false;             // Flag de controle de execução
+    private ProxyInfo addressProxy;             // Endereço do servidor proxy
+    private static int clients = 0;             // Contador de clientes
+    private final ProxyInfo addressLocator;     // Endereço do servidor localizador
 
     public Client() {
         super("Client " + (++clients));
@@ -38,7 +36,11 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     }
 
     private void initializeDefaultActions() {
-        actions.put(CONECT_LOCATOR, this::connectLocator);
+        if (addressProxy == null) {
+            actions.put(CONECT_LOCATOR, this::connectLocator);
+        } else {
+            actions.put(CONECT_PROXY, this::connectProxy);
+        }
         actions.put(EXIT, this::exitProgram);
     }
 
@@ -48,13 +50,6 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
             if (actions.menuIsValid()) {
                 actions.showMenu();
-            } else {
-                if (addressProxy == null) {
-                    System.out.println("7 - Conectar ao Localizador");
-                } else if (isClosed()) {
-                    System.out.println("8 - Conectar ao Servidor Proxy");
-                }
-                System.out.println("0 - Sair");
             }
 
             System.out.print("Opção: ");
@@ -67,7 +62,6 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
             } else {
                 System.out.println("Opção inválida!");
             }
-            System.out.println("--------------------------------------------------------------");
         }
     }
 
@@ -92,6 +86,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         addressProxy = receiveJsonMessage(ProxyInfo.class);
 
         if (addressProxy != null) {
+            actions.remove(CONECT_LOCATOR);
             actions.put(CONECT_PROXY, this::connectProxy);
         }
 
@@ -107,19 +102,13 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         connect(addressProxy.getHost(), addressProxy.getPort());
 
         if (isConnected()) {
-            sendTextMessage("GET_MENU");
-            Map<Command, String> menuOptions = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
+            List<Command> menuOptions = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
             });
+
             updateMenuAndActions(menuOptions);
         } else {
             erro("Não foi possível conectar ao Servidor Proxy.");
         }
-    }
-
-    private void exitProgram() {
-        scanner.close();
-        disconnect();
-        closed = true;
     }
 
     private void searchOS() {
@@ -132,22 +121,28 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         OrderService os = new OrderService();
         os.setCode(osCode);
-        sendJsonMessage(os); // Envia o código da OS para o servidor
+        sendJsonMessage(os); // Envia a OS com o código para o servidor
 
         os = receiveJsonMessage(OrderService.class); // Recebe a OS do servidor
-        System.out.println(os);
+
+        if (os == null) {
+            System.out.println("\nOrdem de Serviço não encontrada!");
+        } else {
+            System.out.println("\nOrdem de Serviço Encontrada: " + os);
+        }
     }
 
     private void registerOS() {
         sendJsonMessage(REGISTER); // Envia a ação de cadastro
 
         System.out.println("--------------------------------------------------------------");
-        System.out.println("Digite os dados da OS:");
+        System.out.println("Digite os dados da OS");
         OrderService osData = readNewOrder();
+
         sendJsonMessage(osData); // Envia os dados dá OS para o servidor
 
         String response = receiveTextMessage(); // Recebe a confirmação de cadastro
-        System.out.println(response);
+        System.out.println("\n" + response);
     }
 
     private void listOS() {
@@ -156,7 +151,12 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         System.out.println("--------------------------------------------------------------");
         List<OrderService> osList = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
         });
-        System.out.println("Lista de OS: " + osList);
+        System.out.println("\nLista de OS:");
+        if (osList.isEmpty()) {
+            System.out.println("Nenhuma OS encontrada!");
+        } else {
+            osList.forEach(System.out::println);
+        }
     }
 
     private void updateOS() {
@@ -169,7 +169,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         sendJsonMessage(osData); // Envia os dados dá OS para o servidor
 
         String response = receiveTextMessage(); // Recebe a confirmação de alteração
-        System.out.println(response);
+        System.out.println("\n" + response);
     }
 
     private void removeOS() {
@@ -180,10 +180,10 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         int osId = scanner.nextInt();
         scanner.nextLine();
 
-        sendJsonMessage(osId);  // Envia o ID para o servidor
+        sendTextMessage(String.valueOf(osId));  // Envia o ID para o servidor
 
         String response = receiveTextMessage();  // Recebe a confirmação de remoção
-        System.out.println(response);
+        System.out.println("\n" + response);
     }
 
     private void getOSCount() {
@@ -195,18 +195,59 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         System.out.println("Quantidade de registros: " + response);
     }
 
+    private void authenticate() {
+        sendJsonMessage(AUTHENTICATE);
+
+        Command response = INVALID;
+
+        while (response != SUCCESS) {
+            System.out.println("--------------------------------------------------------------");
+            System.out.print("Digite o login: ");
+            String login = scanner.nextLine();
+            System.out.print("Digite a senha: ");
+            String password = scanner.nextLine();
+
+            sendJsonMessage(new User(login, password));
+
+            response = receiveJsonMessage(Command.class);
+
+            if (response == SUCCESS) {
+                info("\nCliente autenticado com sucesso!");
+                actions.remove(AUTHENTICATE);
+            } else if (ERROR == response) {
+                warn("Tu errou as credenciais 3 vezes, serious? Certeza que é Ariel.");
+                disconnectClient();
+            } else if (INVALID == response) {
+                erro("\nCredentials inválidas! Tente novamente.");
+            }
+        }
+
+        // Recebe as opções do servidor principal
+        List<Command> serverCommands = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
+        });
+
+        updateMenuAndActions(serverCommands);
+    }
+
     private void disconnectClient() {
         System.out.println("--------------------------------------------------------------");
         sendJsonMessage(DISCONECT);
-        info("Client" + id + ": Desconectado do Servidor Proxy.");
+        info("\nClient " + id + ": Desconectado do Servidor Proxy.");
+        disconnect();
         actions.clearMenu();
+        initializeDefaultActions();
     }
 
-    private void updateMenuAndActions(Map<Command, String> menuOptions) {
-        actions.updateMenu(menuOptions);
+    private void exitProgram() {
+        scanner.close();
+        disconnect();
+        closed = true;
+    }
 
-        Map<Command, Runnable> menuActions = new HashMap<>();
-        menuOptions.forEach((option, _) -> menuActions.put(option, () -> {
+    private void updateMenuAndActions(List<Command> menuOptions) {
+        actions.clearMenu();
+
+        menuOptions.forEach((option) -> actions.put(option, () -> {
             if (option == SEARCH) {
                 searchOS();
             } else if (option == REGISTER) {
@@ -221,10 +262,10 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
                 getOSCount();
             } else if (option == DISCONECT) {
                 disconnectClient();
+            } else if (option == AUTHENTICATE) {
+                authenticate();
             }
         }));
-
-        actions.updateActions(menuActions);
     }
 
     private OrderService readNewOrder() {
@@ -244,5 +285,9 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         System.out.print("Digite a descrição da OS: ");
         String description = scanner.nextLine();
         return new OrderService(code, name, description);
+    }
+
+    public static void main(String[] args) {
+        new Client();
     }
 }

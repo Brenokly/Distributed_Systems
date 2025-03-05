@@ -8,27 +8,31 @@ public interface Loggable {
         return LoggerFactory.getLogger(this.getClass());
     }
 
-    default void info(String message){
+    default void info(String message) {
         System.out.println(message);
-        System.out.println("----------------------------------------------------------");
+        logger().info(message);
+        System.out.println("--------------------------------------------------------------");
+    }
+
+    default void message(String message) {
         logger().info(message);
     }
 
-    default void erro(String message){
+    default void erro(String message) {
         System.out.println(message);
-        System.out.println("----------------------------------------------------------");
         logger().error(message);
+        System.out.println("--------------------------------------------------------------");
     }
 
-    default void debug(String message){
+    default void debug(String message) {
         System.out.println(message);
-        System.out.println("----------------------------------------------------------");
         logger().debug(message);
+        System.out.println("--------------------------------------------------------------");
     }
 
-    default void warn(String message){
+    default void warn(String message) {
         System.out.println(message);
-        System.out.println("----------------------------------------------------------");
         logger().warn(message);
+        System.out.println("--------------------------------------------------------------");
     }
 }

@@ -43,11 +43,11 @@ public class Cache implements Loggable {
         try {
             OrderService order = cache.search(code);
             hits++;
-            info("OrderService encontrado na cache");
+            info("OrderService encontrado na cache HIT");
             return order;
         } catch (ElementNotFoundException e) {
             misses++;
-            info("OrderService não encontrado na cache");
+            info("OrderService não encontrado na cache MISS");
             return null;
         }
     }
@@ -56,7 +56,7 @@ public class Cache implements Loggable {
         if (cache.size() == CAPACIDADE) {
             // Remove o último elemento da cache já que estamos usando a política de cache eviction LRU
             OrderService removed = cache.removeLast();
-            info("Elemento removido da cache: " + removed);
+            info("Cache Cheia, elemento Remvoido: " + removed);
         }
 
         cache.insertFirst(orderService);
@@ -92,7 +92,9 @@ public class Cache implements Loggable {
     }
 
     public void show() {
+        System.out.println("-------------------- Cache --------------------");
         cache.show();
+        System.out.println("-----------------------------------------------");
     }
 
     public int size() {

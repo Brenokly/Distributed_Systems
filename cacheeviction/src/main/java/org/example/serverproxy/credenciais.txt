@@ -1,0 +1,33 @@
+adriam keven,senha123
+altair campielo,senha123
+artur segantini,senha123
+breno klywer,senha123
+davi emanuel,senha123
+erick henrique,senha123
+fernando lucas,senha123
+gabriela de oliveira,senha123
+joao lucas,senha123
+lucas gabriel,senha123
+matheus vynicius,senha123
+paulo pegasus,senha123
+samuel rogenes,senha123
+thiago coelho,senha123
+vitor daniel,senha123
+william diniz,senha123
+afonso simao,senha123
+antonio eduardo,senha123
+ben ariel,senha123
+caio anderson,senha123
+eduardo paz,senha123
+erick patrick,senha123
+gabriel augusto,senha123
+joao emanoel,senha123
+joao pedro,senha123
+matheus henrique,senha123
+mikael johnatan,senha123
+paulo victor,senha123
+sarah heloysa,senha123
+vinicius gabriel,senha123
+vitor lima,senha123
+yan balbino,senha123
+professor,senha123

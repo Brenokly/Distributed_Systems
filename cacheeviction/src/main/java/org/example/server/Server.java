@@ -1,5 +1,9 @@
 package org.example.server;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.utils.Command;
+import org.example.utils.JsonSerializable;
 import org.example.utils.Loggable;
 import org.example.utils.Menu;
 import org.example.utils.common.Communicator;
@@ -18,13 +22,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.example.utils.Command.*;
 
-public class Server implements Loggable {
+public class Server implements Loggable, JsonSerializable {
     private final int port;                                                                      // Porta do servidor
     private final Menu actions;                                                                  // Menu de ações do servidor
     private volatile TreeAVL treeAVL;                                                            // Árvore AVL de dados
     private ServerSocket serverSocket;                                                           // Socket do servidor
     private final Object treeLock = new Object();                                                // Lock para sincronização da árvore
-    private final AtomicBoolean running = new AtomicBoolean(true);                      // Flag de controle de execução
+    private volatile AtomicBoolean running = new AtomicBoolean(true);                   // Flag de controle de execução
     private static final ThreadLocal<Communicator> clientCommunicator = new ThreadLocal<>();     // Comunicador do cliente
 
     public Server() {
@@ -42,7 +46,7 @@ public class Server implements Loggable {
         actions.put(UPDATE, () -> updateOS(clientCommunicator.get()));
         actions.put(REMOVE, () -> removeOS(clientCommunicator.get()));
         actions.put(QUANTITY, () -> quantityRecords(clientCommunicator.get()));
-        actions.put(EXIT, () -> exitProgram(clientCommunicator.get()));
+        actions.put(DISCONECT, () -> disconnectProgram(clientCommunicator.get()));
     }
 
     private void createServerSocket() {
@@ -50,6 +54,8 @@ public class Server implements Loggable {
             // serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
             serverSocket = new ServerSocket(port); // LocalHost
             info("Servidor Principal rodando na porta: " + serverSocket.getLocalPort());
+            info("Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain");
+
 
             while (running.get()) {
                 try {
@@ -64,8 +70,8 @@ public class Server implements Loggable {
                 }
             }
         } catch (Exception e) {
-            erro("Erro ao tentar criar o Servidor Localizador!");
-            throw new RuntimeException("Erro ao tentar criar o Servidor Localizador!", e);
+            erro("Erro ao tentar criar o Servidor ServerMain!");
+            throw new RuntimeException("Erro ao tentar criar o Servidor ServerMain!", e);
         } finally {
             stopServer();
         }
@@ -77,30 +83,46 @@ public class Server implements Loggable {
         boolean exitClient = false;
 
         try {
-            while (running.get() && !exitClient) {
-                int option = Integer.parseInt(communicator.receiveTextMessage());
+            communicator.sendJsonMessage(new ObjectMapper().writeValueAsString(actions.getCommands())); // Envia as opções de menu para o proxy
+        } catch (JsonProcessingException e) {
+            erro("Erro ao enviar menu ao Cliente: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+        while (running.get() && !exitClient && client.isConnected()) {
+            Command option = communicator.receiveJsonMessage(Command.class);
+
+            if (option == DISCONECT) {
+                exitClient = true;
+            }
+
+            if (actions.get(option) != null) {
                 actions.get(option).run();
-                if (option == 0) {
-                    exitClient = true;
-                }
+            } else {
+                erro("Cliente enviou uma opção inválida para o ServerMain!");
             }
+        }
+
+        try {
+            if (client != null && !client.isClosed()) {
+                client.close();
+            }
+        } catch (IOException e) {
+            logger().error("Erro ao fechar conexão com o cliente!", e);
         } finally {
-            try {
-                if (client != null && !client.isClosed()) {
-                    client.close();
-                }
-            } catch (IOException e) {
-                logger().error("Erro ao fechar conexão com o cliente!", e);
-            } finally {
-                clientCommunicator.remove(); // Limpa a variável da thread após uso
-            }
+            clientCommunicator.remove();
         }
     }
 
     public void searchOS(Communicator communicator) {
         OrderService order = communicator.receiveJsonMessage(OrderService.class);
-        order = treeAVL.search(order.getCode());
-        communicator.sendJsonMessage(order);
+        try {
+            order = treeAVL.search(order.getCode());
+            communicator.sendJsonMessage(order);
+        } catch (NodeNotFoundException e) {
+            warn("Os dados não foram encontrados na base de dados!");
+            communicator.sendJsonMessage(new OrderService());
+        }
     }
 
     public void registerOS(Communicator communicator) {
@@ -117,7 +139,13 @@ public class Server implements Loggable {
 
     public void listOS(Communicator communicator) {
         List<OrderService> found = treeAVL.list();
-        communicator.sendJsonMessage(found);
+
+        try {
+            communicator.sendJsonMessage(JsonSerializable.objectMapper.writeValueAsString(found));
+        } catch (JsonProcessingException e) {
+            erro("Erro ao enviar lista para cliente (SERVER): " + e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     public void updateOS(Communicator communicator) {
@@ -148,7 +176,7 @@ public class Server implements Loggable {
         communicator.sendTextMessage(String.valueOf(treeAVL.getQuantityRecords()));
     }
 
-    public void exitProgram(Communicator communicator) {
+    public void disconnectProgram(Communicator communicator) {
         communicator.disconnect();
     }
 
@@ -156,7 +184,6 @@ public class Server implements Loggable {
         new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
             while (true) {
-                System.out.println("Digite 'stop' para encerrar o Servidor Localizador: ");
                 String command = scanner.nextLine();
                 if (command.equalsIgnoreCase("stop")) {
                     Server.this.stopServer();
@@ -171,7 +198,7 @@ public class Server implements Loggable {
         try {
             if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();
-                info("Servidor Localizador encerrado.");
+                info("Servidor ServerMain encerrado.");
             }
         } catch (IOException e) {
             erro("Erro ao fechar o servidor" + e.getMessage());

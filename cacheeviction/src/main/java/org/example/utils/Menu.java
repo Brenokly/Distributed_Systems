@@ -2,44 +2,53 @@ package org.example.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class Menu {
+public class Menu implements JsonSerializable {
     private String menu;
-    private final Map<Command, Runnable> actions = new HashMap<>();
+    private final Map<Command, Runnable> actions = new TreeMap<>(Comparator.comparingInt(Command::getCode));
 
-    public void updateActions(Map<Command, Runnable> menuOptions) {
-        actions.putAll(menuOptions);
+    public Menu() {
+        menu = "";
+    }
+
+    public List<Command> getCommands() {
+        return new ArrayList<>(actions.keySet());
     }
 
     public void put(Command option, Runnable action) {
         actions.put(option, action);
+        buildMenuString(); // 🔥 Sempre atualiza o menu corretamente
+    }
+
+    public void remove(Command option) {
+        actions.remove(option);
+        buildMenuString();
     }
 
     public Runnable get(int option) {
         return actions.get(Command.fromCode(option));
     }
 
-    private void buildMenuString(Map<Command, String> menuOptions) {
+    public Runnable get(Command option) {
+        return actions.get(option);
+    }
+
+    private void buildMenuString() {
         StringBuilder menuBuilder = new StringBuilder();
-        menuOptions.forEach((option, description) -> menuBuilder.append(option).append(" - ").append(description).append("\n"));
+
+        actions.forEach((cmd, _) ->
+                menuBuilder.append(cmd.getCode()).append(" - ").append(cmd.getDescription()).append("\n")
+        );
+
         menu = menuBuilder.toString();
     }
 
     public void clearMenu() {
-        menu = null;
+        menu = "";
         actions.clear();
-    }
-
-    public void updateMenu(Map<Command, String> menuOptions) {
-        clearMenu();
-        buildMenuString(menuOptions);
     }
 
     public void showMenu() {

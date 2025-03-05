@@ -1,5 +1,6 @@
 package org.example.utils.common;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.example.utils.JsonSerializable;
 import org.example.utils.Loggable;
 import org.example.utils.common.interfaces.MessageHandler;
@@ -27,24 +28,23 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
     public void sendTextMessage(String message) {
         out.println(message);
 
-        info(name + " enviou uma mensagem de texto: " + message);
+        message(name + " enviou uma mensagem texto: " + message);
     }
 
     public void sendJsonMessage(Object message) {
         if (message != null) {
             String jsonMessage = message instanceof JsonSerializable ? ((JsonSerializable) message).toJson() : message.toString();
             out.println(jsonMessage);
-
-            info(name + " enviou uma objeto JSON: " + message.getClass());
+            message(name + " enviou uma mensagem json: " + jsonMessage);
         }
     }
 
     public String receiveTextMessage() {
         if (in != null) {
             try {
-                String message = in.readLine();
-                info(name + " recebeu uma mensagem texto: " + message);
-                return message;
+                String messagem = in.readLine();
+                message(name + " recebeu uma mensagem texto: " + messagem);
+                return messagem;
             } catch (IOException e) {
                 erro("Erro ao receber mensagem de texto: " + e);
                 return "Erro: " + e;
@@ -58,11 +58,16 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
     public <T> T receiveJsonMessage(Class<T> clas) {
         if (in != null) {
             try {
-                T objeto = JsonSerializable.objectMapper.readValue(in, clas);
 
-                info(name + " recebeu uma mensagem JSON: " + objeto.getClass());
+                String json = in.readLine();
 
-                return objeto;
+                if (json == null) {
+                    throw new IOException("Conexão fechada pelo cliente.");
+                }
+
+                message(name + " recebeu uma mensagem json: " + json);
+
+                return JsonSerializable.objectMapper.readValue(json, clas);
             } catch (IOException e) {
                 erro("Erro ao desserializar JSON: " + e);
                 throw new RuntimeException("Erro ao desserializar JSON", e);
@@ -75,13 +80,14 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
 
     public void close() {
         try {
-            if (out != null) {
+            if (out != null && in != null) {
                 out.close();
-            }
-            if (in != null) {
                 in.close();
+                out = null;
+                in = null;
+
+                info("O " + name + " fechou o Fluxo de Dados com sucesso!");
             }
-            info("O " + name + " fechou o Fluxo de Dados com sucesso!");
         } catch (IOException e) {
             erro("Erro ao fechar Fluxo de Dados: " + e);
             throw new RuntimeException("Erro ao fechar Fluxo de Dados: " + e);

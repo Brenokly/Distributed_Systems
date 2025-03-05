@@ -91,13 +91,13 @@ public class TreeAVL {
         return balance(root);
     }
 
-    public OrderService search(int codigo) {
+    public OrderService search(int codigo) throws NodeNotFoundException {
         return search(root, codigo);
     }
 
-    private OrderService search(Node root, int codigo) {
+    private OrderService search(Node root, int codigo) throws NodeNotFoundException {
         if (root == null) {
-            return null;
+            throw new NodeNotFoundException("O nó com o código " + codigo + " não existe na árvore.");
         }
 
         if (codigo < root.data.getCode()) {
@@ -109,7 +109,6 @@ public class TreeAVL {
         }
     }
 
-    // Método para percorrer a árvore em ordem e imprimir os códigos
     public void ordem() {
         this.ordem(root);
     }
@@ -123,11 +122,11 @@ public class TreeAVL {
     }
 
     public List<OrderService> list() {
+        List<OrderService> list = new ArrayList<>();
         if (root == null) {
-            return new ArrayList<>();
+            return list;
         }
 
-        List<OrderService> list = new ArrayList<>();
         list(root, list);
         return list;
     }

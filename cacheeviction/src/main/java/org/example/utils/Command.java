@@ -4,21 +4,27 @@ import lombok.Getter;
 
 @Getter
 public enum Command implements JsonSerializable {
-    SEARCH(1),
-    REGISTER(2),
-    LIST(3),
-    UPDATE(4),
-    REMOVE(5),
-    QUANTITY(6),
-    CONECT_LOCATOR(7),
-    CONECT_PROXY(8),
-    EXIT(0),
-    DISCONECT(9);
+    SEARCH(1, "Buscar OS"),
+    REGISTER(2, "Registrar OS"),
+    LIST(3, "Listar OS"),
+    UPDATE(4, "Atualizar OS"),
+    REMOVE(5, "Remover OS"),
+    QUANTITY(6, "Quantidade OS"),
+    CONECT_LOCATOR(7, "Conectar Localizador"),
+    CONECT_PROXY(8, "Conectar Proxy"),
+    EXIT(0, "Sair"),
+    DISCONECT(9, "Desconectar"),
+    AUTHENTICATE(10, "Autenticar"),
+    ERROR(500, "Erro"),
+    INVALID(-1, "Inválido"),
+    SUCCESS(200, "Sucesso");
 
     private final int code;
+    private final String description;
 
-    Command(int code) {
+    Command(int code, String description) {
         this.code = code;
+        this.description = description;
     }
 
     public static Command fromCode(int code) {
