@@ -1,2 +1,2 @@
-2025-03-05 15:02:37 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor Principal conectado a 127.0.0.1:50159
-5-03-05 15:02:37 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Servidor conectado a localhost:15553
+2025-03-05 17:35:18 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor Principal conectado a 127.0.0.1:57281
+5-03-05 17:35:18 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Servidor conectado a localhost:15553

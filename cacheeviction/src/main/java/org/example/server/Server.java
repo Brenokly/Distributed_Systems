@@ -34,9 +34,20 @@ public class Server implements Loggable, JsonSerializable {
     public Server() {
         this.port = 15553;
         this.treeAVL = new TreeAVL();
+        initializerTree();
         this.actions = new Menu();
         initializerDefaultActions();
         createServerSocket();
+    }
+
+    public void initializerTree() {
+        try {
+            for (int i = 0; i < 100; i++) {
+                OrderService os = new OrderService("Nome" + i, "Descrição" + i);
+                treeAVL.insert(os);
+            }
+        } catch (NodeAlreadyExistsException e) {
+        }
     }
 
     private void initializerDefaultActions() {
