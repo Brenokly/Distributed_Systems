@@ -49,16 +49,19 @@ Desenvolver uma simulação de um sistema cliente/servidor para gerenciar ordens
   - Realiza buscas na base de dados.
   - Cadastra, lista, altera e remove ordens de serviço.
 - Servidor:
-  - Contém servidor de localização e servidor de aplicação.
-  - Gerencia cache (FIFO, tamanho 30).
-  - Armazena ordens de serviço em uma Árvore Balanceada, Tabela Hash ou SGBD.
-  - Registra logs das operações.
+  - Contém servidor de localização, servidor proxy e servidor de aplicação.
+  - Servidor Proxy: gerencia cache (LRU, tamanho 30).
+  - Servidor Principal: Armazena ordens de serviço em uma Árvore Balanceada, Tabela Hash ou SGBD.
+  - Servidor de Localização: Fornece o IP/PORTA do servidor proxy para o cliente.
+  - Registro logs das operações.
 
 ## 4.4. Fluxo da Simulação
 1. Inicialização:
    - O servidor carrega 100 ordens de serviço na base de dados.
+   - Cache carrega 27 ordem de serviços iniciais.
+   - Proxy possuí algumas contas do arquivo de credenciais.
 3. Manutenção do Cache:
-   - Exibe estado da cache após cada operação.
+   - Exibe estado da cache após cada operação que pode alterar a cache.
    - Implementa FIFO para gerenciamento de cache.
 
 # 5. Metodologia
