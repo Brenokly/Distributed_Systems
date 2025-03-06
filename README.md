@@ -41,7 +41,7 @@ O curso apresenta os principais aspectos, modelos, algoritmos e tecnologias rela
 - Modelos de replicação e desafios.
 - Abordagens: líder único, múltiplos líderes ou sem líder.
 
-## 🛠️ Prática Offline 2 - Implementação de um Sistema Cliente/Servidor com Cache Eviction <a id="pratica-offline-2"></a>
+## 🛠️ Prática Offline 2 - Implementação de um Sistema Cliente/Servidor Distribuído <a id="pratica-offline-2"></a>
 
 ### 🎯 Objetivo <a id="objetivo"></a>
 Desenvolver uma simulação de um sistema cliente/servidor para gerenciar ordens de serviço (OS) com implementação de políticas de Cache Eviction.
