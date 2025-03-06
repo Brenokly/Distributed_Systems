@@ -9,7 +9,7 @@
 1. [Introdução](#introducao)
 2. [Objetivos](#objetivos)
 3. [Conteúdo Programático](#conteudo-programatico)
-4. [Prática Offline 2 - Implementação de um Sistema Cliente/Servidor com Cache Eviction](#pratica-offline-2)
+4. [Prática Offline 2 - Implementação de um Sistema Cliente/Servidor Distribuídos](#pratica-offline-2)
    - [Objetivo](#objetivo)
    - [Conceitos-Chave](#conceitos-chave)
    - [Requisitos do Sistema](#requisitos-do-sistema)
@@ -41,7 +41,7 @@ O curso apresenta os principais aspectos, modelos, algoritmos e tecnologias rela
 - Modelos de replicação e desafios.
 - Abordagens: líder único, múltiplos líderes ou sem líder.
 
-## 🛠️ Prática Offline 2 - Implementação de um Sistema Cliente/Servidor Distribuído <a id="pratica-offline-2"></a>
+## 🛠️ Prática Offline 2 - Implementação de um Sistema Cliente/Servidor Distribuídos <a id="pratica-offline-2"></a>
 
 ### 🎯 Objetivo <a id="objetivo"></a>
 Desenvolver uma simulação de um sistema cliente/servidor para gerenciar ordens de serviço (OS) com implementação de políticas de Cache Eviction.
