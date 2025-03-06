@@ -1,6 +1,0 @@
-2025-03-06 12:30:49 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 127.0.0.1:61601
-2025-03-06 12:30:49 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15551
-2025-03-06 12:30:51 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15552
-2025-03-06 12:30:51 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Cliente conectado a 127.0.0.1:61602
-2025-03-06 12:31:03 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Servidor conectado a localhost:15553
-2025-03-06 12:31:03 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor Principal conectado a 127.0.0.1:61603

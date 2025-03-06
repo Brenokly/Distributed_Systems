@@ -1,4 +1,0 @@
-2025-03-06 10:48:18 [Thread-1] INFO  org.example.utils.common.Cache - OrderService não encontrado na cache MISS: 1
-2025-03-06 10:48:18 [Thread-1] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=0, name=Nome0, description=Descrição0, requestTime=10:46)
-2025-03-06 12:28:17 [Thread-1] INFO  org.example.utils.common.Cache - OrderService não encontrado na cache MISS: 1
-2025-03-06 12:28:17 [Thread-1] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=98, name=mudou o nome, description=mudou a descri��o, requestTime=12:28)
