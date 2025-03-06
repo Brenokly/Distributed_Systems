@@ -93,17 +93,20 @@ public class Proxy implements Loggable, JsonSerializable {
         cliCommunicator.set(clientcommunicator);
         boolean exitClient = false;
 
-        // Envia as opções iniciais do proxy (Autentica e Desconectar)
-        try {
-            clientcommunicator.sendJsonMessage(new ObjectMapper().writeValueAsString(commands));
-        } catch (JsonProcessingException e) {
-            erro("Erro ao enviar menu ao Cliente: " + e.getMessage());
-            exitClient = true;
+        for (int i = 0; i < 3; i++) {
+            // Envia as opções iniciais do proxy (Autentica e Desconectar)
+            try {
+                clientcommunicator.sendJsonMessage(new ObjectMapper().writeValueAsString(commands));
+                break;
+            } catch (JsonProcessingException e) {
+                erro("Erro ao enviar menu ao Cliente: " + e.getMessage());
+                exitClient = true;
+            }
         }
 
         try {
             // Intermediação de mensagens entre o cliente e o servidor principal
-            while (running.get() && !exitClient && client.isConnected()) {
+            while (running.get() && !exitClient && clientcommunicator.isConnected()) {
                 Command option = clientcommunicator.receiveJsonMessage(Command.class);
 
                 if (option == DISCONECT) {
@@ -139,10 +142,10 @@ public class Proxy implements Loggable, JsonSerializable {
 
     private void authenticate(Communicator clientcommunicator) {
         boolean authenticated = false;
-        int attempts = 0;
+        int attempts = 1;
 
         // Autenticação do cliente
-        while (running.get() && !authenticated) {
+        while (running.get() && attempts <= 3) {
             User clientCredentials = clientcommunicator.receiveJsonMessage(User.class);
 
             authenticated = authenticator.authenticate(clientCredentials.getLogin(), clientCredentials.getPassword());
@@ -151,13 +154,16 @@ public class Proxy implements Loggable, JsonSerializable {
 
             if (authenticated) {
                 clientcommunicator.sendJsonMessage(SUCCESS);
+                break;
             } else {
-                clientcommunicator.sendJsonMessage(INVALID);
-                if (attempts == 3) {
+                if (attempts == 4) {
                     warn("Número máximo de tentativas de autenticação excedido!");
                     clientcommunicator.sendJsonMessage(ERROR);
                     clientcommunicator.disconnect();
                     return;
+                }
+                else {
+                    clientcommunicator.sendJsonMessage(INVALID);
                 }
             }
         }

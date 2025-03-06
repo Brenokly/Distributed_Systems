@@ -12,7 +12,9 @@ public interface JsonSerializable {
         try {
             return objectMapper.writeValueAsString(this);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao serializar para JSON", e);
+            // Implementando disponibilidade
+            System.out.println("Erro ao serializar JSON");
+            return "Erro ao serializar JSON";
         }
     }
 
@@ -20,7 +22,8 @@ public interface JsonSerializable {
         try {
             return objectMapper.readValue(json, clas);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao desserializar JSON", e);
+            System.out.println("Erro ao deserializar JSON");
+            return null;
         }
     }
 
@@ -28,7 +31,8 @@ public interface JsonSerializable {
         try {
             return objectMapper.readValue(json, typeReference);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao desserializar JSON", e);
+            System.out.println("Erro ao deserializar JSON");
+            return null;
         }
     }
 }

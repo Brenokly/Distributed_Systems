@@ -1,6 +1,9 @@
 package org.example.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Getter;
 import org.example.utils.*;
 import org.example.utils.common.Communicator;
@@ -102,10 +105,17 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         connect(addressProxy.getHost(), addressProxy.getPort());
 
         if (isConnected()) {
-            List<Command> menuOptions = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
-            });
-
-            updateMenuAndActions(menuOptions);
+            for (int i = 0; i < 3; i++) {
+                try {
+                    // Recebe as opções do servidor proxy (Autenticar E Desconectar)
+                    List<Command> menuOptions = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
+                    });
+                    updateMenuAndActions(menuOptions);
+                    break;
+                } catch (Exception e) {
+                    erro("Erro ao receber menu ao Proxy: " + e.getMessage());
+                }
+            } 
         } else {
             erro("Não foi possível conectar ao Servidor Proxy.");
         }
@@ -206,7 +216,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         Command response = INVALID;
 
-        while (response != SUCCESS) {
+        while (response != SUCCESS && response != ERROR) {
             System.out.println("--------------------------------------------------------------");
             System.out.print("Digite o login: ");
             String login = scanner.nextLine();
@@ -220,11 +230,15 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
             if (response == SUCCESS) {
                 info("Cliente autenticado com sucesso!");
                 actions.remove(AUTHENTICATE);
-            } else if (ERROR == response) {
-                warn("Tu errou as credenciais 3 vezes, serious? Certeza que é Ariel.");
-                disconnectClient();
+            } else if (response == ERROR) {
+                warn("Você errou as credenciais 3 vezes, serious? Certeza que é Ariel.");
+                info("Client " + id + ": Desconectado do Servidor Proxy por erro de credenciais.");
+                actions.clearMenu();
+                initializeDefaultActions();
+                disconnect();
+                return;
             } else if (INVALID == response) {
-                erro("\nCredentials inválidas! Tente novamente.");
+                erro("Credentials inválidas! Tente novamente.");
             }
         }
 
