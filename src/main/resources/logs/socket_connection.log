@@ -1,2 +1,24 @@
-2025-03-05 17:35:18 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor Principal conectado a 127.0.0.1:57281
-5-03-05 17:35:18 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Servidor conectado a localhost:15553
+2025-03-06 10:47:53 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor Principal conectado a 127.0.0.1:57760
+5-03-06 10:47:53 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Servidor conectado a localhost:15553
+2025-03-06 10:52:43 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 127.0.0.1:57830
+2025-03-06 10:52:43 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15551
+2025-03-06 10:52:45 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15552
+2025-03-06 10:52:45 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Cliente conectado a 127.0.0.1:57831
+2025-03-06 10:53:00 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Servidor conectado a localhost:15553
+2025-03-06 10:53:00 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor Principal conectado a 127.0.0.1:57832
+2025-03-06 12:25:29 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 127.0.0.1:61497
+2025-03-06 12:25:29 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15551
+2025-03-06 12:25:31 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15552
+2025-03-06 12:25:31 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Cliente conectado a 127.0.0.1:61498
+2025-03-06 12:25:39 [Thread-1] ERROR o.e.u.c.AbstractSocketConnection - Erro ao conectar ao servidor: Connection refused: connect
+2025-03-06 12:26:10 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 127.0.0.1:61516
+2025-03-06 12:26:10 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15551
+2025-03-06 12:26:11 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15552
+2025-03-06 12:26:11 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Cliente conectado a 127.0.0.1:61518
+2025-03-06 12:26:18 [Thread-3] ERROR o.e.u.c.AbstractSocketConnection - Erro ao conectar ao servidor: Connection refused: connect
+2025-03-06 12:27:42 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 127.0.0.1:61551
+2025-03-06 12:27:42 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15551
+2025-03-06 12:27:43 [main] INFO  o.e.u.c.AbstractSocketConnection - Client 1 conectado a localhost:15552
+2025-03-06 12:27:44 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Cliente conectado a 127.0.0.1:61552
+2025-03-06 12:27:49 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy - Servidor conectado a localhost:15553
+2025-03-06 12:27:49 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor Principal conectado a 127.0.0.1:61554

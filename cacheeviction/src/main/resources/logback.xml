@@ -1,7 +1,7 @@
 <configuration>
     <!-- Logger geral (todos os logs vão para este arquivo) -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/geral.log</file>
+        <file>cacheeviction\src\main\resources\logs\geral.log</file>
         <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
@@ -10,8 +10,8 @@
 
     <!-- Log do Client -->
     <appender name="CLIENT_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/client.log</file>
-        <append>false</append>
+        <file>cacheeviction\src\main\resources\logs\client.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -19,8 +19,8 @@
 
     <!-- Log do LocalizerServer -->
     <appender name="LOCALIZER_SERVER_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/localizer_server.log</file>
-        <append>false</append>
+        <file>cacheeviction\src\main\resources\logs\localizer_server.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -28,8 +28,8 @@
 
     <!-- Log do Server -->
     <appender name="SERVER_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/server.log</file>
-        <append>false</append>
+        <file>cacheeviction\src\main\resources\logs\server.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -37,8 +37,8 @@
 
     <!-- Log do Proxy -->
     <appender name="PROXY_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/proxy.log</file>
-        <append>false</append>
+        <file>cacheeviction\src\main\resources\logs\proxy.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -46,8 +46,8 @@
 
     <!-- Log do Cache -->
     <appender name="CACHE_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/cache.log</file>
-        <append>false</append>
+        <file>cacheeviction\src\main\resources\logs\cache.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -55,8 +55,8 @@
 
     <!-- Log do AbstractMessageHandler -->
     <appender name="MESSAGE_HANDLER_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/message_handler.log</file>
-        <append>false</append>
+        <file>cacheeviction\src\main\resources\logs\message_handler.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -64,8 +64,8 @@
 
     <!-- Log do AbstractSocketConnection -->
     <appender name="SOCKET_CONNECTION_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/resources/logs/socket_connection.log</file>
-        <append>false</append>
+        <file>cacheeviction\src\main\resources\logs\socket_connection.log</file>
+        <append>true</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
