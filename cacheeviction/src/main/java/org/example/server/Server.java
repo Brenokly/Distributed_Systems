@@ -14,7 +14,6 @@ import org.example.utils.exceptions.NodeNotFoundException;
 import org.example.utils.tree.TreeAVL;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
@@ -63,8 +62,8 @@ public class Server implements Loggable, JsonSerializable {
 
     private void createServerSocket() {
         try {
-            serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
-            //serverSocket = new ServerSocket(port); // LocalHost
+            //serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
+            serverSocket = new ServerSocket(port); // LocalHost
             info("Servidor Principal rodando na porta: " + serverSocket.getLocalPort());
             info("Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain");
 

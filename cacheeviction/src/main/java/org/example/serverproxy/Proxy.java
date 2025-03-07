@@ -9,7 +9,6 @@ import org.example.utils.common.Communicator;
 import org.example.utils.common.OrderService;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ public class Proxy implements Loggable, JsonSerializable {
         this.port = 15552;
         cache = new Cache();
         this.actions = new Menu();
-        this.serverInfo = new ProxyInfo("26.97.230.179", 15553);      // RemoteHost
-        //this.serverInfo = new ProxyInfo("localhost", 15553);                  // LocalHost
+        //this.serverInfo = new ProxyInfo("26.97.230.179", 15553);      // RemoteHost
+        this.serverInfo = new ProxyInfo("localhost", 15553);          // LocalHost
         this.authenticator = new Authenticator("cacheeviction/src/main/java/org/example/serverproxy/credenciais.txt");
         initializeDefaultActions();
         createServerSocket();
@@ -58,8 +57,8 @@ public class Proxy implements Loggable, JsonSerializable {
 
     private void createServerSocket() {
         try {
-            serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
-            //serverSocket = new ServerSocket(port); // LocalHost
+            //serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
+            serverSocket = new ServerSocket(port); // LocalHost
             info("Servidor Proxy rodando na porta: " + serverSocket.getLocalPort());
             info("Digite 'stop' a qualquer momento para encerrar o Servidor Proxy");
 

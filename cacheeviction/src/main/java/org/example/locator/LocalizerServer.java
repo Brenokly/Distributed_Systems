@@ -6,7 +6,6 @@ import org.example.utils.ProxyInfo;
 import org.example.utils.common.Communicator;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -20,15 +19,15 @@ public class LocalizerServer implements Loggable {
 
     public LocalizerServer() {
         this.port = 15551;
-        this.proxyInfo = new ProxyInfo("26.97.230.179", 15552); // RemoteHost
-        //this.proxyInfo = new ProxyInfo("localhost", 15552); // LocalHost
+        //this.proxyInfo = new ProxyInfo("26.97.230.179", 15552); // RemoteHost
+        this.proxyInfo = new ProxyInfo("localhost", 15552); // LocalHost
         createServerSocket();
     }
 
     private void createServerSocket() {
         try {
-            serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
-            //serverSocket = new ServerSocket(port); // LocalHost
+            //serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
+            serverSocket = new ServerSocket(port); // LocalHost
             info("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort());
 
             while (running) {
