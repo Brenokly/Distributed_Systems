@@ -9,7 +9,7 @@ public interface Loggable {
     }
 
     default void info(String message) {
-        System.out.println(message);
+        System.out.println("\n" + message);
         logger().info(message);
         System.out.println("--------------------------------------------------------------");
     }
@@ -19,19 +19,19 @@ public interface Loggable {
     }
 
     default void erro(String message) {
-        System.out.println(message);
+        System.out.println("\n" + message);
         logger().error(message);
         System.out.println("--------------------------------------------------------------");
     }
 
     default void debug(String message) {
-        System.out.println(message);
+        System.out.println("\n" + message);
         logger().debug(message);
         System.out.println("--------------------------------------------------------------");
     }
 
     default void warn(String message) {
-        System.out.println(message);
+        System.out.println("\n" + message);
         logger().warn(message);
         System.out.println("--------------------------------------------------------------");
     }

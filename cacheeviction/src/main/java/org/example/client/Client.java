@@ -1,15 +1,10 @@
 package org.example.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.Getter;
 import org.example.utils.*;
 import org.example.utils.common.Communicator;
 import org.example.utils.common.OrderService;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
