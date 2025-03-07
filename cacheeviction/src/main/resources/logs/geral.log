@@ -1,0 +1,35 @@
+2025-03-06 21:56:56 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-06 21:56:56 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-06 21:56:58 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-06 21:56:58 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-06 21:56:58 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-06 21:57:00 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-06 21:57:00 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-06 21:57:00 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-06 21:57:07 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-06 21:57:07 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:52064
+2025-03-06 21:57:07 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-06 21:57:07 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-06 21:57:07 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.97.230.179","port":15552}
+2025-03-06 21:57:07 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-06 21:57:09 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-06 21:57:09 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:52067
+2025-03-06 21:57:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-06 21:57:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-06 21:57:10 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.97.230.179:15553
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-06 21:57:16 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.97.230.179:53785
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-06 21:57:16 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-06 21:57:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "DISCONECT"
+2025-03-06 21:57:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-06 21:57:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-06 21:57:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor fechou o Fluxo de Dados com sucesso!
+2025-03-06 21:57:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "DISCONECT"
+2025-03-06 21:57:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!

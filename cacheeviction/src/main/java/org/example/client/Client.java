@@ -1,12 +1,17 @@
 package org.example.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Getter;
 import org.example.utils.*;
 import org.example.utils.common.Communicator;
 import org.example.utils.common.OrderService;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import static org.example.utils.Command.*;
@@ -121,10 +126,10 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     private void searchOS() {
         sendJsonMessage(SEARCH); // Envia a ação de busca
 
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
         System.out.print("Digite o código da OS: ");
         int osCode = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); // Limpa o buffer
 
         OrderService os = new OrderService();
         os.setCode(osCode);
@@ -137,13 +142,13 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         } else {
             System.out.println("\nOrdem de Serviço Encontrada: " + os);
         }
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
     }
 
     private void registerOS() {
         sendJsonMessage(REGISTER); // Envia a ação de cadastro
 
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
         System.out.println("Digite os dados da OS");
         OrderService osData = readNewOrder();
 
@@ -151,13 +156,13 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         String response = receiveTextMessage(); // Recebe a confirmação de cadastro
         System.out.println("\n" + response);
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
     }
 
     private void listOS() {
         sendJsonMessage(LIST); // Envia a ação de listagem
 
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
         List<OrderService> osList = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
         });
         System.out.println("Lista de OS:\n");
@@ -166,13 +171,13 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         } else {
             osList.forEach(System.out::println);
         }
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
     }
 
     private void updateOS() {
         sendJsonMessage(UPDATE); // Envia a ação de alteração
 
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
         System.out.print("Digite o ID da OS a ser alterada: ");
         OrderService osData = readOldOrder();
 
@@ -180,32 +185,32 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         String response = receiveTextMessage(); // Recebe a confirmação de alteração
         System.out.println("\n" + response);
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
     }
 
     private void removeOS() {
         sendJsonMessage(REMOVE); // Envia a ação de remoção
 
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
         System.out.print("Digite o ID da OS a ser removida: ");
         int osId = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); // Limpa o buffer
 
         sendTextMessage(String.valueOf(osId));  // Envia o ID para o servidor
 
         String response = receiveTextMessage();  // Recebe a confirmação de remoção
         System.out.println("\n" + response);
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
     }
 
     private void getOSCount() {
         sendJsonMessage(QUANTITY);
 
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
         int response = Integer.parseInt(receiveTextMessage()); // Recebe a quantidade de registros
 
         System.out.println("Quantidade de registros: " + response);
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
     }
 
     private void authenticate() {
@@ -214,42 +219,57 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         Command response = INVALID;
 
         while (response != SUCCESS && response != ERROR) {
-            System.out.println("--------------------------------------------------------------");
-            System.out.print("Digite o login: ");
-            String login = scanner.nextLine();
-            System.out.print("Digite a senha: ");
-            String password = scanner.nextLine();
-
-            sendJsonMessage(new User(login, password));
+            sendCredentials();
 
             response = receiveJsonMessage(Command.class);
 
             if (response == SUCCESS) {
-                info("Cliente autenticado com sucesso!");
+                info("\nCliente autenticado com sucesso!");
                 actions.remove(AUTHENTICATE);
             } else if (response == ERROR) {
-                warn("Você errou as credenciais 3 vezes, serious? Certeza que é Ariel.");
-                info("Client " + id + ": Desconectado do Servidor Proxy por erro de credenciais.");
+                erro("\nVocê errou as credenciais 3 vezes. Certeza que é Ariel, né?");
+                info("Client " + id + ": Desconectado do Servidor Proxy tentativas de autenticação excedidas.");
+
                 actions.clearMenu();
                 initializeDefaultActions();
                 disconnect();
+
                 return;
             } else if (INVALID == response) {
-                erro("Credentials inválidas! Tente novamente.");
+                erro("\nCredentials inválidas! Tente novamente.");
             }
         }
 
         // Recebe as opções do servidor principal
-        List<Command> serverCommands = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {
-        });
+        List<Command> serverCommands = JsonSerializable.fromJson(receiveTextMessage(), new TypeReference<>() {});
+
+        if (serverCommands == null) {
+            erro("Erro ao receber menu do servidor principal.");
+            disconnect();
+            return;
+        } 
 
         updateMenuAndActions(serverCommands);
     }
 
+    private void sendCredentials() {
+        printSeparator();
+        System.out.print("Digite o login: ");
+        String login = scanner.nextLine();
+
+        System.out.print("Digite a senha: ");
+        String password = scanner.nextLine();
+
+        sendJsonMessage(new User(login, password));
+    }
+
     private void disconnectClient() {
-        System.out.println("--------------------------------------------------------------");
+        printSeparator();
+
         sendJsonMessage(DISCONECT);
+
         info("Client " + id + ": Desconectado do Servidor Proxy.");
+
         disconnect();
         actions.clearMenu();
         initializeDefaultActions();
@@ -262,47 +282,53 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     }
 
     private void updateMenuAndActions(List<Command> menuOptions) {
-        actions.clearMenu();
+        Map<Command, Runnable> actionsMap = Map.of(
+            SEARCH, this::searchOS,
+            REGISTER, this::registerOS,
+            LIST, this::listOS,
+            UPDATE, this::updateOS,
+            REMOVE, this::removeOS,
+            QUANTITY, this::getOSCount,
+            DISCONECT, this::disconnectClient,
+            AUTHENTICATE, this::authenticate
+        );
 
-        menuOptions.forEach((option) -> actions.put(option, () -> {
-            if (option == SEARCH) {
-                searchOS();
-            } else if (option == REGISTER) {
-                registerOS();
-            } else if (option == LIST) {
-                listOS();
-            } else if (option == UPDATE) {
-                updateOS();
-            } else if (option == REMOVE) {
-                removeOS();
-            } else if (option == QUANTITY) {
-                getOSCount();
-            } else if (option == DISCONECT) {
-                disconnectClient();
-            } else if (option == AUTHENTICATE) {
-                authenticate();
-            }
-        }));
+        actions.clearMenu();
+        menuOptions.forEach(option -> actions.put(option, actionsMap.getOrDefault(option, () -> {
+            System.out.println("Ação não reconhecida.");
+        })));
     }
+
 
     private OrderService readNewOrder() {
         System.out.print("Digite o nome da OS: ");
         String code = scanner.nextLine();
+
         System.out.print("Digite a descrição da OS: ");
         String description = scanner.nextLine();
+
         return new OrderService(code, description);
     }
 
     private OrderService readOldOrder() {
         System.out.print("Digite o código da OS: ");
         int code = scanner.nextInt();
+
         scanner.nextLine();
+
         System.out.print("Digite o nome da OS: ");
         String name = scanner.nextLine();
+
         System.out.print("Digite a descrição da OS: ");
         String description = scanner.nextLine();
+
         return new OrderService(code, name, description);
     }
+
+    private void printSeparator() {
+        System.out.println("--------------------------------------------------------------");
+    }
+    
 
     public static void main(String[] args) {
         new Client();

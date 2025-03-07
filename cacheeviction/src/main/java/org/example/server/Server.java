@@ -14,6 +14,7 @@ import org.example.utils.exceptions.NodeNotFoundException;
 import org.example.utils.tree.TreeAVL;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
@@ -34,8 +35,8 @@ public class Server implements Loggable, JsonSerializable {
     public Server() {
         this.port = 15553;
         this.treeAVL = new TreeAVL();
-        initializerTree();
         this.actions = new Menu();
+        initializerTree();
         initializerDefaultActions();
         createServerSocket();
     }
@@ -51,22 +52,21 @@ public class Server implements Loggable, JsonSerializable {
     }
 
     private void initializerDefaultActions() {
-        actions.put(SEARCH, () -> searchOS(clientCommunicator.get()));
-        actions.put(REGISTER, () -> registerOS(clientCommunicator.get()));
-        actions.put(LIST, () -> listOS(clientCommunicator.get()));
-        actions.put(UPDATE, () -> updateOS(clientCommunicator.get()));
-        actions.put(REMOVE, () -> removeOS(clientCommunicator.get()));
-        actions.put(QUANTITY, () -> quantityRecords(clientCommunicator.get()));
-        actions.put(DISCONECT, () -> disconnectProgram(clientCommunicator.get()));
+        actions.put(SEARCH, ()      -> searchOS(clientCommunicator.get()));
+        actions.put(REGISTER, ()    -> registerOS(clientCommunicator.get()));
+        actions.put(LIST, ()        -> listOS(clientCommunicator.get()));
+        actions.put(UPDATE, ()      -> updateOS(clientCommunicator.get()));
+        actions.put(REMOVE, ()      -> removeOS(clientCommunicator.get()));
+        actions.put(QUANTITY, ()    -> quantityRecords(clientCommunicator.get()));
+        actions.put(DISCONECT, ()   -> clearSpacesAndDisconnect());
     }
 
     private void createServerSocket() {
         try {
-            // serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
-            serverSocket = new ServerSocket(port); // LocalHost
+            serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
+            //serverSocket = new ServerSocket(port); // LocalHost
             info("Servidor Principal rodando na porta: " + serverSocket.getLocalPort());
             info("Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain");
-
 
             while (running.get()) {
                 try {
@@ -93,24 +93,14 @@ public class Server implements Loggable, JsonSerializable {
             return;
         }
 
-        Communicator communicator = new Communicator(client, "Servidor Principal");
+        Communicator communicator = new Communicator(client, "Servidor X Proxy");
         clientCommunicator.set(communicator); // Define o Communicator da thread atual
-        boolean exitClient = false;
 
         try {
-            communicator.sendJsonMessage(new ObjectMapper().writeValueAsString(actions.getCommands())); // Envia as opções de menu para o proxy
-        } catch (JsonProcessingException e) {
-            erro("Erro ao enviar menu ao Cliente: " + e.getMessage());
-            exitClient = true;
-        }
+            sendMenuServer(communicator);
 
-        try {
-            while (running.get() && !exitClient && client.isConnected()) {
+            while (running.get() && communicator.isConnected()) {
                 Command option = communicator.receiveJsonMessage(Command.class);
-
-                if (option == DISCONECT) {
-                    exitClient = true;
-                }
 
                 if (actions.get(option) != null) {
                     actions.get(option).run();
@@ -120,19 +110,37 @@ public class Server implements Loggable, JsonSerializable {
             }
         } catch (Exception e) {
             erro("Erro com a conexão do Cliente: " + e.getMessage());
+        } finally {
+            clearSpacesAndDisconnect();
         }
+    }
 
+    private void clearSpacesAndDisconnect() {
         try {
-            if (!client.isClosed()) {
-                client.close();
-            }
             if (clientCommunicator.get() != null) {
-                clientCommunicator.get().disconnect();
+                if (clientCommunicator.get().isConnected()) {
+                    clientCommunicator.get().disconnect();
+                }
                 clientCommunicator.remove();
             }
-        } catch (IOException e) {
-            erro("Erro ao fechar conexão com o cliente: " + e);
+        } catch (Exception e) {
+            erro("Server: Erro ao fechar/limpar conexão com o cliente: " + e);
         }
+    }
+
+    private void sendMenuServer(Communicator communicator){
+        for (int i = 0; i < 3; i++) {
+            try {
+                // tenta enviar as opções iniciais do proxy 3 vezes (Autentica e Desconectar)
+                communicator.sendJsonMessage(new ObjectMapper().writeValueAsString(actions.getCommands())); 
+                return;
+            } catch (JsonProcessingException e) {
+                erro("Erro ao tentar enviar menu do Servidor ao Cliente: Tentativa " + (i + 1) + " de 3");
+            }
+        }
+
+        erro("Erro ao enviar menu do Servidor ao Cliente! Número máximo de tentativas excedido!");
+        clearSpacesAndDisconnect();
     }
 
     public void searchOS(Communicator communicator) {
@@ -166,7 +174,7 @@ public class Server implements Loggable, JsonSerializable {
             communicator.sendJsonMessage(JsonSerializable.objectMapper.writeValueAsString(found));
         } catch (JsonProcessingException e) {
             erro("Erro ao enviar lista para cliente (SERVER): " + e.getMessage());
-            disconnectProgram(communicator);
+            clearSpacesAndDisconnect();
         }
     }
 
@@ -196,12 +204,6 @@ public class Server implements Loggable, JsonSerializable {
 
     public void quantityRecords(Communicator communicator) {
         communicator.sendTextMessage(String.valueOf(treeAVL.getQuantityRecords()));
-    }
-
-    public void disconnectProgram(Communicator communicator) {
-        if (communicator != null) {
-            communicator.disconnect();
-        }
     }
 
     private void startCommandListener() {
