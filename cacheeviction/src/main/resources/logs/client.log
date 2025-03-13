@@ -1,9 +1,0 @@
-2025-03-07 08:19:42 [main] ERROR org.example.client.Client - 
-Credentials inválidas! Tente novamente.
-2025-03-07 08:19:43 [main] ERROR org.example.client.Client - 
-Credentials inválidas! Tente novamente.
-2025-03-07 08:19:43 [main] ERROR org.example.client.Client - 
-Você errou as credenciais 3 vezes. Certeza que é Ariel, né?
-2025-03-07 08:19:43 [main] INFO  org.example.client.Client - Client 1: Desconectado do Servidor Proxy tentativas de autenticação excedidas.
-2025-03-07 08:19:51 [main] INFO  org.example.client.Client - 
-Cliente autenticado com sucesso!

@@ -4,10 +4,11 @@ import java.io.*;
 import java.util.*;
 
 public class Authenticator {
-    private final Map<String, String> credentials = new HashMap<>();
+    static private final Map<String, String> credentials = new HashMap<>();
 
-    public Authenticator(String filePath) {
-        loadCredentials(filePath);
+    public Authenticator() {
+        if (credentials.isEmpty()) 
+            loadCredentials("cacheeviction/src/main/java/org/example/serverproxy/credenciais.txt");
     }
 
     private void loadCredentials(String filePath) {
