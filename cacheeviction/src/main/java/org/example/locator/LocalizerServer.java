@@ -95,15 +95,6 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     }
 
     private void createServerSocket() {
-        info("Servidor Localizador - Aguardando um Proxy registrar-se...");
-        while (rmiCommons.size() <= 0) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                erro("Erro ao tentar dormir a Thread: " + e.getMessage());
-            }
-        }
-
         try {
             serverSocket = new ServerSocket(port, 50, InetAddress.getByName(HOST));
             info("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort() + " e no host: " + serverSocket.getInetAddress().getHostAddress());
@@ -141,7 +132,11 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
             String message = communicator.receiveTextMessage();
 
             if (message.equals("GET_PROXY")) {
-                communicator.sendJsonMessage(loadBalancing());
+                if (rmiCommons.isEmpty()) {
+                    communicator.sendJsonMessage(new ProxyInfo());
+                } else {
+                    communicator.sendJsonMessage(loadBalancing());
+                }
             } else {
                 communicator.sendTextMessage("Mensagem inválida!");
             }

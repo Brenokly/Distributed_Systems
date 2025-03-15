@@ -30,13 +30,12 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
     }
 
     public void sendJsonMessage(Object message) {
-        if (message != null) {
-            String jsonMessage = message instanceof JsonSerializable ? ((JsonSerializable) message).toJson() : message.toString();
-            out.println(jsonMessage);
-            message(name + " enviou uma mensagem json: " + jsonMessage);
-        } else {
-            out.println("Problem na mensagem enviada!");
-        }
+        String jsonMessage = message == null ? "null"
+                : (message instanceof JsonSerializable ? ((JsonSerializable) message).toJson()
+                        : String.valueOf(message));
+
+        out.println(jsonMessage);
+        message(name + " enviou uma mensagem json: " + jsonMessage);
     }
 
     public String receiveTextMessage() {
@@ -59,11 +58,6 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
         if (in != null) {
             try {
                 String json = in.readLine();
-
-                if (json == null) {
-                    erro("Erro ao receber mensagem json: Mensagem nula.");
-                    return null;
-                }
 
                 message(name + " recebeu uma mensagem json: " + json);
 

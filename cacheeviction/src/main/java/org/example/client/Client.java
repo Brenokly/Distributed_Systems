@@ -17,8 +17,8 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     private final Menu actions;                 // Menu de ações do cliente com base nas opções do servido
     private final Scanner scanner;              // Scanner para leitura de dados
     private boolean closed = false;             // Flag de controle de execução
-    private ProxyInfo addressProxy;             // Endereço do servidor proxy
     private static int clients = 0;             // Contador de clientes
+    private ProxyInfo addressProxy;             // Endereço do servidor proxy
     private final ProxyInfo addressLocator;     // Endereço do servidor localizador
 
     public Client() {
@@ -28,7 +28,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         this.actions = new Menu();
         this.scanner = new Scanner(System.in);
-        this.addressLocator = new ProxyInfo("Localizador" ,"26.97.230.179", 14441, 14442);
+        this.addressLocator = new ProxyInfo("Localizador", "26.97.230.179", 14441, 14442);
 
         initializeDefaultActions();
         showMenu();
@@ -78,15 +78,30 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     }
 
     private void connectLocator() {
-        connect(addressLocator.getHost(), addressLocator.getPort()); 
+        boolean ipReceived = false;
+        
+        while (!ipReceived) {
+            try {
+                connect(addressLocator.getHost(), addressLocator.getPort()); 
+    
+                if (isConnected()) {
+                    sendTextMessage("GET_PROXY"); // Pede para o locator o IP do proxy!
+                    addressProxy = receiveJsonMessage(ProxyInfo.class);
 
-        sendTextMessage("GET_PROXY"); // Pede para o locator o IP do proxy!
-
-        addressProxy = receiveJsonMessage(ProxyInfo.class);
-
-        if (addressProxy != null) {
-            actions.remove(CONECT_LOCATOR);
-            actions.put(CONECT_PROXY, this::connectProxy);
+                    if (addressProxy != null) {
+                        actions.remove(CONECT_LOCATOR);
+                        actions.put(CONECT_PROXY, this::connectProxy);
+                        ipReceived = true;
+                    } 
+                }
+            } catch (Exception e) {
+                erro("Erro ao tentar conectar ao Localizador: Servidor não encontrado ou indisponível.");
+                try {
+                    Thread.sleep(5000); // Tenta novamente a cada 5 segundos
+                } catch (Exception t) {
+                    erro("Erro ao tentar dormir: " + t.getMessage());
+                }
+            }
         }
 
         disconnect(); // disconecta do locator
