@@ -39,15 +39,12 @@ import org.example.utils.common.Communicator;
 import org.example.utils.common.OrderService;
 import org.example.utils.common.RMICommon;
 import org.slf4j.LoggerFactory;
-import org.example.utils.Loggable;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.AlreadyBoundException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -105,7 +102,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
             initializeDefaultActions();
             createServerSocket();
         } else {
-            erro("Erro ao tentar criar o Proxy " + name + "! (RMI)");
+            erro("Erro ao tentar criar o " + name + "! (RMI)");
             stopServer();
         }
     }
@@ -130,7 +127,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
             registry.bind("ProxyService", (ProxyService) proxyMethodsRemote);
             registry.bind("RMICommon", (RMICommon) proxyMethodsRemote);
 
-            info(name + " registrado no RMI...");
+            info(name + " registrou seus métodos no RMI...");
             return true;
         } catch (RemoteException e) {
             erro("Erro ao tentar criar os objetos do Proxy" + id + " no RMI: " + e.getMessage());
@@ -142,24 +139,28 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     }    
 
     private boolean notifyFinder() {
-        try {
-            // Localiza o registro RMI no IP e porta do servidor
-            Registry registry = LocateRegistry.getRegistry(SERVER_HOST, finderPortRMI);
-
-            // Obtém a referência do objeto remoto pelo nome
-            LocalizerInterface localizer = (LocalizerInterface) registry.lookup("Localizador");
-
-            // Registra o Proxy no Localizador
-            localizer.registerProxy(name, host, port, portRMI);
-
-            info("Proxy " + name + " registrado no Localizador...");
-            return true;
-        } catch (RemoteException e) {
-            erro("Erro ao tentar notificar o Localizador!");
-        } catch (NotBoundException e) {
-            erro("Erro ao tentar encontrar o Localizador: " + e.getMessage());
-        } catch (Exception e) {
-            erro("Erro ao tentar chamar o método: " + e.getMessage());
+        boolean success = false;
+        while (!success) {
+            try {
+                // Localiza o registro RMI no IP e porta do servidor
+                Registry registry = LocateRegistry.getRegistry(SERVER_HOST, finderPortRMI);
+    
+                // Obtém a referência do objeto remoto pelo nome
+                LocalizerInterface localizer = (LocalizerInterface) registry.lookup("Localizador");
+    
+                // Registra o Proxy no Localizador
+                localizer.registerProxy(name, host, port, portRMI);
+    
+                info(name + " registrado no Localizador...");
+                return true;
+            } catch (Exception e) {
+                erro("Erro ao tentar notificar o Localizador: Servidor Localizador não encontrado no momento!");
+                try {
+                    Thread.sleep(2000); // Tenta novamente a cada 2 segundos
+                } catch (InterruptedException ex) {
+                    erro("Erro ao tentar dormir a Thread: " + ex.getMessage());
+                }
+            }
         }
 
         return false;
@@ -184,7 +185,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
 
             running.set(true);
 
-            info("Servidor" + name + " rodando na porta: " + serverSocket.getLocalPort());
+            info("Servidor " + name + " rodando na porta: " + serverSocket.getLocalPort());
             info("Digite 'stop' a qualquer momento para encerrar...");
 
             while (running.get()) {

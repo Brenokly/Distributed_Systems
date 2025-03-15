@@ -43,15 +43,18 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
         this.proxyInfo = new LinkedList<>();
         this.rmiCommons = new HashMap<>();
         configurarRMI();
-        createRMI();
-        createServerSocket();
+        if(createRMI()) {
+            createServerSocket();
+        } else {
+            erro("Erro ao tentar criar o RMI no Servidor Localizador! Tente novamente...");
+        } 
     }
 
     private void configurarRMI() {
         System.setProperty("java.rmi.server.hostname", HOST);
     }
 
-    private void createRMI() {
+    private boolean createRMI() {
         try {
             LocalizerInterface localizer = (LocalizerInterface) UnicastRemoteObject.exportObject(this, 0);
 
@@ -60,9 +63,12 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
             registry.bind("Localizador", localizer); // Serviço para os Proxies se registrarem
 
             info("RMI criado com sucesso na porta: " + PORT_RMI);
+            return true;
         } catch (Exception e) {
-            erro("Erro ao tentar criar o RMI no Servidor Localizador");
+            erro("Erro ao tentar criar o RMI no Servidor Localizador: " + e.getMessage());
         }
+
+        return false;
     }
 
     private void getRmiMethods() {
