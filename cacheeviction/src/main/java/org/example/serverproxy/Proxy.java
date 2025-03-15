@@ -1,78 +1,165 @@
 package org.example.serverproxy;
 
+/**
+ * Classe Proxy
+ * 
+ * Classe que representa um Proxy de um servidor de cache.
+ * Esta classe é responsável por intermediar a comunicação entre o cliente e o servidor principal.
+ * 
+ * Interface ProxyCacheService
+ * 1 - Loggable: Interface para exibição de mensagens de log
+ * 2 - JsonSerializable: Interface para serialização e deserialização de objetos JSON
+ * 3 - ProxyCacheService: Interface para métodos de cache RMI
+ * 4 - RMICommon: Interface para métodos RMI comuns
+ * 
+ * A respeito da "sincronizaçaõ entre as caches":
+ * 
+ * 1 - Alteração e Remoção: Quando essas operações acontecem, elas são propagadas para todas as caches dos outros proxies ativos.
+ * é como se fosse um "broadcast" para todos os outros proxies / o proxy que fez a alteração fosse momentaneamente o líder.
+ * 
+ * 2 - Busca: Quando um proxy não encontra um registro na sua cache, ele busca nas caches dos outros proxies ativos 
+ * e no servidor principal.
+ * 
+ * @version 1.0
+*/
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.utils.*;
+import org.example.locator.LocalizerInterface;
+import org.example.utils.Command;
+import org.example.utils.JsonSerializable;
+import org.example.utils.LockCache;
+import org.example.utils.Loggable;
+import org.example.utils.Menu;
+import org.example.utils.ProxyInfo;
+import org.example.utils.User;
 import org.example.utils.common.Cache;
 import org.example.utils.common.Communicator;
 import org.example.utils.common.OrderService;
 import org.example.utils.common.RMICommon;
-
+import org.slf4j.LoggerFactory;
+import org.example.utils.Loggable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+import java.util.concurrent.atomic.AtomicInteger;
 import static org.example.utils.Command.*;
 
-public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMICommon {
-    private static int proxysCount = 0;                                                     // Contador de instâncias de Proxy
-    private static List<Integer> ports = new ArrayList<>();                                 // Lista de portas
+public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommon {
+    private final Logger logger;                                                            // Logger personalizado
     private final int id;                                                                   // Identificador do Proxy
-    private final String name;                                                              // Nome do Proxy
     private final int port;                                                                 // Porta do servidor
+    private final String name;                                                              // Nome do Proxy
     private final String host;                                                              // Host do servidor
     private final int portRMI;                                                              // Porta do RMI
     private final Menu actions;                                                             // Menu de ações do servidor
     Authenticator authenticator;                                                            // Autenticador
     private volatile Cache cache;                                                           // Cache de dados
     private ServerSocket serverSocket;                                                      // Socket do servidor
-    private final ProxyInfo serverInfo;                                                     // Informações do servidor principal
-    private static final Object cacheLock = new Object();                                   // Lock para sincronização da cache
+    private final ProxyInfo serverInfo;                                                     // (id/porta) do servidor principal
+    private static int proxysCount = 0;                                                     // Contador de instâncias de Proxy
+    private static List<Integer> ports = new ArrayList<>();                                 // Lista de portasRMI dos proxys
+    private static final LockCache cacheLock = new LockCache();                             // Lock para sincronização da cache
     private final List<Command> commands = new ArrayList<>();                               // Lista de comandos
     private volatile AtomicBoolean running = new AtomicBoolean(false);         // Flag de controle de exec
-    private static final ThreadLocal<Communicator> cliCommunicator = new ThreadLocal<>();   // Comunicador do cliente
-    private static final ThreadLocal<Communicator> serCommunicator = new ThreadLocal<>();   // Comunicador do servidor
+    private volatile AtomicInteger clients = new AtomicInteger(0);             // Número de clientes conectados
+    private static final ThreadLocal<Communicator> cliCommunicator = new ThreadLocal<>();   // Comunicador do cliente por Thread
+    private static final ThreadLocal<Communicator> serCommunicator = new ThreadLocal<>();   // Comunicador do servidor por Thread
 
-    public Proxy(int port, int portRMI) {
+    private static final String SERVER_HOST = "26.97.230.179";   // Rede Privada Radmin
+    private final int finderPortRMI = 14442;                     // Porta RMI do Localizador
+
+    public Proxy(int port, int portRMI, String loggerName) {
+        this.logger = LoggerFactory.getLogger(loggerName);
         this.id = proxysCount++;
-        name = "Proxy" + id;
+        this.name = "Proxy" + id;
         this.port = port;
         this.portRMI = portRMI;
-        //this.host = "localhost"; // Para rodar localmente
-        this.host = "26.137.178.91"; // Para rodar no servidor
-        ports.add(this.portRMI);
-        cache = new Cache();
+        
+        // Defina o host baseado em configuração
+        this.host = SERVER_HOST;
+        
+        this.cache = new Cache();
         this.actions = new Menu();
         this.authenticator = new Authenticator();
-        this.serverInfo = new ProxyInfo("26.97.230.179", port);
-        System.setProperty("java.rmi.server.hostname", "26.97.230.179");
-        if (createRmiMethods()) {
+        this.serverInfo = new ProxyInfo("ServidorMain", SERVER_HOST, port, 15000);
+        
+        configurarRMI();
+        registrarPorta(portRMI);
+        
+        if (createRmiMethods() && notifyFinder()) {
             initializeDefaultActions();
             createServerSocket();
         } else {
             erro("Erro ao tentar criar o Proxy " + name + "! (RMI)");
+            stopServer();
         }
     }
 
+    private void configurarRMI() {
+        System.setProperty("java.rmi.server.hostname", SERVER_HOST);
+    }
+
+    private void registrarPorta(int portRMI) {
+        ports.add(portRMI);
+    }
+
     private boolean createRmiMethods() {
-        for (int i = 0; i < 3; i++) {
-            try {
-                Registry registry = LocateRegistry.createRegistry(portRMI);
-                registry.rebind("ProxyCacheService", this);
-                info(name + " registrado no RMI...");
-                return true;
-            } catch (Exception e) {
-                erro("Erro ao tentar registrar o Proxy no RMI: Tentativa " + (i + 1) + " de 3");
-            }
+        try {
+            // Cria os objetos remotos
+            Object proxyMethodsRemote = UnicastRemoteObject.exportObject(this, 0);
+
+            // Cria o registro RMI
+            Registry registry = LocateRegistry.createRegistry(portRMI);
+
+            // Registra os objetos remotos no RMI
+            registry.bind("ProxyService", (ProxyService) proxyMethodsRemote);
+            registry.bind("RMICommon", (RMICommon) proxyMethodsRemote);
+
+            info(name + " registrado no RMI...");
+            return true;
+        } catch (RemoteException e) {
+            erro("Erro ao tentar criar os objetos do Proxy" + id + " no RMI: " + e.getMessage());
+        } catch (AlreadyBoundException e) {
+            erro("Erro ao tentar registrar o Proxy" + id + " no RMI. Já existe um método com o mesmo nome!" + e.getMessage());
+        }
+    
+        return false;
+    }    
+
+    private boolean notifyFinder() {
+        try {
+            // Localiza o registro RMI no IP e porta do servidor
+            Registry registry = LocateRegistry.getRegistry(SERVER_HOST, finderPortRMI);
+
+            // Obtém a referência do objeto remoto pelo nome
+            LocalizerInterface localizer = (LocalizerInterface) registry.lookup("Localizador");
+
+            // Registra o Proxy no Localizador
+            localizer.registerProxy(name, host, port, portRMI);
+
+            info("Proxy " + name + " registrado no Localizador...");
+            return true;
+        } catch (RemoteException e) {
+            erro("Erro ao tentar notificar o Localizador!");
+        } catch (NotBoundException e) {
+            erro("Erro ao tentar encontrar o Localizador: " + e.getMessage());
+        } catch (Exception e) {
+            erro("Erro ao tentar chamar o método: " + e.getMessage());
         }
 
         return false;
@@ -127,6 +214,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
 
         Communicator clientcommunicator = new Communicator(client,  name + " & Cliente");
         cliCommunicator.set(clientcommunicator);
+        clients.incrementAndGet();
         
         try {
             sendMenuProxy(clientcommunicator);
@@ -157,6 +245,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
     }
 
     private void clearSpacesAndDisconnect() {
+        clients.decrementAndGet();
         try {
             if (cliCommunicator.get() != null) {
                 if (cliCommunicator.get().isConnected()) {
@@ -171,7 +260,6 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
                 }
                 serCommunicator.remove();
             }
-
         } catch (Exception e) {
             erro("Proxy: Erro ao fechar/limpar conexão com o cliente: " + e);
         }
@@ -277,11 +365,11 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
                     Registry registry = LocateRegistry.getRegistry(host, porta);
     
                     // Obtém a referência do objeto remoto pelo nome
-                    ProxyCacheService servico = (ProxyCacheService) registry.lookup("ProxyCacheService");
+                    ProxyService servico = (ProxyService) registry.lookup("ProxyCacheService");
                 
                     servico.removePOS(code);
                 } catch (Exception e) {
-                    erro("Erro ao tentar contatar o proxy na porta: " + porta + ": " + e.getMessage());
+                    erro("Erro ao tentar contatar o proxy da porta: " + porta + ": " + e.getMessage());
                     continue;
                 } 
             }
@@ -308,11 +396,11 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
                     Registry registry = LocateRegistry.getRegistry(host, porta);
     
                     // Obtém a referência do objeto remoto pelo nome
-                    ProxyCacheService servico = (ProxyCacheService) registry.lookup("ProxyCacheService");
+                    ProxyService servico = (ProxyService) registry.lookup("ProxyCacheService");
                 
                     servico.updatePOS(os);
                 } catch (Exception e) {
-                    erro("Erro ao tentar contatar o proxy na porta: " + porta + ": " + e.getMessage());
+                    erro("Erro ao tentar contatar o proxy da porta: " + porta + ": " + e.getMessage());
                     continue;
                 } 
             }
@@ -348,19 +436,22 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
     }
 
     private void searchOS(Communicator clientcommunicator, Communicator servecommunicator) {
-        OrderService os = clientcommunicator.receiveJsonMessage(OrderService.class);
+        // Recebe a ordem de serviço do cliente
+        OrderService os = clientcommunicator.receiveJsonMessage(OrderService.class); 
 
+        // Busca na cache
         OrderService osCache = cache.search(os.getCode());
 
+        // Se não encontrou na cache, busca nos outros proxies e no servidor principal
         if (cache == null) {
-            for (Integer porta : ports) { // Busca em nas caches dos outros proxies
+            for (Integer porta : ports) { // Busca nas caches dos outros proxies
                 if (porta.intValue() != this.port) { 
                     try {
                         // Localiza o registro RMI no IP e porta do servidor
-                        Registry registry = LocateRegistry.getRegistry(host, porta);
+                        Registry registry = LocateRegistry.getRegistry(host, porta.intValue());
         
                         // Obtém a referência do objeto remoto pelo nome
-                        ProxyCacheService servico = (ProxyCacheService) registry.lookup("ProxyCacheService");
+                        ProxyService servico = (ProxyService) registry.lookup("ProxyCacheService");
                     
                         osCache = servico.searchPOS(os.getCode());
 
@@ -368,16 +459,17 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
                             break;
                         }
                     } catch (Exception e) {
-                        erro("Erro ao tentar contatar o proxy na porta: " + porta + ": " + e.getMessage());
+                        erro("Erro ao tentar contatar o proxy da porta: " + porta + ": " + e.getMessage());
                         continue;
                     } 
                 }
             }
 
-            if (osCache == null) { // Busca no servidor principal
+            // Se não encontrou nas caches dos outros proxies, busca no servidor principal
+            if (osCache == null) { 
                 servecommunicator.sendJsonMessage(SEARCH); // Envia a ação de busca para o servidor principal
 
-                servecommunicator.sendJsonMessage(os); // Envia para o server
+                servecommunicator.sendJsonMessage(os);  // Envia para o server
     
                 osCache = servecommunicator.receiveJsonMessage(OrderService.class); // Recebe do server
             }
@@ -389,7 +481,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
 
         cache.show();
 
-        clientcommunicator.sendJsonMessage(osCache);    // Envia para o cliente
+        clientcommunicator.sendJsonMessage(osCache); // Envia para o cliente
     }
 
     private void startCommandListener() {
@@ -408,6 +500,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
 
     public void stopServer() {
         running.set(false);
+        ports.remove(Integer.valueOf(port));
         try {
             if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();
@@ -435,6 +528,16 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
         return cache.search(code);
     }
 
+    @Override
+    public boolean isRunning() throws RemoteException { // Esse método veio da interface RMICommon
+        return running.get();
+    }
+
+    @Override
+    public int numberOfClients() throws RemoteException {
+        return clients.get();
+    }
+
     // Métodos syncronos
 
     private boolean removeCacheSync(int code) {
@@ -456,11 +559,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyCacheService, RMI
     }
 
     @Override
-    public boolean isRunning() throws RemoteException {
-        return running.get();
-    }
-
-    public static void main(String[] args) {
-        new Proxy(15550, 15551);
+    public Logger logger() {
+        return this.logger;
     }
 }

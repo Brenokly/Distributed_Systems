@@ -4,7 +4,14 @@
         <file>cacheeviction\src\main\resources\logs\geral.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -13,16 +20,30 @@
         <file>cacheeviction\src\main\resources\logs\client.log</file>
         <append>false</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
     <!-- Log do LocalizerServer -->
     <appender name="LOCALIZER_SERVER_LOG" class="ch.qos.logback.core.FileAppender">
         <file>cacheeviction\src\main\resources\logs\localizer_server.log</file>
-        <append>false</append>
+        <append>true</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -31,16 +52,62 @@
         <file>cacheeviction\src\main\resources\logs\server.log</file>
         <append>false</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
-    <!-- Log do Proxy -->
-    <appender name="PROXY_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>cacheeviction\src\main\resources\logs\proxy.log</file>
+    <!-- Log do Proxy0 -->
+    <appender name="PROXY_LOG0" class="ch.qos.logback.core.FileAppender">
+        <file>cacheeviction\src\main\resources\logs\proxy0.log</file>
         <append>false</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do Proxy1 -->
+    <appender name="PROXY_LOG1" class="ch.qos.logback.core.FileAppender">
+        <file>cacheeviction\src\main\resources\logs\proxy1.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log do Proxy2 -->
+    <appender name="PROXY_LOG2" class="ch.qos.logback.core.FileAppender">
+        <file>cacheeviction\src\main\resources\logs\proxy2.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -49,7 +116,14 @@
         <file>cacheeviction\src\main\resources\logs\cache.log</file>
         <append>false</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -58,7 +132,14 @@
         <file>cacheeviction\src\main\resources\logs\message_handler.log</file>
         <append>false</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -67,7 +148,14 @@
         <file>cacheeviction\src\main\resources\logs\socket_connection.log</file>
         <append>false</append>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>
+╔════════════════════════════════════════════════════════════════════╗%n
+║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
+╠────────────────────────────────────────────────────────────────────╣%n
+║ %replace(%msg){'(.{100})', '$1%n║    '} %n
+╚════════════════════════════════════════════════════════════════════╝%n
+%n
+            </pattern>
         </encoder>
     </appender>
 
@@ -84,8 +172,16 @@
         <appender-ref ref="SERVER_LOG"/>
     </logger>
 
-    <logger name="org.example.serverproxy.Proxy" level="info" additivity="true">
-        <appender-ref ref="PROXY_LOG"/>
+    <logger name="org.example.serverproxy.Proxy0" level="info" additivity="false">
+        <appender-ref ref="PROXY_LOG0"/>
+    </logger>
+
+    <logger name="org.example.serverproxy.Proxy1" level="info" additivity="false">
+        <appender-ref ref="PROXY_LOG1"/>
+    </logger>
+
+    <logger name="org.example.serverproxy.Proxy2" level="info" additivity="false">
+        <appender-ref ref="PROXY_LOG2"/>
     </logger>
 
     <logger name="org.example.utils.common.Cache" level="info" additivity="true">

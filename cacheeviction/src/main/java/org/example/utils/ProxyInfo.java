@@ -7,6 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ProxyInfo implements JsonSerializable {
+    public String name;
     public String host;
     public int port;
+    public int portRMI;
 }

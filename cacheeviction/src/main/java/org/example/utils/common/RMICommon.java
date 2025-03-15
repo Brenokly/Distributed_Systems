@@ -5,4 +5,5 @@ import java.rmi.RemoteException;
 
 public interface RMICommon extends Remote {
   boolean isRunning() throws RemoteException;
+  int numberOfClients() throws RemoteException;
 }

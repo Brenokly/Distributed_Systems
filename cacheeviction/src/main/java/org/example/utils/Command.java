@@ -2,6 +2,10 @@ package org.example.utils;
 
 import lombok.Getter;
 
+/*
+ * Enum que representa os comandos que podem ser enviados pelo cliente para o servidor.
+*/
+
 @Getter
 public enum Command implements JsonSerializable {
     SEARCH(1, "Buscar OS"),
