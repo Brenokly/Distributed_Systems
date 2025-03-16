@@ -3,10 +3,10 @@ package org.example.utils.common;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-
-import lombok.*;
 import org.example.utils.Loggable;
 import org.example.utils.common.interfaces.SocketConnection;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class AbstractSocketConnection implements SocketConnection, Loggable {
@@ -53,8 +53,8 @@ public class AbstractSocketConnection implements SocketConnection, Loggable {
             inet = socket.getInetAddress();
 
             info(name + " conectado a " + host + ":" + port);
-        } catch (IOException e) {
-            erro("Erro ao conectar ao servidor: " + e.getMessage());
+        } catch (Exception e) {
+            erro("Erro ao conectar ao " + name + " tentando conectar a " + host + ":" + port);
         }
     }
 

@@ -19,9 +19,9 @@ public class TreeAVL {
         }
     }
 
-    private Node root;                  // Raiz da árvore
-    private boolean rotated;            // Atributo para indicar se houve rotação
-    private RotationType rotationType;  // Atributo para indicar o tipo de rotação
+    private Node root; // Raiz da árvore
+    private boolean rotated; // Atributo para indicar se houve rotação
+    private RotationType rotationType; // Atributo para indicar o tipo de rotação
 
     public TreeAVL() {
         this.root = null;
@@ -38,10 +38,13 @@ public class TreeAVL {
     }
 
     private Node insert(Node root, OrderService data) throws NodeAlreadyExistsException {
-        if (root == null) return new Node(data);
+        if (root == null)
+            return new Node(data);
 
-        if (data.getCode() < root.data.getCode()) root.left = insert(root.left, data);
-        else if (data.getCode() > root.data.getCode()) root.right = insert(root.right, data);
+        if (data.getCode() < root.data.getCode())
+            root.left = insert(root.left, data);
+        else if (data.getCode() > root.data.getCode())
+            root.right = insert(root.right, data);
         else
             // Node com mesmo código já existe
             throw new NodeAlreadyExistsException("O nó com o código " + data.getCode() + " já existe na árvore.");
@@ -60,18 +63,18 @@ public class TreeAVL {
             throw new InvalidOperationException("Árvore vazia ou nó não encontrado.");
         }
 
-        if (codigo < root.data.getCode())           // procurando o node a ser removido
+        if (codigo < root.data.getCode()) // procurando o node a ser removido
             root.left = remove(root.left, codigo);
-        else if (codigo > root.data.getCode())      // procurando o node a ser removido
+        else if (codigo > root.data.getCode()) // procurando o node a ser removido
             root.right = remove(root.right, codigo);
-        else {                                      // Encontrou o node a ser removido
+        else { // Encontrou o node a ser removido
             if (root.left == null && root.right == null) { // Se o node a ser removido não tem filhos
                 root = null;
-            } else if (root.left == null) {   // Se o node a ser removido tem filho direito
+            } else if (root.left == null) { // Se o node a ser removido tem filho direito
                 Node aux = root;
                 root = aux.right;
                 aux = null;
-            } else if (root.right == null) {  // Se o node a ser removido tem filho esquerdo
+            } else if (root.right == null) { // Se o node a ser removido tem filho esquerdo
                 Node aux = root;
                 root = aux.left;
                 aux = null;
@@ -176,14 +179,14 @@ public class TreeAVL {
     }
 
     private Node balance(Node root) {
-        int fbRoot = getFB(root);             // Fator de balanceamento do nó raiz
-        int fbRootLeft = getFB(root.left);    // fator de balanceamento do nó esquerdo
-        int fbRootRight = getFB(root.right);  // fator de balanceamento do nó direito
+        int fbRoot = getFB(root); // Fator de balanceamento do nó raiz
+        int fbRootLeft = getFB(root.left); // fator de balanceamento do nó esquerdo
+        int fbRootRight = getFB(root.right); // fator de balanceamento do nó direito
 
         if (fbRoot > 1) { // Se entrar aqui, então é uma rotação a direita
             if (fbRootLeft >= 0) { // Rotação simples a direita
                 this.rotationType = RotationType.RIGHT;
-            } else {               // Rotação dupla a direita
+            } else { // Rotação dupla a direita
                 this.rotationType = RotationType.LEFT_RIGHT;
                 root.left = simpleLeftRotation(root.left);
             }
@@ -191,7 +194,7 @@ public class TreeAVL {
         } else if (fbRoot < -1) { // Se entrar aqui, então é uma rotação a esquerda
             if (fbRootRight <= 0) { // Rotação simples a esquerda
                 this.rotationType = RotationType.LEFT;
-            } else {                // Rotação dupla a esquerda
+            } else { // Rotação dupla a esquerda
                 this.rotationType = RotationType.RIGHT_LEFT;
                 root.right = simpleRightRotation(root.right);
             }
@@ -240,22 +243,26 @@ public class TreeAVL {
     }
 
     private Node minorKey(Node root) {
-        if (root == null) return null;
+        if (root == null)
+            return null;
 
         Node aux = root;
 
-        while (aux.left != null) aux = aux.left;
+        while (aux.left != null)
+            aux = aux.left;
 
         return aux;
     }
 
     private int height(Node root) {
-        if (root == null) return -1;
+        if (root == null)
+            return -1;
         return root.height;
     }
 
     private int getFB(Node root) {
-        if (root == null) return 0;
+        if (root == null)
+            return 0;
 
         return height(root.left) - height(root.right);
     }
@@ -271,4 +278,10 @@ public class TreeAVL {
         this.rotationType = RotationType.NONE; // Resetar o valor
         return rotation.toString();
     }
+
+    // método para limpar a árvore
+    public void clear() {
+        root = null; // Desconecta a raiz da árvore
+    }
+
 }

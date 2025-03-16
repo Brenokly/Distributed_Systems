@@ -23,7 +23,6 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
     public Client() {
         super("Client " + (++clients));
-
         this.id = clients;
 
         this.actions = new Menu();
@@ -78,30 +77,23 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     }
 
     private void connectLocator() {
-        boolean ipReceived = false;
-        
-        while (!ipReceived) {
-            try {
-                connect(addressLocator.getHost(), addressLocator.getPort()); 
-    
-                if (isConnected()) {
-                    sendTextMessage("GET_PROXY"); // Pede para o locator o IP do proxy!
-                    addressProxy = receiveJsonMessage(ProxyInfo.class);
+        try {
+            connect(addressLocator.getHost(), addressLocator.getPort()); 
 
-                    if (addressProxy != null) {
-                        actions.remove(CONECT_LOCATOR);
-                        actions.put(CONECT_PROXY, this::connectProxy);
-                        ipReceived = true;
-                    } 
-                }
-            } catch (Exception e) {
-                erro("Erro ao tentar conectar ao Localizador: Servidor não encontrado ou indisponível.");
-                try {
-                    Thread.sleep(5000); // Tenta novamente a cada 5 segundos
-                } catch (Exception t) {
-                    erro("Erro ao tentar dormir: " + t.getMessage());
+            if (isConnected()) {
+                sendTextMessage("GET_PROXY"); // Pede para o locator o IP do proxy!
+                addressProxy = receiveJsonMessage(ProxyInfo.class);
+
+                if (addressProxy != null) {
+                    actions.remove(CONECT_LOCATOR);
+                    actions.put(CONECT_PROXY, this::connectProxy);
+                } else {
+                    info("Não há servidores Proxy disponíveis no momento. Tente novamente mais tarde.");
                 }
             }
+        } catch (Exception e) {
+            erro("Erro ao tentar conectar ao Localizador: Servidor não encontrado ou indisponível.");
+            return;
         }
 
         disconnect(); // disconecta do locator
@@ -337,7 +329,6 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
     private void printSeparator() {
         System.out.println("--------------------------------------------------------------");
     }
-    
 
     public static void main(String[] args) {
         new Client();

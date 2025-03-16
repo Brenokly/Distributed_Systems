@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.example.utils.Loggable;
 import org.example.utils.exceptions.ElementNotFoundException;
 import org.example.utils.listsAA.LinkedListAAMF;
-
 import java.util.List;
 
 /*
@@ -43,7 +42,7 @@ public class Cache implements Loggable {
         try {
             OrderService order = cache.search(code);
             hits++;
-            info("OrderService encontrado na cache HIT: " + hits);
+            info("OrderService encontrado na cache HIT: " + hits + " - " + order);
             return order;
         } catch (ElementNotFoundException e) {
             misses++;
@@ -56,17 +55,19 @@ public class Cache implements Loggable {
         if (cache.size() == CAPACIDADE) {
             // Remove o último elemento da cache já que estamos usando a política de cache eviction LRU
             OrderService removed = cache.removeLast();
-            info("Cache Cheia, elemento Remvoido: " + removed);
+            info("Cache Cheia, elemento Remvoido: " + removed + " - Tamanho da Cache: " + cache.size());
         }
 
         cache.insertFirst(orderService);
-        info("Elemento inserido na cache: " + orderService);
+        info("Elemento inserido na cache: " + orderService + " - Tamanho da Cache: " + cache.size());
     }
 
     public boolean alter(OrderService orderService) {
         try {
             cache.alter(orderService);
+            info("Elemento alterado na cache: " + orderService);
         } catch (ElementNotFoundException e) {
+            info("Elemento não encontrado na cache para ser alterado: " + orderService);
             return false;
         }
 
@@ -76,7 +77,9 @@ public class Cache implements Loggable {
     public boolean remove(int code) {
         try {
             cache.remove(code);
+            info("Elemento removido da cache: " + code);
         } catch (ElementNotFoundException e) {
+            info("Elemento não encontrado na cache para ser removido: " + code);
             return false;
         }
 

@@ -1,11 +1,26 @@
 package org.example.utils;
 
+import java.io.File;
+import java.io.FileWriter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public interface Loggable {
     default Logger logger() {
         return LoggerFactory.getLogger(this.getClass().getName());
+    }
+
+    default void clearLog() {
+        try {
+            File logFile = new File(
+                    "cacheeviction\\src\\main\\resources\\logs\\" + this.getClass().getSimpleName() + ".log");
+            if (logFile.exists()) {
+                new FileWriter(logFile, false).close(); // Sobrescreve o arquivo com nada, limpando-o
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao limpar o log: " + e.getMessage());
+        }
     }
 
     default void info(String message) {

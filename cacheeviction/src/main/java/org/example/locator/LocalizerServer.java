@@ -12,22 +12,22 @@ import java.net.Socket;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Data
 public class LocalizerServer implements Loggable, LocalizerInterface {
-    private final int port;                                                           // Porta do Servidor Localizador
-    private final int portRMI;                                                        // Porta RMI do Servidor Localizador
-    private final String host;                                                        // Host do Servidor Localizador
-    private ServerSocket serverSocket;                                                // Socket do Servidor Localizador
-    private final Queue<ProxyInfo> proxyInfo;                                         // Informações temporárias dos Proxies
-    private final Map<Integer, RMICommon> rmiCommons;                                 // Proxies ativos e os seus métodos
-    private volatile AtomicBoolean running = new AtomicBoolean(false);   // Flag para controlar o Servidor Localizador
+    private final int port;                                                         // Porta do Servidor Localizador
+    private final int portRMI;                                                      // Porta RMI do Servidor Localizador
+    private final String host;                                                      // Host do Servidor Localizador
+    private ServerSocket serverSocket;                                              // Socket do Servidor Localizador
+    private volatile List<ProxyInfo> proxyInfo;                                     // Informações temporárias dos Proxies
+    private volatile Map<Integer, RMICommon> rmiCommons;                            // Proxies ativos e os seus métodos
+    private volatile AtomicBoolean running = new AtomicBoolean(false); // Flag para controlar o Servidor Localizador
 
     // Configurações do Servidor Localizador
     // ==========================================
@@ -37,17 +37,18 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     // ===========================================
 
     public LocalizerServer() {
+        clearLog();
         this.host = HOST;
         this.port = PORT;
         this.portRMI = PORT_RMI;
-        this.proxyInfo = new LinkedList<>();
+        this.proxyInfo = new ArrayList<>();
         this.rmiCommons = new HashMap<>();
         configurarRMI();
-        if(createRMI()) {
+        if (createRMI()) {
             createServerSocket();
         } else {
             erro("Erro ao tentar criar o RMI no Servidor Localizador! Tente novamente...");
-        } 
+        }
     }
 
     private void configurarRMI() {
@@ -72,33 +73,48 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     }
 
     private void getRmiMethods() {
-        ProxyInfo proxy = this.proxyInfo.poll();
-        boolean success = false;
+        ProxyInfo proxy = this.proxyInfo.getFirst();
         for (int i = 0; i < 3; i++) { // Tenta pegar os métodos do Proxy no RMI 3 vezes para cada Proxy
             try {
                 Registry registry = LocateRegistry.getRegistry(host, proxy.getPortRMI());
 
                 rmiCommons.put(proxy.getPort(), (RMICommon) registry.lookup("RMICommon"));
-
                 info("Métodos do " + proxy.getName() + " no RMI pegos com sucesso!");
 
-                success = true; break;
+                providePorts();
+
+                info("Proxies Conectados: " + rmiCommons.toString());
+                return;
             } catch (Exception e) {
-                erro("Erro ao tentar pegar os métodos do " + proxy.getPort() + " no RMI: Tentativa " + (i + 1)
-                        + " de 3");
+                erro("Erro ao tentar pegar os métodos do " + proxy.getPort() + " no RMI: Tentativa " + (i + 1) + " de 3");
             }
         }
 
-        if (!success) {
-            erro("Falha ao pegar os métodos do " + proxy.getName() + " após 3 tentativas");
+        erro("Falha ao pegar os métodos do " + proxy.getName() + " após 3 tentativas");
+    }
+    
+    private void providePorts(){
+        // Fornece para todos os proxies as portas RMI um aos outros através do método insertPortRmi
+        for (ProxyInfo proxy : proxyInfo) {
+            try {
+                rmiCommons.get(proxy.getPort()).insertPortRmi(proxyInfo.stream()
+                        .filter(p -> p.getPort() != proxy.getPort())
+                        .map(ProxyInfo::getPortRMI)
+                        .toList());
+                info("Porta RMI " + proxy.getPortRMI() + " fornecida para o " + proxy.getName() + " com sucesso!");
+            } catch (Exception e) {
+                erro("Erro ao fornecer a porta RMI " + proxy.getPortRMI() + " para o " + proxy.getName() + ": " + e.getMessage());
+            }
         }
     }
 
     private void createServerSocket() {
         try {
             serverSocket = new ServerSocket(port, 50, InetAddress.getByName(HOST));
-            info("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort() + " e no host: " + serverSocket.getInetAddress().getHostAddress());
+            info("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort() + " e no host: "
+                    + serverSocket.getInetAddress().getHostAddress());
             running.set(true);
+            info("Digite 'stop' para encerrar o Servidor Localizador: ");
 
             while (running.get()) {
                 try {
@@ -133,7 +149,7 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
 
             if (message.equals("GET_PROXY")) {
                 if (rmiCommons.isEmpty()) {
-                    communicator.sendJsonMessage(new ProxyInfo());
+                    communicator.sendJsonMessage(null);
                 } else {
                     communicator.sendJsonMessage(loadBalancing());
                 }
@@ -156,14 +172,17 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     private ProxyInfo loadBalancing() {
         int min = Integer.MAX_VALUE;
         ProxyInfo proxy = null;
-        
+
         // Pega o proxy com o menor número de clientes conectados
         for (Map.Entry<Integer, RMICommon> entry : rmiCommons.entrySet()) {
             try {
                 int numberOfClients = entry.getValue().numberOfClients();
                 if (numberOfClients < min) {
                     min = numberOfClients;
-                    proxy = proxyInfo.stream().filter(p -> p.getPort() == entry.getKey()).findFirst().orElse(null);
+                    proxy = proxyInfo.stream()
+                            .filter(p -> p.getPort() == entry.getKey())
+                            .findFirst()
+                            .orElse(null); // Retorna null ao invés de lançar exceção
                 }
             } catch (Exception e) {
                 erro("Erro ao tentar pegar o número de clientes conectados no Proxy: " + e.getMessage());
@@ -173,12 +192,11 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
         return proxy;
     }
 
-    
     @Override
     public void registerProxy(String name, String host, int port, int portRMI) throws Exception {
         ProxyInfo proxyInfo = new ProxyInfo(name, host, port, portRMI);
-        this.proxyInfo.add(proxyInfo);
-        info(name + " registrado com sucesso!");
+        this.proxyInfo.addFirst(proxyInfo);
+        info("Proxy " + name + " registrado com sucesso!");
         getRmiMethods();
     }
 
@@ -186,7 +204,6 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
         new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
             while (true) {
-                System.out.println("Digite 'stop' para encerrar o Servidor Localizador: ");
                 String command = scanner.nextLine();
                 if (command.equalsIgnoreCase("stop")) {
                     stopServer();

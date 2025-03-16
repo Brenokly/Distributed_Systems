@@ -1,10 +1,14 @@
 package org.example.utils.common;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import org.example.utils.JsonSerializable;
 import org.example.utils.Loggable;
 import org.example.utils.common.interfaces.MessageHandler;
-
-import java.io.*;
 
 public class AbstractMessageHandler implements MessageHandler, JsonSerializable, Loggable {
     protected PrintWriter out;
@@ -20,7 +24,7 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
             erro("Erro ao tentar abrir Fluxo de Saída do " + name);
         }
 
-        info("O " + name + " abriu o Fluxo de Dados com sucesso!");
+        message("O " + name + " abriu o Fluxo de Dados com sucesso!");
     }
 
     public void sendTextMessage(String message) {
@@ -80,7 +84,7 @@ public class AbstractMessageHandler implements MessageHandler, JsonSerializable,
                 out = null;
                 in = null;
 
-                info("O " + name + " fechou o Fluxo de Dados com sucesso!");
+                message("O " + name + " fechou o Fluxo de Dados com sucesso!");
             }
         } catch (IOException e) {
             erro("Erro ao fechar Fluxo de Dados: " + e);
