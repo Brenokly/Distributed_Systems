@@ -2,7 +2,7 @@
     <!-- Logger geral (todos os logs vão para este arquivo) -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>cacheeviction\src\main\resources\logs\geral.log</file>
-        <append>false</append>
+        <append>true</append>
         <encoder>
             <pattern>
 ╔════════════════════════════════════════════════════════════════════╗%n

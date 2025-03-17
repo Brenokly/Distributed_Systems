@@ -80,10 +80,10 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     private final int finderPortRMI = 14442;                     // Porta RMI do Localizador
 
     public Proxy(int port, int portRMI, String loggerName, int id) {
-        clearLog();
         this.logger = LoggerFactory.getLogger(loggerName);
         this.id = id;
         this.name = "Proxy" + id;
+        clearLog(name);
         this.port = port;
         this.portRMI = portRMI;
         
@@ -248,12 +248,12 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         } catch (Exception e) {
             erro("Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: " + e.getMessage());
         } finally {
+            clients.decrementAndGet();
             clearSpacesAndDisconnect();
         }
     }
 
     private void clearSpacesAndDisconnect() {
-        clients.decrementAndGet();
         try {
             if (cliCommunicator.get() != null && cliCommunicator.get().getSocket() != null) {
                 if (cliCommunicator.get().isConnected()) {
@@ -476,9 +476,9 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         // Se não encontrou na cache, busca nos outros proxies e no servidor principal
         if (osCache == null) {
             if (ports.isEmpty()) {
-                info("Não há outros proxies ativos para buscar a ordem de serviço!");
+                info("Elemento não foi encontrada na própria cache e não há outros proxies ativos para buscar a ordem de serviço!");
             } else {
-                info("Buscando em outras caches e/ou no servidor principal...");
+                info("Elemento não foi encontrada na própria cache. Buscando em outras caches...");
                 for (Integer porta : ports) { // Busca nas caches dos outros proxies
                     if (porta.intValue() != this.portRMI) { 
                         try {
@@ -491,7 +491,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
                             osCache = servico.searchPOS(os.getCode());
 
                             if (osCache != null) {
-                                info("OS encontrada na cache do proxy da porta: " + porta);
+                                info("OS encontrada na cache do Proxy da porta: " + porta);
                                 break;
                             }
                         } catch (Exception e) {
@@ -548,16 +548,20 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         }
     }
 
-    // Novos Métodos RMI's
+    // Métodos RMI's
 
     @Override
     public boolean updatePOS(OrderService value) throws RemoteException {
-        return updateCacheSync(value);
+        Boolean bool = updateCacheSync(value);
+        cache.show();
+        return bool;
     }
 
     @Override
     public boolean removePOS(int code) throws RemoteException {
-        return removeCacheSync(code);
+        Boolean bool = removeCacheSync(code);
+        cache.show();
+        return bool;
     }
 
     @Override
@@ -566,7 +570,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     }
 
     @Override
-    public boolean isRunning() throws RemoteException { // Esse método veio da interface RMICommon
+    public boolean isRunning() throws RemoteException {
         return running.get();
     }
 

@@ -39,7 +39,7 @@ public class Server implements Loggable, JsonSerializable {
     private static int lastCode = 99;                                                           // Último código de registro
 
     public Server() {
-        clearLog();
+        clearLog("Server");
         this.port = 16660;
         this.host = "26.97.230.179";
         this.treeAVL = new TreeAVL();

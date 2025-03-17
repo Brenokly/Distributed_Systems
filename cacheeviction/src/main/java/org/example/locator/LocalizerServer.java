@@ -40,7 +40,7 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     // ===========================================
 
     public LocalizerServer() {
-        clearLog();
+        clearLog("LocalizerServer");
         this.host = HOST;
         this.port = PORT;
         this.portRMI = PORT_RMI;
@@ -99,6 +99,13 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
 
     // Fornece para todos os proxies as portas RMI uns aos outros através do método insertPortRmi
     private void providePorts() {
+        proxyCheck();
+
+        if (proxyInfo.size() < 2) {
+            erro("Não há proxies suficientes para fornecer as portas RMI uns aos outros!");
+            return;
+        }
+
         for (ProxyInfo proxy : proxyInfo) {
             try {
                 rmiCommons.get(proxy.getPort()).insertPortRmi(proxyInfo.stream()
@@ -205,7 +212,9 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
             } catch (Exception e) {
                 erro("Erro ao tentar incrementar o número de clientes no Proxy " + chosenProxy.getName());
             }
-            info("Proxy escolhido: " + chosenProxy.getName() + " com " + min + " clientes conectados!");
+            info("Proxy escolhido: " + chosenProxy.getName() + " com " + min + " cliente(s) conectados!");
+
+            info(formatRMICommons(rmiCommons));
         } else {
             erro("Nenhum Proxy disponível para balanceamento de carga.");
         }
@@ -214,6 +223,7 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     }
 
     public void proxyCheck() {
+        info("Verificando se algum Proxy está indisponível...");
         Iterator<Map.Entry<Integer, RMICommon>> iterator = rmiCommons.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Integer, RMICommon> entry = iterator.next();
@@ -237,9 +247,7 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
         }
 
         if (rmiCommons.isEmpty()) {
-            erro("Nenhum Proxy disponível!");
-        } else {
-            info(formatRMICommons(rmiCommons));
+            erro("Não há nenhum Proxy disponível!");
         }
     }
 
@@ -278,7 +286,7 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
 
     private String formatRMICommons(Map<Integer, RMICommon> rmiCommons) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Proxys Conectados:\n");
+        sb.append("Proxys Ativo(s):\n");
 
         rmiCommons.forEach((port, instance) -> {
             String className = proxyInfo.stream()

@@ -1,6 +1,6 @@
 ╔════════════════════════════════════════════════════════════════════╗
 
-║ 2025-03-17 09:03:42 [main] [INFO] [org.example.server.BackupServer] 
+║ 2025-03-17 11:08:07 [main] [INFO] [org.example.server.BackupServer] 
 
 ╠────────────────────────────────────────────────────────────────────╣
 
@@ -11,113 +11,113 @@
 
 ╔════════════════════════════════════════════════════════════════════╗
 
-║ 2025-03-17 09:03:45 [RMI TCP Connection(2)-26.97.230.179] [INFO] [org.example.server.BackupServer] 
+║ 2025-03-17 11:08:08 [RMI TCP Connection(2)-26.97.230.179] [INFO] [org.example.server.BackupServer] 
 
 ╠────────────────────────────────────────────────────────────────────╣
 
 ║ Dados sincronizados com sucesso:
 Código | Nome                 | Descrição                      | Hora    
 ----------------------------------------------------------------------
-0      | Nome0                | Descrição0                     | 09:03   
-1      | Nome1                | Descrição1                     | 09:03   
-2      | Nome2                | Descrição2                     | 09:03   
-3      | Nome3                | Descrição3                     | 09:03   
-4      | Nome4                | Descrição4                     | 09:03   
-5      | Nome5                | Descrição5                     | 09:03   
-6      | Nome6                | Descrição6                     | 09:03   
-7      | Nome7                | Descrição7                     | 09:03   
-8      | Nome8                | Descrição8                     | 09:03   
-9      | Nome9                | Descrição9                     | 09:03   
-10     | Nome10               | Descrição10                    | 09:03   
-11     | Nome11               | Descrição11                    | 09:03   
-12     | Nome12               | Descrição12                    | 09:03   
-13     | Nome13               | Descrição13                    | 09:03   
-14     | Nome14               | Descrição14                    | 09:03   
-15     | Nome15               | Descrição15                    | 09:03   
-16     | Nome16               | Descrição16                    | 09:03   
-17     | Nome17               | Descrição17                    | 09:03   
-18     | Nome18               | Descrição18                    | 09:03   
-19     | Nome19               | Descrição19                    | 09:03   
-20     | Nome20               | Descrição20                    | 09:03   
-21     | Nome21               | Descrição21                    | 09:03   
-22     | Nome22               | Descrição22                    | 09:03   
-23     | Nome23               | Descrição23                    | 09:03   
-24     | Nome24               | Descrição24                    | 09:03   
-25     | Nome25               | Descrição25                    | 09:03   
-26     | Nome26               | Descrição26                    | 09:03   
-27     | Nome27               | Descrição27                    | 09:03   
-28     | Nome28               | Descrição28                    | 09:03   
-29     | Nome29               | Descrição29                    | 09:03   
-30     | Nome30               | Descrição30                    | 09:03   
-31     | Nome31               | Descrição31                    | 09:03   
-32     | Nome32               | Descrição32                    | 09:03   
-33     | Nome33               | Descrição33                    | 09:03   
-34     | Nome34               | Descrição34                    | 09:03   
-35     | Nome35               | Descrição35                    | 09:03   
-36     | Nome36               | Descrição36                    | 09:03   
-37     | Nome37               | Descrição37                    | 09:03   
-38     | Nome38               | Descrição38                    | 09:03   
-39     | Nome39               | Descrição39                    | 09:03   
-40     | Nome40               | Descrição40                    | 09:03   
-41     | Nome41               | Descrição41                    | 09:03   
-42     | Nome42               | Descrição42                    | 09:03   
-43     | Nome43               | Descrição43                    | 09:03   
-44     | Nome44               | Descrição44                    | 09:03   
-45     | Nome45               | Descrição45                    | 09:03   
-46     | Nome46               | Descrição46                    | 09:03   
-47     | Nome47               | Descrição47                    | 09:03   
-48     | Nome48               | Descrição48                    | 09:03   
-49     | Nome49               | Descrição49                    | 09:03   
-50     | Nome50               | Descrição50                    | 09:03   
-51     | Nome51               | Descrição51                    | 09:03   
-52     | Nome52               | Descrição52                    | 09:03   
-53     | Nome53               | Descrição53                    | 09:03   
-54     | Nome54               | Descrição54                    | 09:03   
-55     | Nome55               | Descrição55                    | 09:03   
-56     | Nome56               | Descrição56                    | 09:03   
-57     | Nome57               | Descrição57                    | 09:03   
-58     | Nome58               | Descrição58                    | 09:03   
-59     | Nome59               | Descrição59                    | 09:03   
-60     | Nome60               | Descrição60                    | 09:03   
-61     | Nome61               | Descrição61                    | 09:03   
-62     | Nome62               | Descrição62                    | 09:03   
-63     | Nome63               | Descrição63                    | 09:03   
-64     | Nome64               | Descrição64                    | 09:03   
-65     | Nome65               | Descrição65                    | 09:03   
-66     | Nome66               | Descrição66                    | 09:03   
-67     | Nome67               | Descrição67                    | 09:03   
-68     | Nome68               | Descrição68                    | 09:03   
-69     | Nome69               | Descrição69                    | 09:03   
-70     | Nome70               | Descrição70                    | 09:03   
-71     | Nome71               | Descrição71                    | 09:03   
-72     | Nome72               | Descrição72                    | 09:03   
-73     | Nome73               | Descrição73                    | 09:03   
-74     | Nome74               | Descrição74                    | 09:03   
-75     | Nome75               | Descrição75                    | 09:03   
-76     | Nome76               | Descrição76                    | 09:03   
-77     | Nome77               | Descrição77                    | 09:03   
-78     | Nome78               | Descrição78                    | 09:03   
-79     | Nome79               | Descrição79                    | 09:03   
-80     | Nome80               | Descrição80                    | 09:03   
-81     | Nome81               | Descrição81                    | 09:03   
-82     | Nome82               | Descrição82                    | 09:03   
-83     | Nome83               | Descrição83                    | 09:03   
-84     | Nome84               | Descrição84                    | 09:03   
-85     | Nome85               | Descrição85                    | 09:03   
-86     | Nome86               | Descrição86                    | 09:03   
-87     | Nome87               | Descrição87                    | 09:03   
-88     | Nome88               | Descrição88                    | 09:03   
-89     | Nome89               | Descrição89                    | 09:03   
-90     | Nome90               | Descrição90                    | 09:03   
-91     | Nome91               | Descrição91                    | 09:03   
-92     | Nome92               | Descrição92                    | 09:03   
-93     | Nome93               | Descrição93                    | 09:03   
-94     | Nome94               | Descrição94                    | 09:03   
-95     | Nome95               | Descrição95                    | 09:03   
-96     | Nome96               | Descrição96                    | 09:03   
-97     | Nome97               | Descrição97                    | 09:03   
-98     | Nome98               | Descrição98                    | 09:03   
-99     | Nome99               | Descrição99                    | 09:03   
+0      | Nome0                | Descrição0                     | 11:08   
+1      | Nome1                | Descrição1                     | 11:08   
+2      | Nome2                | Descrição2                     | 11:08   
+3      | Nome3                | Descrição3                     | 11:08   
+4      | Nome4                | Descrição4                     | 11:08   
+5      | Nome5                | Descrição5                     | 11:08   
+6      | Nome6                | Descrição6                     | 11:08   
+7      | Nome7                | Descrição7                     | 11:08   
+8      | Nome8                | Descrição8                     | 11:08   
+9      | Nome9                | Descrição9                     | 11:08   
+10     | Nome10               | Descrição10                    | 11:08   
+11     | Nome11               | Descrição11                    | 11:08   
+12     | Nome12               | Descrição12                    | 11:08   
+13     | Nome13               | Descrição13                    | 11:08   
+14     | Nome14               | Descrição14                    | 11:08   
+15     | Nome15               | Descrição15                    | 11:08   
+16     | Nome16               | Descrição16                    | 11:08   
+17     | Nome17               | Descrição17                    | 11:08   
+18     | Nome18               | Descrição18                    | 11:08   
+19     | Nome19               | Descrição19                    | 11:08   
+20     | Nome20               | Descrição20                    | 11:08   
+21     | Nome21               | Descrição21                    | 11:08   
+22     | Nome22               | Descrição22                    | 11:08   
+23     | Nome23               | Descrição23                    | 11:08   
+24     | Nome24               | Descrição24                    | 11:08   
+25     | Nome25               | Descrição25                    | 11:08   
+26     | Nome26               | Descrição26                    | 11:08   
+27     | Nome27               | Descrição27                    | 11:08   
+28     | Nome28               | Descrição28                    | 11:08   
+29     | Nome29               | Descrição29                    | 11:08   
+30     | Nome30               | Descrição30                    | 11:08   
+31     | Nome31               | Descrição31                    | 11:08   
+32     | Nome32               | Descrição32                    | 11:08   
+33     | Nome33               | Descrição33                    | 11:08   
+34     | Nome34               | Descrição34                    | 11:08   
+35     | Nome35               | Descrição35                    | 11:08   
+36     | Nome36               | Descrição36                    | 11:08   
+37     | Nome37               | Descrição37                    | 11:08   
+38     | Nome38               | Descrição38                    | 11:08   
+39     | Nome39               | Descrição39                    | 11:08   
+40     | Nome40               | Descrição40                    | 11:08   
+41     | Nome41               | Descrição41                    | 11:08   
+42     | Nome42               | Descrição42                    | 11:08   
+43     | Nome43               | Descrição43                    | 11:08   
+44     | Nome44               | Descrição44                    | 11:08   
+45     | Nome45               | Descrição45                    | 11:08   
+46     | Nome46               | Descrição46                    | 11:08   
+47     | Nome47               | Descrição47                    | 11:08   
+48     | Nome48               | Descrição48                    | 11:08   
+49     | Nome49               | Descrição49                    | 11:08   
+50     | Nome50               | Descrição50                    | 11:08   
+51     | Nome51               | Descrição51                    | 11:08   
+52     | Nome52               | Descrição52                    | 11:08   
+53     | Nome53               | Descrição53                    | 11:08   
+54     | Nome54               | Descrição54                    | 11:08   
+55     | Nome55               | Descrição55                    | 11:08   
+56     | Nome56               | Descrição56                    | 11:08   
+57     | Nome57               | Descrição57                    | 11:08   
+58     | Nome58               | Descrição58                    | 11:08   
+59     | Nome59               | Descrição59                    | 11:08   
+60     | Nome60               | Descrição60                    | 11:08   
+61     | Nome61               | Descrição61                    | 11:08   
+62     | Nome62               | Descrição62                    | 11:08   
+63     | Nome63               | Descrição63                    | 11:08   
+64     | Nome64               | Descrição64                    | 11:08   
+65     | Nome65               | Descrição65                    | 11:08   
+66     | Nome66               | Descrição66                    | 11:08   
+67     | Nome67               | Descrição67                    | 11:08   
+68     | Nome68               | Descrição68                    | 11:08   
+69     | Nome69               | Descrição69                    | 11:08   
+70     | Nome70               | Descrição70                    | 11:08   
+71     | Nome71               | Descrição71                    | 11:08   
+72     | Nome72               | Descrição72                    | 11:08   
+73     | Nome73               | Descrição73                    | 11:08   
+74     | Nome74               | Descrição74                    | 11:08   
+75     | Nome75               | Descrição75                    | 11:08   
+76     | Nome76               | Descrição76                    | 11:08   
+77     | Nome77               | Descrição77                    | 11:08   
+78     | Nome78               | Descrição78                    | 11:08   
+79     | Nome79               | Descrição79                    | 11:08   
+80     | Nome80               | Descrição80                    | 11:08   
+81     | Nome81               | Descrição81                    | 11:08   
+82     | Nome82               | Descrição82                    | 11:08   
+83     | Nome83               | Descrição83                    | 11:08   
+84     | Nome84               | Descrição84                    | 11:08   
+85     | Nome85               | Descrição85                    | 11:08   
+86     | Nome86               | Descrição86                    | 11:08   
+87     | Nome87               | Descrição87                    | 11:08   
+88     | Nome88               | Descrição88                    | 11:08   
+89     | Nome89               | Descrição89                    | 11:08   
+90     | Nome90               | Descrição90                    | 11:08   
+91     | Nome91               | Descrição91                    | 11:08   
+92     | Nome92               | Descrição92                    | 11:08   
+93     | Nome93               | Descrição93                    | 11:08   
+94     | Nome94               | Descrição94                    | 11:08   
+95     | Nome95               | Descrição95                    | 11:08   
+96     | Nome96               | Descrição96                    | 11:08   
+97     | Nome97               | Descrição97                    | 11:08   
+98     | Nome98               | Descrição98                    | 11:08   
+99     | Nome99               | Descrição99                    | 11:08   
  
 
 ╚════════════════════════════════════════════════════════════════════╝

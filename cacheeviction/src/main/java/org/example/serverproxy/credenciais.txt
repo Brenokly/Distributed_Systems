@@ -1,3 +1,6 @@
+admin1, senha123
+admin2, senha123
+admin3, senha123
 adriam keven,senha123
 altair campielo,senha123
 artur segantini,senha123

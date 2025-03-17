@@ -11,10 +11,9 @@ public interface Loggable {
         return LoggerFactory.getLogger(this.getClass().getName());
     }
 
-    default void clearLog() {
+    default void clearLog(String name) {
         try {
-            File logFile = new File(
-                    "cacheeviction\\src\\main\\resources\\logs\\" + this.getClass().getSimpleName() + ".log");
+            File logFile = new File("cacheeviction\\src\\main\\resources\\logs\\" + name + ".log");
             if (logFile.exists()) {
                 new FileWriter(logFile, false).close(); // Sobrescreve o arquivo com nada, limpando-o
             }

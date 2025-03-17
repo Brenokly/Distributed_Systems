@@ -16,7 +16,7 @@ public class BackupServer implements BackupInterface, Loggable {
   private TreeAVL treeAVL = new TreeAVL();
 
   public BackupServer() {
-    clearLog();
+    clearLog("BackupServer");
     portRMI = 13337;
     host = "26.97.230.179";
     configurarRMI();
