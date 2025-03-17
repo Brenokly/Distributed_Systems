@@ -61,29 +61,28 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     private final int id;                                                                   // Identificador do Proxy
     private final int port;                                                                 // Porta do servidor
     private final String name;                                                              // Nome do Proxy
-    private final String host;                                                              // Host do servidor
-    private final int portRMI;                                                              // Porta do RMI
+    private final String host;                                                              // Host dos servidores
+    private final int portRMI;                                                              // Porta do RMI do proxy
     private final Menu actions;                                                             // Menu de ações do servidor
     Authenticator authenticator;                                                            // Autenticador
     private volatile Cache cache;                                                           // Cache de dados
     private ServerSocket serverSocket;                                                      // Socket do servidor
-    private final ProxyInfo serverInfo;                                                     // (id/porta) do servidor principal
-    private static int proxysCount = 0;                                                     // Contador de instâncias de Proxy
+    private final ProxyInfo serverInfo;                                                     // (Id/Porta) do servidor principal
     private static final List<Integer> ports = new ArrayList<>();                           // Lista de portasRMI dos proxys
     private static final LockCache cacheLock = new LockCache();                             // Lock para sincronização da cache
     private final List<Command> commands = new ArrayList<>();                               // Lista de comandos
-    private volatile AtomicBoolean running = new AtomicBoolean(false);         // Flag de controle de exec
-    private volatile AtomicInteger clients = new AtomicInteger(0);             // Número de clientes conectados
+    private volatile AtomicBoolean running = new AtomicBoolean(true);          // Flag de controle de exec
+    private AtomicInteger clients = new AtomicInteger(0);                      // Número de clientes conectados
     private static final ThreadLocal<Communicator> cliCommunicator = new ThreadLocal<>();   // Comunicador do cliente por Thread
     private static final ThreadLocal<Communicator> serCommunicator = new ThreadLocal<>();   // Comunicador do servidor por Thread
 
     private static final String SERVER_HOST = "26.97.230.179";   // Rede Privada Radmin
     private final int finderPortRMI = 14442;                     // Porta RMI do Localizador
 
-    public Proxy(int port, int portRMI, String loggerName) {
+    public Proxy(int port, int portRMI, String loggerName, int id) {
         clearLog();
         this.logger = LoggerFactory.getLogger(loggerName);
-        this.id = proxysCount++;
+        this.id = id;
         this.name = "Proxy" + id;
         this.port = port;
         this.portRMI = portRMI;
@@ -189,6 +188,9 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
                     startCommandListener();
 
                     Socket client = serverSocket.accept();
+
+                    clients.incrementAndGet();
+
                     new Thread(() -> handleClient(client)).start();
                 } catch (IOException e) {
                     erro("Erro ao tentar conectar com o Cliente: " + e.getMessage());
@@ -203,6 +205,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     }
 
     private void handleClient(Socket client) {
+        clients.incrementAndGet();
         if (client == null) {
             erro("Erro ao tentar conectar com o Cliente: Socket nulo!");
             clearSpacesAndDisconnect();
@@ -210,10 +213,15 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
 
         Communicator clientcommunicator = new Communicator(client,  name + " & Cliente");
         cliCommunicator.set(clientcommunicator);
-        clients.incrementAndGet();
-        
+        String clientIp = clientcommunicator.getSocket().getInetAddress().getHostAddress();
+
         try {
-            sendMenuProxy(clientcommunicator);
+            // Verifica se o cliente está autenticado
+            if (authenticator.isAuthenticated(clientIp)) {
+                conectServer(clientcommunicator);
+            } else {
+                sendMenuProxy(clientcommunicator);
+            }
 
             // Intermediação de mensagens entre o cliente e o servidor principal
             while (running.get() && clientcommunicator.isConnected()) {
@@ -241,15 +249,14 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     }
 
     private void clearSpacesAndDisconnect() {
-        clients.decrementAndGet();
         try {
-            if (cliCommunicator.get() != null) {
+            if (cliCommunicator.get() != null && cliCommunicator.get().getSocket() != null) {
                 if (cliCommunicator.get().isConnected()) {
                     cliCommunicator.get().disconnect();
                 }
                 cliCommunicator.remove();
             }
-            if (serCommunicator.get() != null) {
+            if (serCommunicator.get() != null && serCommunicator.get().getSocket() != null) {
                 if (serCommunicator.get().isConnected()) {
                     serCommunicator.get().sendJsonMessage(DISCONECT);
                     serCommunicator.get().disconnect();
@@ -284,7 +291,26 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         while (running.get() && attempts <= 3) {
             User clientCredentials = clientcommunicator.receiveJsonMessage(User.class);
 
-            authenticated = authenticator.authenticate(clientCredentials.getLogin(), clientCredentials.getPassword());
+            authenticated = authenticator.authenticate(clientCredentials.getLogin(), clientCredentials.getPassword(), 
+                                            clientcommunicator.getSocket().getInetAddress().getHostAddress());
+
+            for (Integer porta : ports) { // Avisa a todos os proxies para remover essa ordem
+                if (porta.intValue() != this.port) { 
+                    try {
+                        // Localiza o registro RMI no IP e porta do servidor
+                        Registry registry = LocateRegistry.getRegistry(host, porta);
+        
+                        // Obtém a referência do objeto remoto pelo nome
+                        ProxyService servico = (ProxyService) registry.lookup("ProxyService");
+                    
+                        servico.authenticateClient(clientCredentials.getLogin(), clientCredentials.getPassword(), 
+                        clientcommunicator.getSocket().getInetAddress().getHostAddress());
+                    } catch (Exception e) {
+                        erro("Erro ao tentar contatar o proxy da porta: " + porta + ": " + e.getMessage());
+                        continue;
+                    } 
+                }
+            }
 
             attempts++;
 
@@ -310,6 +336,10 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         } else {
             clearSpacesAndDisconnect();
         }
+    }
+
+    public void authenticateClient(String user, String password, String ip) throws RemoteException {
+        authenticator.authenticate(user, password, ip);
     }
 
     private void conectServer(Communicator clientcommunicator){
@@ -504,7 +534,6 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
 
     public void stopServer() {
         running.set(false);
-        ports.remove(Integer.valueOf(port));
         try {
             if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();

@@ -79,6 +79,7 @@ public class BackupServer implements BackupInterface, Loggable {
       }
     }
     info("Dados sincronizados com sucesso.");
+    treeAVL.list().forEach(System.out::println);
   }
 
   public static void main(String[] args) {

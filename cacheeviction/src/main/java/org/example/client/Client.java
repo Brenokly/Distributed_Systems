@@ -8,7 +8,6 @@ import org.example.utils.common.OrderService;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import static org.example.utils.Command.*;
 
 @Getter
@@ -56,11 +55,28 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
             Runnable action = actions.get(option);
 
             if (action != null) {
-                action.run();
+                try {
+                    action.run();
+                } catch (NullPointerException e) {
+                    // Lógica para reconectar caso precise
+                    erro("Houve um problema com o Proxy ou Servidor. Tentando reconectar...");
+                    if (checkOption(option)){
+                        disconnect(); // limpa a conexão com o proxy antigo
+
+                        info("Procurando por um novo servidor Proxy...");
+                        connectLocator();
+                        info("Conectando ao novo servidor Proxy...");
+                        connectProxy();
+                    }
+                }
             } else {
                 System.out.println("Opção inválida!");
             }
         }
+    }
+
+    private boolean checkOption(int option) {
+        return option >= 1 && option <= 6;
     }
 
     private int readUserInput() {
@@ -124,7 +140,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         }
     }
 
-    private void searchOS() {
+    private void searchOS() throws NullPointerException {
         sendJsonMessage(SEARCH); // Envia a ação de busca
 
         printSeparator();
@@ -146,7 +162,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         printSeparator();
     }
 
-    private void registerOS() {
+    private void registerOS() throws NullPointerException {
         sendJsonMessage(REGISTER); // Envia a ação de cadastro
 
         printSeparator();
@@ -160,7 +176,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         printSeparator();
     }
 
-    private void listOS() {
+    private void listOS() throws NullPointerException {
         sendJsonMessage(LIST); // Envia a ação de listagem
 
         printSeparator();
@@ -175,7 +191,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         printSeparator();
     }
 
-    private void updateOS() {
+    private void updateOS() throws NullPointerException {
         sendJsonMessage(UPDATE); // Envia a ação de alteração
 
         printSeparator();
@@ -189,7 +205,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         printSeparator();
     }
 
-    private void removeOS() {
+    private void removeOS() throws NullPointerException {
         sendJsonMessage(REMOVE); // Envia a ação de remoção
 
         printSeparator();
@@ -204,7 +220,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
         printSeparator();
     }
 
-    private void getOSCount() {
+    private void getOSCount() throws NullPointerException {
         sendJsonMessage(QUANTITY);
 
         printSeparator();

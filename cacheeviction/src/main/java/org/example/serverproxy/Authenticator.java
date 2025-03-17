@@ -4,7 +4,9 @@ import java.io.*;
 import java.util.*;
 
 public class Authenticator {
-    static private final Map<String, String> credentials = new HashMap<>();
+    private static final Map<String, String> credentials = new HashMap<>();         // login -> password
+    private static final Map<String, Long> authenticatedClients = new HashMap<>();  // ip -> expiration time
+    private static final long EXPIRATION_TIME_MS = 30 * 60 * 1000;                  // 30 minutos
 
     public Authenticator() {
         if (credentials.isEmpty()) 
@@ -25,8 +27,28 @@ public class Authenticator {
         }
     }
 
-    public boolean authenticate(String login, String password) {
-        return credentials.containsKey(login) && credentials.get(login).equals(password);
+    public boolean authenticate(String login, String password, String ip) {
+        removeExpiredClients();
+
+        if (credentials.containsKey(login) && credentials.get(login).equals(password)) {
+            authenticatedClients.put(ip, System.currentTimeMillis() + EXPIRATION_TIME_MS);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isAuthenticated(String ip) {
+        removeExpiredClients();
+        return authenticatedClients.containsKey(ip);
+    }
+
+    private void removeExpiredClients() {
+        long now = System.currentTimeMillis();
+        authenticatedClients.entrySet().removeIf(entry -> entry.getValue() < now);
+    }
+
+    public void removeAuthenticatedClient(String ip) {
+        authenticatedClients.remove(ip);
     }
 
     public void addCredential(String login, String password) {

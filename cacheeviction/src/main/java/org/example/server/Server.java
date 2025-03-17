@@ -167,7 +167,8 @@ public class Server implements Loggable, JsonSerializable {
 
     private void clearSpacesAndDisconnect() {
         try {
-            if (clientCommunicator.get() != null) {
+            if (clientCommunicator.get() != null && clientCommunicator.get().getSocket() != null) {
+                info("Limpando e desconectando o " + clientCommunicator.get().getName());
                 if (clientCommunicator.get().isConnected()) {
                     clientCommunicator.get().disconnect();
                 }
@@ -183,6 +184,7 @@ public class Server implements Loggable, JsonSerializable {
             try {
                 // tenta enviar as opções iniciais do proxy 3 vezes (Autentica e Desconectar)
                 communicator.sendJsonMessage(new ObjectMapper().writeValueAsString(actions.getCommands()));
+                info("Menu do Servidor enviado ao Cliente com sucesso!");
                 return;
             } catch (JsonProcessingException e) {
                 erro("Erro ao tentar enviar menu do Servidor ao Cliente: Tentativa " + (i + 1) + " de 3");
@@ -210,6 +212,7 @@ public class Server implements Loggable, JsonSerializable {
         try {
             inserSync(data);
             communicator.sendTextMessage("Dado cadastrado com sucesso: " + data);
+            info("Dado cadastrado com sucesso: " + data);
         } catch (NodeAlreadyExistsException e) {
             communicator.sendTextMessage("Dado já existe na árvore: " + data);
         }
@@ -220,6 +223,7 @@ public class Server implements Loggable, JsonSerializable {
 
         try {
             communicator.sendJsonMessage(JsonSerializable.objectMapper.writeValueAsString(found));
+            info("Lista de dados enviada para o cliente (SERVER)");
         } catch (JsonProcessingException e) {
             erro("Erro ao enviar lista para cliente (SERVER): " + e.getMessage());
             clearSpacesAndDisconnect();
@@ -231,6 +235,7 @@ public class Server implements Loggable, JsonSerializable {
         try {
             alterSync(data);
             communicator.sendTextMessage("Dado alterado com sucesso: " + data);
+            info("Dado alterado com sucesso: " + data);
         } catch (NodeNotFoundException e) {
             communicator.sendTextMessage("Dado não encontrado na árvore: " + data);
         }
@@ -241,6 +246,7 @@ public class Server implements Loggable, JsonSerializable {
         try {
             removeSync(code);
             communicator.sendTextMessage("Dado removido com sucesso!");
+            info("Dado removido com sucesso: " + code);
         } catch (InvalidOperationException e) {
             communicator.sendTextMessage("Dado não encontrado na árvore ou já removido!");
         }
@@ -248,6 +254,7 @@ public class Server implements Loggable, JsonSerializable {
 
     public void quantityRecords(Communicator communicator) {
         communicator.sendTextMessage(String.valueOf(treeAVL.getQuantityRecords()));
+        info("Quantidade de registros enviada para o cliente: " + treeAVL.getQuantityRecords());
     }
 
     private void startCommandListener() {

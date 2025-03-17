@@ -18,7 +18,7 @@
     <!-- Log do Client -->
     <appender name="CLIENT_LOG" class="ch.qos.logback.core.FileAppender">
         <file>cacheeviction\src\main\resources\logs\Client.log</file>
-        <append>false</append>
+        <append>true</append>
         <encoder>
             <pattern>
 ╔════════════════════════════════════════════════════════════════════╗%n
@@ -127,22 +127,6 @@
         </encoder>
     </appender>
 
-    <!-- Log do Cache -->
-    <appender name="CACHE_LOG" class="ch.qos.logback.core.FileAppender">
-        <file>cacheeviction\src\main\resources\logs\Cache.log</file>
-        <append>false</append>
-        <encoder>
-            <pattern>
-╔════════════════════════════════════════════════════════════════════╗%n
-║ %d{yyyy-MM-dd HH:mm:ss} [%thread] [%level] [%logger{36}] %n
-╠────────────────────────────────────────────────────────────────────╣%n
-║ %msg %n
-╚════════════════════════════════════════════════════════════════════╝%n
-%n
-            </pattern>
-        </encoder>
-    </appender>
-
     <!-- Log do AbstractMessageHandler -->
     <appender name="MESSAGE_HANDLER_LOG" class="ch.qos.logback.core.FileAppender">
         <file>cacheeviction\src\main\resources\logs\AbstractMessageHandler.log</file>
@@ -202,10 +186,6 @@
 
     <logger name="org.example.serverproxy.Proxy2" level="info" additivity="true">
         <appender-ref ref="PROXY_LOG2"/>
-    </logger>
-
-    <logger name="org.example.utils.common.Cache" level="info" additivity="true">
-        <appender-ref ref="CACHE_LOG"/>
     </logger>
 
     <logger name="org.example.utils.common.AbstractMessageHandler" level="info" additivity="true">
