@@ -97,41 +97,52 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
         erro("Falha ao pegar os métodos do " + proxy.getName() + " após 3 tentativas");
     }
 
+    // Fornece para todos os proxies as portas RMI uns aos outros através do método insertPortRmi
     private void providePorts() {
-        // Fornece para todos os proxies as portas RMI um aos outros através do método insertPortRmi
         for (ProxyInfo proxy : proxyInfo) {
             try {
                 rmiCommons.get(proxy.getPort()).insertPortRmi(proxyInfo.stream()
                         .filter(p -> p.getPort() != proxy.getPort())
                         .map(ProxyInfo::getPortRMI)
                         .toList());
-                info("Porta RMI " + proxy.getPortRMI() + " fornecida para o " + proxy.getName() + " com sucesso!");
             } catch (Exception e) {
                 erro("Erro ao fornecer a porta RMI " + proxy.getPortRMI() + " para o " + proxy.getName() + ": "
                         + e.getMessage());
             }
         }
+        info("Portas RMI fornecidas com sucesso ao novo Proxy!");
     }
 
     private void createServerSocket() {
         try (ServerSocket serverSocket = new ServerSocket(port, 50, InetAddress.getByName(HOST))) {
+            info("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort());
+            info("Digite 'stop' a qualquer momento para encerrar o Servidor Localizador!");
             this.serverSocket = serverSocket;
-            info("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort() + " e no host: "
-                    + serverSocket.getInetAddress().getHostAddress());
             running.set(true);
-            info("Digite 'stop' para encerrar o Servidor Localizador: ");
     
+            // Inicia o listener de comandos para capturar o 'stop'
+            startCommandListener();
+            info("Servidor Aguardando conexão de um Cliente...");
+
             while (running.get()) {
-                info("Servidor Aguardando conexão de um Cliente...");
-                startCommandListener();
-                Socket client = serverSocket.accept();
-                new Thread(() -> handleClient(client)).start();
+                try {
+                    // Aguardando a conexão de um cliente
+                    Socket client = serverSocket.accept();
+
+                    // Inicia um novo thread para lidar com o cliente
+                    new Thread(() -> handleClient(client)).start();
+                } catch (IOException e) {
+                    if (running.get()) 
+                        erro("Problema ao tentar conectar com o Cliente");
+                }
             }
         } catch (Exception e) {
-            erro("Erro ao tentar criar o Servidor Localizador!");
-            throw new RuntimeException("Erro ao tentar criar o Servidor Localizador!", e);
+            if (running.get()) 
+                info("Erro ao tentar criar o ServerSocket: " + e.getMessage());
         }
-    }    
+    
+        info("Servidor Localizador encerrado!");
+    }
 
     private void handleClient(Socket client) {
         Communicator communicator = new Communicator(client, "Localizador");
@@ -147,15 +158,21 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
             } else {
                 communicator.sendTextMessage("Mensagem inválida!");
             }
+
+        } catch (Exception e) {
+            erro("Erro ao lidar com o cliente: " + e.getMessage());
         } finally {
-            try {
+            clearSpacesAndDisconnect(communicator);
+        }
+    }
+
+    private void clearSpacesAndDisconnect(Communicator communicator) {
+        try {
+            if (communicator != null) {
                 communicator.disconnect();
-                if (client != null && !client.isClosed()) {
-                    client.close();
-                }
-            } catch (IOException e) {
-                logger().error("Erro ao fechar conexão com o cliente!", e);
             }
+        } catch (Exception e) {
+           erro("Erro ao fechar conexão com o cliente!");
         }
     }
 
@@ -183,7 +200,12 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
         }
 
         if (chosenProxy != null) {
-            info("Proxy escolhido: " + chosenProxy.getName() + " com " + (min + 1) + " clientes conectados!");
+            try {
+                min = rmiCommons.get(chosenProxy.getPort()).incrementClients();
+            } catch (Exception e) {
+                erro("Erro ao tentar incrementar o número de clientes no Proxy " + chosenProxy.getName());
+            }
+            info("Proxy escolhido: " + chosenProxy.getName() + " com " + min + " clientes conectados!");
         } else {
             erro("Nenhum Proxy disponível para balanceamento de carga.");
         }
@@ -204,12 +226,12 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
                             .orElse("Desconhecido");
 
                     erro(nome + " não está mais disponível! Removendo da lista...");
-                    iterator.remove(); // Remover usando iterator para evitar ConcurrentModificationException
+                    iterator.remove();
                     proxyInfo.removeIf(p -> p.getPort() == entry.getKey());
                 }
             } catch (Exception e) {
                 erro("Proxy " + entry.getKey() + " indisponível no momento. Removendo da lista...");
-                iterator.remove(); // Remover usando iterator
+                iterator.remove(); 
                 proxyInfo.removeIf(p -> p.getPort() == entry.getKey());
             }
         }
@@ -232,19 +254,26 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     private void startCommandListener() {
         new Thread(() -> {
             try (Scanner scanner = new Scanner(System.in)) {
-                while (true) {
+                while (running.get()) {  
                     String command = scanner.nextLine();
                     if ("stop".equalsIgnoreCase(command)) {
                         stopServer();
-                        break;
+                        break;  
                     }
                 }
             }
         }).start();
-    }    
+    }  
 
     public void stopServer() {
         running.set(false);
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();  // Fecha o serverSocket, interrompendo o accept
+            }
+        } catch (IOException e) {
+            erro("Erro ao tentar fechar o ServerSocket: " + e.getMessage());
+        }
     }
 
     private String formatRMICommons(Map<Integer, RMICommon> rmiCommons) {

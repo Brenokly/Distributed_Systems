@@ -23,7 +23,7 @@ public class OrderService implements JsonSerializable, Serializable {
 
     @Builder
     public OrderService(String name, String description) {
-        this.code = counterCode++;
+        // No comando de registrar, quem define o código é o servidor
         this.name = name;
         this.description = description;
         this.requestTime = LocalTime.now().withSecond(0).withNano(0);

@@ -281,7 +281,21 @@ public class TreeAVL {
 
     // método para limpar a árvore
     public void clear() {
-        root = null; // Desconecta a raiz da árvore
+        root = null;
     }
 
+    // Método para retornar um código válido para inserção (Pega o maior código e incrementa 1)
+    public int getValidCode() {
+        if (root == null) {
+            return 1;
+        }
+        return getValidCode(root);
+    }
+
+    private int getValidCode(Node node) {
+        if (node.right == null) {
+            return node.data.getCode() + 1;
+        }
+        return getValidCode(node.right);
+    }
 }

@@ -10,7 +10,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class BackupServer implements BackupInterface, Loggable {                                                             
+public class BackupServer implements BackupInterface, Loggable {
   private int portRMI;
   private String host;
   private TreeAVL treeAVL = new TreeAVL();
@@ -42,7 +42,7 @@ public class BackupServer implements BackupInterface, Loggable {
   public void replicateInsert(OrderService order) throws RemoteException {
     try {
       treeAVL.insert(order);
-      info("Registro replicado: " + order);
+      info("Dado inserido com sucesso:\n" + generateTable(treeAVL.list()));
     } catch (Exception e) {
       erro("Erro ao replicar inserção: " + order);
     }
@@ -52,7 +52,7 @@ public class BackupServer implements BackupInterface, Loggable {
   public void replicateUpdate(OrderService order) throws RemoteException {
     try {
       treeAVL.alter(order);
-      info("Registro atualizado: " + order);
+      info("Dado alterado com sucesso:\n" + generateTable(treeAVL.list()));
     } catch (Exception e) {
       erro("Erro ao replicar atualização: " + order);
     }
@@ -62,7 +62,7 @@ public class BackupServer implements BackupInterface, Loggable {
   public void replicateRemove(int code) throws RemoteException {
     try {
       treeAVL.remove(code);
-      info("Registro removido: " + code);
+      info("Dado removido com sucesso:\n" + generateTable(treeAVL.list()));
     } catch (Exception e) {
       erro("Erro ao replicar remoção: " + code);
     }
@@ -78,8 +78,32 @@ public class BackupServer implements BackupInterface, Loggable {
         erro("Dado já existe no backup: " + os);
       }
     }
-    info("Dados sincronizados com sucesso.");
-    treeAVL.list().forEach(System.out::println);
+    info("Dados sincronizados com sucesso:\n" + generateTable(treeAVL.list()));
+  }
+
+  // Método para exibir a lista em formato de tabela
+  private String generateTable(List<OrderService> services) {
+    if (services.isEmpty()) {
+      return "Nenhum serviço encontrado.";
+    }
+
+    StringBuilder table = new StringBuilder();
+
+    // Cabeçalho da tabela
+    table.append(String.format("%-6s | %-20s | %-30s | %-8s%n", "Código", "Nome", "Descrição", "Hora"));
+    table.append("----------------------------------------------------------------------\n");
+
+    // Adicionando os dados da lista
+    for (OrderService service : services) {
+      table.append(String.format("%-6d | %-20s | %-30s | %-8s%n",
+          service.getCode(),
+          service.getName(),
+          service.getDescription().length() > 30 ? service.getDescription().substring(0, 27) + "..."
+              : service.getDescription(),
+          service.getRequestTime()));
+    }
+
+    return table.toString();
   }
 
   public static void main(String[] args) {

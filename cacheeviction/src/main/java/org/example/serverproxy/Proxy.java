@@ -96,8 +96,9 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         this.serverInfo = new ProxyInfo("ServidorMain", SERVER_HOST, 16660, 15000);
         
         configurarRMI();
-        
-        if (createRmiMethods() && notifyFinder()) {
+
+        if (createRmiMethods()) {
+            notifyFinder();
             initializeDefaultActions();
             createServerSocket();
         } else {
@@ -133,32 +134,35 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         return false;
     }    
 
-    private boolean notifyFinder() {
-        boolean success = false;
-        while (!success) {
-            try {
-                // Localiza o registro RMI no IP e porta do servidor
-                Registry registry = LocateRegistry.getRegistry(SERVER_HOST, finderPortRMI);
-    
-                // Obtém a referência do objeto remoto pelo nome
-                LocalizerInterface localizer = (LocalizerInterface) registry.lookup("Localizador");
-    
-                // Registra o Proxy no Localizador
-                localizer.registerProxy(name, host, port, portRMI);
-    
-                info(name + " registrado no Localizador...");
-                return true;
-            } catch (Exception e) {
-                erro("Erro ao tentar notificar o Localizador: Servidor Localizador não encontrado no momento!");
+    private void notifyFinder() {
+        Thread thread = new Thread(() -> {
+            AtomicBoolean success = new AtomicBoolean(false);
+            while (!success.get() && running.get()) {
                 try {
-                    Thread.sleep(2000); // Tenta novamente a cada 2 segundos
-                } catch (InterruptedException ex) {
-                    erro("Erro ao tentar dormir a Thread: " + ex.getMessage());
+                    // Localiza o registro RMI no IP e porta do servidor
+                    Registry registry = LocateRegistry.getRegistry(SERVER_HOST, finderPortRMI);
+        
+                    // Obtém a referência do objeto remoto pelo nome
+                    LocalizerInterface localizer = (LocalizerInterface) registry.lookup("Localizador");
+        
+                    // Registra o Proxy no Localizador
+                    localizer.registerProxy(name, host, port, portRMI);
+        
+                    info(name + " registrado no Localizador...");
+                    success.set(true);
+                } catch (Exception e) {
+                    erro("Erro ao tentar notificar o Localizador: Servidor Localizador não encontrado no momento!");
+                    try {
+                        Thread.sleep(2000); // Tenta novamente a cada 2 segundos
+                    } catch (InterruptedException ex) {
+                        erro("Erro ao tentar dormir a Thread: " + ex.getMessage());
+                    }
                 }
             }
-        }
+        });
 
-        return false;
+        thread.setDaemon(true);
+        thread.start();
     }
 
     private void initializeDefaultActions() {
@@ -175,37 +179,37 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     }
 
     private void createServerSocket() {
-        try {
-            serverSocket = new ServerSocket(port, 50, InetAddress.getByName(host)); 
+        try (ServerSocket serverSocket = new ServerSocket(port, 50, InetAddress.getByName(host))) { 
+            info("Servidor " + name + " rodando na porta: " + serverSocket.getLocalPort());
+            info("Digite 'stop' a qualquer momento para encerrar!");
+            this.serverSocket = serverSocket;
             running.set(true);
 
-            info("Servidor " + name + " rodando na porta: " + serverSocket.getLocalPort());
-            info("Digite 'stop' a qualquer momento para encerrar...");
+            // Verificando se o usuário deseja encerrar o servidor          
+            startCommandListener();
+            info("Servidor " + name + " Aguardando conexão de um Cliente...");
 
             while (running.get()) {
                 try {
-                    info("Servidor " + name + " Aguardando conexão de um Cliente...");
-                    startCommandListener();
-
+                    // Aguarda a conexão de um cliente
                     Socket client = serverSocket.accept();
 
-                    clients.incrementAndGet();
-
+                    // Incrementa o número de clientes conectados
                     new Thread(() -> handleClient(client)).start();
                 } catch (IOException e) {
-                    erro("Erro ao tentar conectar com o Cliente: " + e.getMessage());
+                    if (running.get()) 
+                        erro("Problema ao tentar conectar com o Cliente");
                 }
             }
         } catch (Exception e) {
-            erro("Erro ao tentar criar o Servidor " + name + ": " + e);
-            throw new RuntimeException("Erro ao tentar criar o Servidor Proxy!", e);
-        } finally {
-            stopServer();
+            if (running.get()) 
+                info("Erro ao tentar criar o ServerSocket: " + e.getMessage());
         }
+
+        info("Servidor Localizador encerrado!");
     }
 
     private void handleClient(Socket client) {
-        clients.incrementAndGet();
         if (client == null) {
             erro("Erro ao tentar conectar com o Cliente: Socket nulo!");
             clearSpacesAndDisconnect();
@@ -249,6 +253,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     }
 
     private void clearSpacesAndDisconnect() {
+        clients.decrementAndGet();
         try {
             if (cliCommunicator.get() != null && cliCommunicator.get().getSocket() != null) {
                 if (cliCommunicator.get().isConnected()) {
@@ -520,27 +525,26 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
 
     private void startCommandListener() {
         new Thread(() -> {
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                String command = scanner.nextLine();
-                if (command.equalsIgnoreCase("stop")) {
-                    stopServer();
-                    break;
+            try (Scanner scanner = new Scanner(System.in)) {
+                while (running.get()) {  
+                    String command = scanner.nextLine();
+                    if ("stop".equalsIgnoreCase(command)) {
+                        stopServer();
+                        break;  
+                    }
                 }
             }
-            scanner.close();
         }).start();
-    }
+    }  
 
     public void stopServer() {
         running.set(false);
         try {
             if (serverSocket != null && !serverSocket.isClosed()) {
-                serverSocket.close();
-                info("Servidor " + name + " encerrado.");
+                serverSocket.close();  // Fecha o serverSocket, interrompendo o accept
             }
         } catch (IOException e) {
-            erro("Erro ao fechar o servidor " + name + e.getMessage());
+            erro("Erro ao tentar fechar o ServerSocket: " + e.getMessage());
         }
     }
 
@@ -579,6 +583,11 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int incrementClients() throws RemoteException {
+        return clients.incrementAndGet();
     }
 
     // Métodos syncronos

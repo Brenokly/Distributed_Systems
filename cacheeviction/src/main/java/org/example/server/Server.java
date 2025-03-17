@@ -36,6 +36,7 @@ public class Server implements Loggable, JsonSerializable {
     private static final ServerLock lock = new ServerLock();                                    // Lock para sincronização do servidor
     private BackupInterface backupServer;                                                       // Servidor de backup
     private static final int BACKUP_PORT = 13337;                                               // Porta do servidor de backup
+    private static int lastCode = 99;                                                           // Último código de registro
 
     public Server() {
         clearLog();
@@ -54,8 +55,19 @@ public class Server implements Loggable, JsonSerializable {
         System.setProperty("java.rmi.server.hostname", host);
     }
 
+    public void initializerTree() {
+        try {
+            for (int i = 0; i < 100; i++) {
+                OrderService os = new OrderService(i, "Nome" + i, "Descrição" + i);
+                treeAVL.insert(os);
+            }
+        } catch (NodeAlreadyExistsException e) {
+            erro("Erro ao inserir dados na árvore AVL: " + e.getMessage());
+        }
+    }
+
     private void connectToBackup() {
-        new Thread(() -> {
+        Thread thread = new Thread(() -> {
             boolean connected = false;
             while (!connected) {
                 try {
@@ -73,18 +85,10 @@ public class Server implements Loggable, JsonSerializable {
                 }
             }
             syncWithBackup();
-        }).start();
-    }
+        });
 
-    public void initializerTree() {
-        try {
-            for (int i = 0; i < 100; i++) {
-                OrderService os = new OrderService("Nome" + i, "Descrição" + i);
-                treeAVL.insert(os);
-            }
-        } catch (NodeAlreadyExistsException e) {
-            erro("Erro ao inserir dados na árvore AVL: " + e.getMessage());
-        }
+        thread.setDaemon(true);  // Configura a thread como daemon caso o servidor principal seja encerrado
+        thread.start();             // Inicia a thread
     }
 
     private void syncWithBackup() {
@@ -113,28 +117,34 @@ public class Server implements Loggable, JsonSerializable {
     }
 
     private void createServerSocket() {
-        try {
-            serverSocket = new ServerSocket(port, 50, InetAddress.getByName(host));
+        try (ServerSocket serverSocket = new ServerSocket(port, 50, InetAddress.getByName(host))) {
             info("Servidor Principal rodando na porta: " + serverSocket.getLocalPort());
-            info("Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain");
+            info("Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain!");
+            this.serverSocket = serverSocket;
+            running.set(true);
+
+            // Iniciar o listener de comandos para capturar o 'stop'
+            startCommandListener();
+            info("Servidor Principal Aguardando conexão de um Cliente...");
 
             while (running.get()) {
                 try {
-                    info("Servidor Principal Aguardando conexão de um Cliente...");
-                    startCommandListener();
+                    // Aguarda a conexão de um cliente
                     Socket client = serverSocket.accept();
 
+                    // Cria uma nova thread para tratar o cliente
                     new Thread(() -> handleClient(client)).start();
                 } catch (IOException e) {
-                    erro("Erro ao tentar conectar com o Cliente: " + e.getMessage());
+                    if (running.get()) 
+                        erro("Problema ao tentar conectar com o Cliente");
                 }
             }
         } catch (Exception e) {
-            erro("Erro ao tentar criar o Servidor ServerMain!");
-            throw new RuntimeException("Erro ao tentar criar o Servidor ServerMain!", e);
-        } finally {
-            stopServer();
+            if (running.get()) 
+                info("Erro ao tentar criar o ServerSocket: " + e.getMessage());
         }
+    
+        info("Servidor Localizador encerrado!");
     }
 
     private void handleClient(Socket client) {
@@ -209,6 +219,7 @@ public class Server implements Loggable, JsonSerializable {
 
     public void registerOS(Communicator communicator) {
         OrderService data = communicator.receiveJsonMessage(OrderService.class);
+        data.setCode(++lastCode);
         try {
             inserSync(data);
             communicator.sendTextMessage("Dado cadastrado com sucesso: " + data);
@@ -223,7 +234,7 @@ public class Server implements Loggable, JsonSerializable {
 
         try {
             communicator.sendJsonMessage(JsonSerializable.objectMapper.writeValueAsString(found));
-            info("Lista de dados enviada para o cliente (SERVER)");
+            info("Dados enviados com sucesso:\n" + generateTable(treeAVL.list()));
         } catch (JsonProcessingException e) {
             erro("Erro ao enviar lista para cliente (SERVER): " + e.getMessage());
             clearSpacesAndDisconnect();
@@ -259,16 +270,27 @@ public class Server implements Loggable, JsonSerializable {
 
     private void startCommandListener() {
         new Thread(() -> {
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                String command = scanner.nextLine();
-                if (command.equalsIgnoreCase("stop")) {
-                    Server.this.stopServer();
-                    break;
+            try (Scanner scanner = new Scanner(System.in)) {
+                while (running.get()) {  
+                    String command = scanner.nextLine();
+                    if ("stop".equalsIgnoreCase(command)) {
+                        stopServer();
+                        break;  
+                    }
                 }
             }
-            scanner.close();
         }).start();
+    }  
+
+    public void stopServer() {
+        running.set(false);
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();  // Fecha o serverSocket, interrompendo o accept
+            }
+        } catch (IOException e) {
+            erro("Erro ao tentar fechar o ServerSocket: " + e.getMessage());
+        }
     }
 
     // Métodos sincronizados para evitar inconsistências
@@ -309,16 +331,29 @@ public class Server implements Loggable, JsonSerializable {
         }
     }
 
-    public void stopServer() {
-        running.set(false);
-        try {
-            if (serverSocket != null && !serverSocket.isClosed()) {
-                serverSocket.close();
-                info("Servidor ServerMain encerrado.");
-            }
-        } catch (IOException e) {
-            erro("Erro ao fechar o servidor" + e.getMessage());
+    // Método para exibir a lista em formato de tabela
+    private String generateTable(List<OrderService> services) {
+        if (services.isEmpty()) {
+        return "Nenhum serviço encontrado.";
         }
+
+        StringBuilder table = new StringBuilder();
+
+        // Cabeçalho da tabela
+        table.append(String.format("%-6s | %-20s | %-30s | %-8s%n", "Código", "Nome", "Descrição", "Hora"));
+        table.append("----------------------------------------------------------------------\n");
+
+        // Adicionando os dados da lista
+        for (OrderService service : services) {
+        table.append(String.format("%-6d | %-20s | %-30s | %-8s%n",
+            service.getCode(),
+            service.getName(),
+            service.getDescription().length() > 30 ? service.getDescription().substring(0, 27) + "..."
+                : service.getDescription(),
+            service.getRequestTime()));
+        }
+
+        return table.toString();
     }
 
     public static void main(String[] args) {
