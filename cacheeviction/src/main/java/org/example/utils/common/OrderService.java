@@ -1,10 +1,15 @@
 package org.example.utils.common;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import java.time.LocalTime;
+
 import org.example.utils.JsonSerializable;
 
-import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +24,6 @@ public class OrderService implements JsonSerializable {
 
     @Builder
     public OrderService(String name, String description) {
-        this.code = counterCode++;
         this.name = name;
         this.description = description;
         this.requestTime = LocalTime.now().withSecond(0).withNano(0);

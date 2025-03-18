@@ -1,12 +1,5 @@
 package org.example.serverproxy;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.utils.*;
-import org.example.utils.common.Cache;
-import org.example.utils.common.Communicator;
-import org.example.utils.common.OrderService;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -16,8 +9,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.example.utils.Command;
+import static org.example.utils.Command.AUTHENTICATE;
+import static org.example.utils.Command.DISCONECT;
+import static org.example.utils.Command.ERROR;
+import static org.example.utils.Command.INVALID;
+import static org.example.utils.Command.LIST;
+import static org.example.utils.Command.QUANTITY;
+import static org.example.utils.Command.REGISTER;
+import static org.example.utils.Command.REMOVE;
+import static org.example.utils.Command.SEARCH;
+import static org.example.utils.Command.SUCCESS;
+import static org.example.utils.Command.UPDATE;
+import org.example.utils.JsonSerializable;
+import org.example.utils.Loggable;
+import org.example.utils.Menu;
+import org.example.utils.ProxyInfo;
+import org.example.utils.User;
+import org.example.utils.common.Cache;
+import org.example.utils.common.Communicator;
+import org.example.utils.common.OrderService;
 
-import static org.example.utils.Command.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Proxy implements Loggable, JsonSerializable {
     private String host;

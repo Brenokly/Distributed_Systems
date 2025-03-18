@@ -1,11 +1,12 @@
 package org.example.utils.common;
 
-import lombok.Getter;
+import java.util.List;
+
 import org.example.utils.Loggable;
 import org.example.utils.exceptions.ElementNotFoundException;
 import org.example.utils.listsAA.LinkedListAAMF;
 
-import java.util.List;
+import lombok.Getter;
 
 /*
  * A classe Cache é responsável por gerenciar a cache de ordens de serviço.
@@ -34,6 +35,14 @@ public class Cache implements Loggable {
     public Cache() {
         this.CAPACIDADE = 30;
         cache = new LinkedListAAMF();
+        initializerCache();
+    }
+
+    private void initializerCache() {
+        for (int i = 0; i < 30; i++) {
+            OrderService os = new OrderService("Nome" + i, "Descrição" + i);
+            insert(os);
+        }
     }
 
     // --------------------------------------------------------------------------------

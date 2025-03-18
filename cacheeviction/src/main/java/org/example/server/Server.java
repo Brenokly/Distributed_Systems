@@ -1,8 +1,21 @@
 package org.example.server;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.example.utils.Command;
+import static org.example.utils.Command.DISCONECT;
+import static org.example.utils.Command.LIST;
+import static org.example.utils.Command.QUANTITY;
+import static org.example.utils.Command.REGISTER;
+import static org.example.utils.Command.REMOVE;
+import static org.example.utils.Command.SEARCH;
+import static org.example.utils.Command.UPDATE;
 import org.example.utils.JsonSerializable;
 import org.example.utils.Loggable;
 import org.example.utils.Menu;
@@ -13,16 +26,8 @@ import org.example.utils.exceptions.NodeAlreadyExistsException;
 import org.example.utils.exceptions.NodeNotFoundException;
 import org.example.utils.tree.TreeAVL;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import static org.example.utils.Command.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Server implements Loggable, JsonSerializable {
     private String host;
@@ -33,6 +38,7 @@ public class Server implements Loggable, JsonSerializable {
     private final Object treeLock = new Object();                                                // Lock para sincronização da árvore
     private volatile AtomicBoolean running = new AtomicBoolean(true);               // Flag de controle de execução
     private static final ThreadLocal<Communicator> clientCommunicator = new ThreadLocal<>();     // Comunicador do cliente
+    private int lastCode = 100;
 
     public Server() {
         try {
@@ -165,6 +171,7 @@ public class Server implements Loggable, JsonSerializable {
 
     public void registerOS(Communicator communicator) {
         OrderService data = communicator.receiveJsonMessage(OrderService.class);
+        data.setCode(lastCode++);
         try {
             synchronized (treeLock) { // Sincroniza o acesso à árvore que pode gerar inconsistência
                 treeAVL.insert(data);

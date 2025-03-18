@@ -1,16 +1,17 @@
 package org.example.locator;
 
-import lombok.Data;
-import org.example.utils.Loggable;
-import org.example.utils.ProxyInfo;
-import org.example.utils.common.Communicator;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+
+import org.example.utils.Loggable;
+import org.example.utils.ProxyInfo;
+import org.example.utils.common.Communicator;
+
+import lombok.Data;
 
 @Data
 public class LocalizerServer implements Loggable {
@@ -28,6 +29,9 @@ public class LocalizerServer implements Loggable {
             erro("Erro ao obter o endereço IP do host: " + e.getMessage());
             this.host = "26.137.178.91";
         }
+
+        System.out.print(host);
+
         //this.proxyInfo = new ProxyInfo("26.97.230.179", 15552); // RemoteHost
         this.proxyInfo = new ProxyInfo(host, 15552); // LocalHost
         createServerSocket();

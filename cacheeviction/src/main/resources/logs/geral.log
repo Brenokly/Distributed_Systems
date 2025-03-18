@@ -264,3 +264,557 @@ Cliente autenticado com sucesso!
 2025-03-18 14:23:04 [Thread-1] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
 2025-03-18 14:23:04 [Thread-1] ERROR org.example.server.Server - Erro com a conexão do Cliente: null
 2025-03-18 14:23:04 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:30:30 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 14:30:30 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 14:30:30 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:30:31 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:30:31 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:30:40 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 14:30:40 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 14:30:40 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:31:44 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:31:44 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:32:19 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 14:32:19 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 14:32:19 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:32:20 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 14:32:20 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 14:32:20 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:32:27 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 14:32:27 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 14:32:27 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:32:31 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:32:31 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:32:32 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 14:32:32 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 14:32:32 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:36:53 [main] ERROR org.example.locator.LocalizerServer - Erro ao tentar criar o Servidor Localizador!
+2025-03-18 14:37:44 [main] ERROR org.example.locator.LocalizerServer - Erro ao tentar criar o Servidor Localizador!
+2025-03-18 14:38:05 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:38:05 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:38:24 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:38:24 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:38:51 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:38:51 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:51119
+2025-03-18 14:38:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:38:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 14:38:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.97.230.179","port":15552}
+2025-03-18 14:38:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:41:33 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:41:33 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:43:13 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:43:13 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:43:28 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:43:28 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61756
+2025-03-18 14:43:28 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:43:28 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 14:43:28 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 14:43:28 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:43:51 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:43:51 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:44:01 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:44:01 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:44:03 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 14:44:03 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 14:44:03 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:44:05 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 14:44:05 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 14:44:05 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:44:11 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:44:11 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61770
+2025-03-18 14:44:11 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:44:11 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 14:44:11 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 14:44:11 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:44:13 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:44:13 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61771
+2025-03-18 14:44:13 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:44:13 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 14:44:15 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:44:18 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50650
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:44:18 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:44:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":5,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:44:24 [Thread-1] INFO  org.example.utils.common.Cache - OrderService não encontrado na cache MISS: 1
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "SEARCH"
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "SEARCH"
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":5,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":5,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: {"code":5,"name":"Nome5","description":"Descrição5","requestTime":"14:44:00"}
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem json: {"code":5,"name":"Nome5","description":"Descrição5","requestTime":"14:44:00"}
+2025-03-18 14:44:24 [Thread-1] INFO  org.example.server.Server - Os dados foram encontrados e enviados!
+2025-03-18 14:44:24 [Thread-1] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=5, name=Nome5, description=Descrição5, requestTime=14:44)
+2025-03-18 14:44:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":5,"name":"Nome5","description":"Descrição5","requestTime":"14:44:00"}
+2025-03-18 14:45:02 [Thread-1] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 14:45:02 [Thread-1] ERROR org.example.server.Server - Erro com a conexão do Cliente: null
+2025-03-18 14:45:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:46:20 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 14:46:20 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:46:22 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 14:46:22 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 14:46:22 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:46:24 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 14:46:24 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 14:46:24 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:46:32 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:46:32 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61112
+2025-03-18 14:46:32 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:46:33 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 14:46:33 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 14:46:33 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:46:34 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:46:34 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61113
+2025-03-18 14:46:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:46:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 14:46:35 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 14:46:39 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50661
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:46:39 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:46:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 14:46:42 [Thread-1] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 14:46:42 [Thread-1] ERROR org.example.serverproxy.Proxy - Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: Cannot invoke "org.example.utils.common.OrderService.getCode()" because "os" is null
+2025-03-18 14:46:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:46:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-18 14:46:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "DISCONECT"
+2025-03-18 14:46:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:46:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:47:00 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 14:47:00 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61120
+2025-03-18 14:47:00 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:47:01 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 14:47:01 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 14:47:01 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:47:02 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:47:02 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61121
+2025-03-18 14:47:02 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:47:02 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 14:47:03 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 14:47:07 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50663
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:47:07 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:47:18 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "DISCONECT"
+2025-03-18 14:47:18 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:47:18 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-18 14:47:18 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "DISCONECT"
+2025-03-18 14:47:18 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:47:18 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 14:47:28 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 14:47:28 [Thread-5] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61123
+2025-03-18 14:47:28 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:47:28 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 14:47:29 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 14:47:32 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50665
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:47:32 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "REMOVE"
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "REMOVE"
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "REMOVE"
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem texto: 4
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem texto: 4
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem texto: 4
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem texto: Dado removido com sucesso!
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: Dado removido com sucesso!
+2025-03-18 14:47:36 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem texto: Dado removido com sucesso!
+2025-03-18 14:47:40 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":4,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:47:41 [Thread-5] INFO  org.example.utils.common.Cache - OrderService não encontrado na cache MISS: 1
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "SEARCH"
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "SEARCH"
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":4,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":4,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:47:41 [Thread-5] WARN  org.example.server.Server - Os dados não foram encontrados na base de dados!
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:47:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-18 14:47:51 [Thread-5] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 14:47:51 [Thread-5] ERROR org.example.server.Server - Erro com a conexão do Cliente: null
+2025-03-18 14:47:51 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:02:09 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 15:02:09 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 15:02:09 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:02:11 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 15:02:11 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:02:13 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 15:02:13 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 15:02:13 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:02:22 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:02:22 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61255
+2025-03-18 15:02:22 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:02:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 15:02:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 15:02:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:02:24 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:02:24 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61256
+2025-03-18 15:02:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:02:24 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 15:02:25 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 15:02:31 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50728
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:02:31 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:02:33 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:02:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":5,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:02:34 [Thread-1] INFO  org.example.utils.common.Cache - OrderService encontrado na cache HIT: 1
+2025-03-18 15:02:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":5,"name":"Nome5","description":"Descrição5","requestTime":"15:02:00"}
+2025-03-18 15:02:49 [Thread-1] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 15:02:49 [Thread-1] ERROR org.example.server.Server - Erro com a conexão do Cliente: null
+2025-03-18 15:02:49 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:03:32 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 15:03:32 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 15:03:32 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:03:33 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 15:03:33 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=0, name=Nome0, description=Descrição0, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=1, name=Nome1, description=Descrição1, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=2, name=Nome2, description=Descrição2, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=3, name=Nome3, description=Descrição3, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=4, name=Nome4, description=Descrição4, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=5, name=Nome5, description=Descrição5, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=6, name=Nome6, description=Descrição6, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=7, name=Nome7, description=Descrição7, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=8, name=Nome8, description=Descrição8, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=9, name=Nome9, description=Descrição9, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=10, name=Nome10, description=Descrição10, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=11, name=Nome11, description=Descrição11, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=12, name=Nome12, description=Descrição12, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=13, name=Nome13, description=Descrição13, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=14, name=Nome14, description=Descrição14, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=15, name=Nome15, description=Descrição15, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=16, name=Nome16, description=Descrição16, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=17, name=Nome17, description=Descrição17, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=18, name=Nome18, description=Descrição18, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=19, name=Nome19, description=Descrição19, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=20, name=Nome20, description=Descrição20, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=21, name=Nome21, description=Descrição21, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=22, name=Nome22, description=Descrição22, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=23, name=Nome23, description=Descrição23, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=24, name=Nome24, description=Descrição24, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=25, name=Nome25, description=Descrição25, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=26, name=Nome26, description=Descrição26, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=27, name=Nome27, description=Descrição27, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=28, name=Nome28, description=Descrição28, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=29, name=Nome29, description=Descrição29, requestTime=15:03)
+2025-03-18 15:03:36 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 15:03:36 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 15:03:36 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:03:59 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:03:59 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61269
+2025-03-18 15:03:59 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:04:00 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 15:04:00 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 15:04:00 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:04:01 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:04:01 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61270
+2025-03-18 15:04:01 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:04:01 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 15:04:03 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 15:04:12 [Thread-1] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 15:04:12 [Thread-1] ERROR org.example.serverproxy.Proxy - Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: Cannot invoke "org.example.utils.User.getLogin()" because "clientCredentials" is null
+2025-03-18 15:04:12 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=0, name=Nome0, description=Descrição0, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=1, name=Nome1, description=Descrição1, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=2, name=Nome2, description=Descrição2, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=3, name=Nome3, description=Descrição3, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=4, name=Nome4, description=Descrição4, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=5, name=Nome5, description=Descrição5, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=6, name=Nome6, description=Descrição6, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=7, name=Nome7, description=Descrição7, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=8, name=Nome8, description=Descrição8, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=9, name=Nome9, description=Descrição9, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=10, name=Nome10, description=Descrição10, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=11, name=Nome11, description=Descrição11, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=12, name=Nome12, description=Descrição12, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=13, name=Nome13, description=Descrição13, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=14, name=Nome14, description=Descrição14, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=15, name=Nome15, description=Descrição15, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=16, name=Nome16, description=Descrição16, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=17, name=Nome17, description=Descrição17, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=18, name=Nome18, description=Descrição18, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=19, name=Nome19, description=Descrição19, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=20, name=Nome20, description=Descrição20, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=21, name=Nome21, description=Descrição21, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=22, name=Nome22, description=Descrição22, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=23, name=Nome23, description=Descrição23, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=24, name=Nome24, description=Descrição24, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=25, name=Nome25, description=Descrição25, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=26, name=Nome26, description=Descrição26, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=27, name=Nome27, description=Descrição27, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=28, name=Nome28, description=Descrição28, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=29, name=Nome29, description=Descrição29, requestTime=15:04)
+2025-03-18 15:04:28 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 15:04:28 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 15:04:28 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:04:30 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 15:04:30 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:04:32 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 15:04:32 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 15:04:32 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:05:01 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:05:01 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61285
+2025-03-18 15:05:01 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:05:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 15:05:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 15:05:02 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:06:06 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:06:06 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61288
+2025-03-18 15:06:06 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:06:06 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 15:06:36 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 15:06:42 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50750
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:06:42 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:06:58 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:06:58 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61293
+2025-03-18 15:06:58 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:06:58 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 15:06:58 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 15:06:58 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:07:00 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:07:00 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61294
+2025-03-18 15:07:00 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:07:00 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 15:07:01 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"altair campielo","password":"senha123"}
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 15:07:30 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50755
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:07:30 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:07:40 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:07:40 [Thread-5] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61298
+2025-03-18 15:07:40 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:07:40 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 15:07:40 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 15:07:40 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:07:41 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:07:41 [Thread-5] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61299
+2025-03-18 15:07:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:07:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 15:07:43 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"fernando lucas","password":"senha123"}
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 15:07:50 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50756
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:07:50 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:08:35 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:08:36 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":5,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:08:36 [Thread-3] INFO  org.example.utils.common.Cache - OrderService encontrado na cache HIT: 1
+2025-03-18 15:08:36 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":5,"name":"Nome5","description":"Descrição5","requestTime":"15:04:00"}
+2025-03-18 15:09:11 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":30,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:09:13 [Thread-5] INFO  org.example.utils.common.Cache - OrderService não encontrado na cache MISS: 1
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "SEARCH"
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":30,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":30,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: {"code":30,"name":"Nome30","description":"Descrição30","requestTime":"15:04:00"}
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem json: {"code":30,"name":"Nome30","description":"Descrição30","requestTime":"15:04:00"}
+2025-03-18 15:09:13 [Thread-5] INFO  org.example.server.Server - Os dados foram encontrados e enviados!
+2025-03-18 15:09:13 [Thread-5] INFO  org.example.utils.common.Cache - Cache Cheia, elemento Remvoido: OrderService(code=0, name=Nome0, description=Descrição0, requestTime=15:04)
+2025-03-18 15:09:13 [Thread-5] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=30, name=Nome30, description=Descrição30, requestTime=15:04)
+2025-03-18 15:09:13 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":30,"name":"Nome30","description":"Descrição30","requestTime":"15:04:00"}
+2025-03-18 15:11:10 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "REGISTER"
+2025-03-18 15:11:10 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "REGISTER"
+2025-03-18 15:11:10 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "REGISTER"
+2025-03-18 15:11:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":0,"name":"qualquer","description":"qualquer descricao","requestTime":"15:11:00"}
+2025-03-18 15:11:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":0,"name":"qualquer","description":"qualquer descricao","requestTime":"15:11:00"}
+2025-03-18 15:11:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":0,"name":"qualquer","description":"qualquer descricao","requestTime":"15:11:00"}
+2025-03-18 15:11:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: Dado já existe na árvore!
+2025-03-18 15:11:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem texto: Dado já existe na árvore!
+2025-03-18 15:11:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem texto: Dado já existe na árvore!
+2025-03-18 15:14:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "REMOVE"
+2025-03-18 15:14:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "REMOVE"
+2025-03-18 15:14:23 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "REMOVE"
+2025-03-18 15:14:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem texto: 7
+2025-03-18 15:14:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem texto: 7
+2025-03-18 15:14:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem texto: 7
+2025-03-18 15:14:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem texto: Dado removido com sucesso!
+2025-03-18 15:14:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: Dado removido com sucesso!
+2025-03-18 15:14:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem texto: Dado removido com sucesso!
+2025-03-18 15:15:06 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":7,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:15:07 [Thread-5] INFO  org.example.utils.common.Cache - OrderService não encontrado na cache MISS: 2
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "SEARCH"
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":7,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":7,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:15:07 [Thread-5] WARN  org.example.server.Server - Os dados não foram encontrados na base de dados!
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:15:07 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":0,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:15:30 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "UPDATE"
+2025-03-18 15:15:30 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "UPDATE"
+2025-03-18 15:15:30 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "UPDATE"
+2025-03-18 15:15:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":1,"name":"NovoNome","description":"NovaDescricao","requestTime":"15:15:00"}
+2025-03-18 15:15:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":1,"name":"NovoNome","description":"NovaDescricao","requestTime":"15:15:00"}
+2025-03-18 15:15:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":1,"name":"NovoNome","description":"NovaDescricao","requestTime":"15:15:00"}
+2025-03-18 15:15:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem texto: Dado alterado com sucesso!
+2025-03-18 15:15:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: Dado alterado com sucesso!
+2025-03-18 15:15:41 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem texto: Dado alterado com sucesso!
+2025-03-18 15:15:58 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:15:59 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":1,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:15:59 [Thread-3] INFO  org.example.utils.common.Cache - OrderService encontrado na cache HIT: 2
+2025-03-18 15:15:59 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":1,"name":"NovoNome","description":"NovaDescricao","requestTime":"15:15:00"}
+2025-03-18 15:19:26 [Thread-1] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 15:19:26 [Thread-1] ERROR org.example.serverproxy.Proxy - Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: null
+2025-03-18 15:19:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-18 15:19:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "DISCONECT"
+2025-03-18 15:19:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:26 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:27 [Thread-3] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 15:19:27 [Thread-3] ERROR org.example.serverproxy.Proxy - Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: null
+2025-03-18 15:19:27 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:27 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-18 15:19:27 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "DISCONECT"
+2025-03-18 15:19:27 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:27 [Thread-3] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:28 [Thread-5] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 15:19:28 [Thread-5] ERROR org.example.serverproxy.Proxy - Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: null
+2025-03-18 15:19:28 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:28 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-18 15:19:28 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "DISCONECT"
+2025-03-18 15:19:28 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:19:28 [Thread-5] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:22:20 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 15:22:20 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 15:22:20 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:22:29 [main] INFO  org.example.server.Server - Servidor Principal rodando na porta: 15553
+2025-03-18 15:22:29 [main] INFO  org.example.server.Server - Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain
+2025-03-18 15:22:29 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:22:30 [main] INFO  org.example.locator.LocalizerServer - Servidor Localizador rodando na porta: 15551
+2025-03-18 15:22:30 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=0, name=Nome0, description=Descrição0, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=1, name=Nome1, description=Descrição1, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=2, name=Nome2, description=Descrição2, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=3, name=Nome3, description=Descrição3, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=4, name=Nome4, description=Descrição4, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=5, name=Nome5, description=Descrição5, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=6, name=Nome6, description=Descrição6, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=7, name=Nome7, description=Descrição7, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=8, name=Nome8, description=Descrição8, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=9, name=Nome9, description=Descrição9, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=10, name=Nome10, description=Descrição10, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=11, name=Nome11, description=Descrição11, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=12, name=Nome12, description=Descrição12, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=13, name=Nome13, description=Descrição13, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=14, name=Nome14, description=Descrição14, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=15, name=Nome15, description=Descrição15, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=16, name=Nome16, description=Descrição16, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=17, name=Nome17, description=Descrição17, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=18, name=Nome18, description=Descrição18, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=19, name=Nome19, description=Descrição19, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=20, name=Nome20, description=Descrição20, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=21, name=Nome21, description=Descrição21, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=22, name=Nome22, description=Descrição22, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=23, name=Nome23, description=Descrição23, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=24, name=Nome24, description=Descrição24, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=25, name=Nome25, description=Descrição25, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=26, name=Nome26, description=Descrição26, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=27, name=Nome27, description=Descrição27, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=28, name=Nome28, description=Descrição28, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=29, name=Nome29, description=Descrição29, requestTime=15:22)
+2025-03-18 15:22:32 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy rodando na porta: 15552
+2025-03-18 15:22:32 [main] INFO  org.example.serverproxy.Proxy - Digite 'stop' a qualquer momento para encerrar o Servidor Proxy
+2025-03-18 15:22:32 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:22:43 [main] INFO  org.example.locator.LocalizerServer - Servidor Aguardando conexão de um Cliente...
+2025-03-18 15:22:43 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Localizador conectado a 26.137.178.91:61417
+2025-03-18 15:22:43 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:22:44 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador recebeu uma mensagem texto: GET_PROXY
+2025-03-18 15:22:44 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Localizador enviou uma mensagem json: {"host":"26.142.36.11","port":15552}
+2025-03-18 15:22:44 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Localizador fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:22:45 [main] INFO  org.example.serverproxy.Proxy - Servidor Proxy Aguardando conexão de um Cliente...
+2025-03-18 15:22:45 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 26.137.178.91:61418
+2025-03-18 15:22:45 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:22:45 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["AUTHENTICATE","DISCONECT"]
+2025-03-18 15:22:46 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "AUTHENTICATE"
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"login":"breno klywer","password":"senha123"}
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: "SUCCESS"
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 26.142.36.11:15553
+2025-03-18 15:22:51 [main] INFO  org.example.server.Server - Servidor Principal Aguardando conexão de um Cliente...
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 26.142.36.11:50804
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy abriu o Fluxo de Dados com sucesso!
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:22:51 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: ["SEARCH","REGISTER","LIST","UPDATE","REMOVE","QUANTITY","DISCONECT"]
+2025-03-18 15:22:52 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "REGISTER"
+2025-03-18 15:22:52 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "REGISTER"
+2025-03-18 15:22:52 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "REGISTER"
+2025-03-18 15:22:56 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":0,"name":"4","description":"as","requestTime":"15:23:00"}
+2025-03-18 15:22:56 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":0,"name":"4","description":"as","requestTime":"15:23:00"}
+2025-03-18 15:22:56 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":0,"name":"4","description":"as","requestTime":"15:23:00"}
+2025-03-18 15:22:56 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem texto: Dado cadastrado com sucesso!
+2025-03-18 15:22:56 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem texto: Dado cadastrado com sucesso!
+2025-03-18 15:22:56 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem texto: Dado cadastrado com sucesso!
+2025-03-18 15:23:06 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente recebeu uma mensagem json: {"code":100,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:23:09 [Thread-1] INFO  org.example.utils.common.Cache - OrderService não encontrado na cache MISS: 1
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "SEARCH"
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "SEARCH"
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: {"code":100,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: {"code":100,"name":null,"description":null,"requestTime":null}
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy enviou uma mensagem json: {"code":100,"name":"4","description":"as","requestTime":"15:23:00"}
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor recebeu uma mensagem json: {"code":100,"name":"4","description":"as","requestTime":"15:23:00"}
+2025-03-18 15:23:09 [Thread-1] INFO  org.example.server.Server - Os dados foram encontrados e enviados!
+2025-03-18 15:23:09 [Thread-1] INFO  org.example.utils.common.Cache - Cache Cheia, elemento Remvoido: OrderService(code=0, name=Nome0, description=Descrição0, requestTime=15:22)
+2025-03-18 15:23:09 [Thread-1] INFO  org.example.utils.common.Cache - Elemento inserido na cache: OrderService(code=100, name=4, description=as, requestTime=15:23)
+2025-03-18 15:23:09 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Cliente enviou uma mensagem json: {"code":100,"name":"4","description":"as","requestTime":"15:23:00"}
+2025-03-18 15:24:34 [Thread-1] ERROR o.e.u.common.AbstractMessageHandler - Erro ao desserializar JSON: java.net.SocketException: Connection reset
+2025-03-18 15:24:34 [Thread-1] ERROR org.example.serverproxy.Proxy - Erro ao tentar intermediar a comunicação entre o Cliente e o Servidor Principal: null
+2025-03-18 15:24:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Cliente fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:24:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Proxy & Servidor enviou uma mensagem json: "DISCONECT"
+2025-03-18 15:24:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - Servidor X Proxy recebeu uma mensagem json: "DISCONECT"
+2025-03-18 15:24:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Proxy & Servidor fechou o Fluxo de Dados com sucesso!
+2025-03-18 15:24:34 [Thread-1] INFO  o.e.u.common.AbstractMessageHandler - O Servidor X Proxy fechou o Fluxo de Dados com sucesso!
