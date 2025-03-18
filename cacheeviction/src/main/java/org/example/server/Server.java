@@ -14,8 +14,10 @@ import org.example.utils.exceptions.NodeNotFoundException;
 import org.example.utils.tree.TreeAVL;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -23,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.example.utils.Command.*;
 
 public class Server implements Loggable, JsonSerializable {
+    private String host;
     private final int port;                                                                      // Porta do servidor
     private final Menu actions;                                                                  // Menu de ações do servidor
     private volatile TreeAVL treeAVL;                                                            // Árvore AVL de dados
@@ -32,6 +35,12 @@ public class Server implements Loggable, JsonSerializable {
     private static final ThreadLocal<Communicator> clientCommunicator = new ThreadLocal<>();     // Comunicador do cliente
 
     public Server() {
+        try {
+            this.host = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            erro("Erro ao obter o endereço IP do host: " + e.getMessage());
+            this.host = "26.137.178.91";
+        }
         this.port = 15553;
         this.treeAVL = new TreeAVL();
         this.actions = new Menu();
@@ -62,8 +71,8 @@ public class Server implements Loggable, JsonSerializable {
 
     private void createServerSocket() {
         try {
-            //serverSocket = new ServerSocket(port, 50, InetAddress.getByName("26.97.230.179")); // RemoteHost
-            serverSocket = new ServerSocket(port); // LocalHost
+            serverSocket = new ServerSocket(port, 50, InetAddress.getByName(host)); // RemoteHost
+            //serverSocket = new ServerSocket(port); // LocalHost
             info("Servidor Principal rodando na porta: " + serverSocket.getLocalPort());
             info("Digite 'stop' a qualquer momento para encerrar o Servidor ServerMain");
 

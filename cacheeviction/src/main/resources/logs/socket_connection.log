@@ -1,3 +1,2 @@
-2025-03-07 08:19:51 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 127.0.0.1:58483
-025-03-07 08:19:45 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Cliente conectado a 127.0.0.1:58482
-2025-03-07 08:19:51 [Thread-3] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a localhost:15553
+2025-03-18 14:22:23 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Servidor X Proxy conectado a 10.215.36.169:50943
+025-03-18 14:22:23 [Thread-1] INFO  o.e.u.c.AbstractSocketConnection - Proxy & Servidor conectado a 10.215.36.169:15553

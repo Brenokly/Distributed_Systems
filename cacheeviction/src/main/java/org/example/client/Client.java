@@ -28,7 +28,7 @@ public class Client extends Communicator implements Loggable, JsonSerializable {
 
         this.actions = new Menu();
         this.scanner = new Scanner(System.in);
-        this.addressLocator = new ProxyInfo("localhost", 15551); // LocalHost
+        this.addressLocator = new ProxyInfo("10.215.36.169", 15551); // LocalHost
         //this.addressLocator = new ProxyInfo("26.97.230.179", 15551); // RemoteHost
 
         initializeDefaultActions();
