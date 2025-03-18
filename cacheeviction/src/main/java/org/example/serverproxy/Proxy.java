@@ -44,6 +44,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -61,7 +62,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     private final int id;                                                                   // Identificador do Proxy
     private final int port;                                                                 // Porta do servidor
     private final String name;                                                              // Nome do Proxy
-    private final String host;                                                              // Host dos servidores
+    private String host;                                                                    // Host dos servidores
     private final int portRMI;                                                              // Porta do RMI do proxy
     private final Menu actions;                                                             // Menu de ações do servidor
     Authenticator authenticator;                                                            // Autenticador
@@ -76,7 +77,6 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     private static final ThreadLocal<Communicator> cliCommunicator = new ThreadLocal<>();   // Comunicador do cliente por Thread
     private static final ThreadLocal<Communicator> serCommunicator = new ThreadLocal<>();   // Comunicador do servidor por Thread
 
-    private static final String SERVER_HOST = "26.97.230.179";   // Rede Privada Radmin
     private final int finderPortRMI = 14442;                     // Porta RMI do Localizador
 
     public Proxy(int port, int portRMI, String loggerName, int id) {
@@ -88,12 +88,17 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
         this.portRMI = portRMI;
         
         // Defina o host baseado em configuração
-        this.host = SERVER_HOST;
+        try {
+            this.host = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            erro("Erro ao obter o endereço IP do host: " + e.getMessage());
+            this.host = "26.137.178.91";
+        }
         
         this.cache = new Cache();
         this.actions = new Menu();
         this.authenticator = new Authenticator();
-        this.serverInfo = new ProxyInfo("ServidorMain", SERVER_HOST, 16660, 15000);
+        this.serverInfo = new ProxyInfo("ServidorMain", host, 16660, 15000);
         
         configurarRMI();
 
@@ -108,7 +113,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
     }
 
     private void configurarRMI() {
-        System.setProperty("java.rmi.server.hostname", SERVER_HOST);
+        System.setProperty("java.rmi.server.hostname", host);
     }
 
     private boolean createRmiMethods() {
@@ -140,7 +145,7 @@ public class Proxy implements Loggable, JsonSerializable, ProxyService, RMICommo
             while (!success.get() && running.get()) {
                 try {
                     // Localiza o registro RMI no IP e porta do servidor
-                    Registry registry = LocateRegistry.getRegistry(SERVER_HOST, finderPortRMI);
+                    Registry registry = LocateRegistry.getRegistry(host, finderPortRMI);
         
                     // Obtém a referência do objeto remoto pelo nome
                     LocalizerInterface localizer = (LocalizerInterface) registry.lookup("Localizador");

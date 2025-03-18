@@ -4,6 +4,8 @@ import org.example.utils.Loggable;
 import org.example.utils.common.OrderService;
 import org.example.utils.exceptions.NodeAlreadyExistsException;
 import org.example.utils.tree.TreeAVL;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,7 +20,12 @@ public class BackupServer implements BackupInterface, Loggable {
   public BackupServer() {
     clearLog("BackupServer");
     portRMI = 13337;
-    host = "26.97.230.179";
+    try {
+      this.host = InetAddress.getLocalHost().getHostAddress();
+    } catch (UnknownHostException e) {
+      erro("Erro ao obter o endereço IP do host: " + e.getMessage());
+      this.host = "26.137.178.91";
+    }
     configurarRMI();
     createRMI();
   }

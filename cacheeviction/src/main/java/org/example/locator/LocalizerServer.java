@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -24,9 +25,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Data
 public class LocalizerServer implements Loggable, LocalizerInterface {
-    private final int port;                                                         // Porta do Servidor Localizador
-    private final int portRMI;                                                      // Porta RMI do Servidor Localizador
-    private final String host;                                                      // Host do Servidor Localizador
+    private int port;                                                               // Porta do Servidor Localizador
+    private int portRMI;                                                            // Porta RMI do Servidor Localizador
+    private String host;                                                            // Host do Servidor Localizador
     private ServerSocket serverSocket;                                              // Socket do Servidor Localizador
     private final Map<Integer, RMICommon> rmiCommons = new ConcurrentHashMap<>();   // Mapa para armazenar os métodos dos Proxies
     private final List<ProxyInfo> proxyInfo = new CopyOnWriteArrayList<>();         // Lista para armazenar as informações dos Proxies
@@ -34,14 +35,18 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
 
     // Configurações do Servidor Localizador
     // ==========================================
-    private final String HOST = "26.97.230.179";
     private final int PORT = 14441;
     private final int PORT_RMI = 14442;
     // ===========================================
 
     public LocalizerServer() {
         clearLog("LocalizerServer");
-        this.host = HOST;
+        try {
+            this.host = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            erro("Erro ao obter o endereço IP do host: " + e.getMessage());
+            this.host = "26.137.178.91";
+        }
         this.port = PORT;
         this.portRMI = PORT_RMI;
         configurarRMI();
@@ -53,7 +58,7 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     }
 
     private void configurarRMI() {
-        System.setProperty("java.rmi.server.hostname", HOST);
+        System.setProperty("java.rmi.server.hostname", host);
     }
 
     private boolean createRMI() {
@@ -121,7 +126,7 @@ public class LocalizerServer implements Loggable, LocalizerInterface {
     }
 
     private void createServerSocket() {
-        try (ServerSocket serverSocket = new ServerSocket(port, 50, InetAddress.getByName(HOST))) {
+        try (ServerSocket serverSocket = new ServerSocket(port, 50, InetAddress.getByName(host))) {
             info("Servidor Localizador rodando na porta: " + serverSocket.getLocalPort());
             info("Digite 'stop' a qualquer momento para encerrar o Servidor Localizador!");
             this.serverSocket = serverSocket;

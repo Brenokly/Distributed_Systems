@@ -33,6 +33,11 @@ public class Cache implements Loggable {
     public Cache() {
         this.CAPACIDADE = 30;
         cache = new LinkedListAAMF();
+        initializerCache();
+    }
+
+    private void initializerCache() {
+        
     }
 
     // --------------------------------------------------------------------------------

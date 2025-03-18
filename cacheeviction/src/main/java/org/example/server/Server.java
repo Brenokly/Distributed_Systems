@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -26,8 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.example.utils.Command.*;
 
 public class Server implements Loggable, JsonSerializable {
-    private final int port;                                                                     // Porta do servidor
-    private final String host;                                                                  // Host do servidor
+    private int port;                                                                           // Porta do servidor
+    private String host;                                                                        // Host do servidor
     private final Menu actions;                                                                 // Menu de ações do servidor
     private volatile TreeAVL treeAVL;                                                           // Árvore AVL de dados
     private ServerSocket serverSocket;                                                          // Socket do servidor
@@ -41,7 +42,12 @@ public class Server implements Loggable, JsonSerializable {
     public Server() {
         clearLog("Server");
         this.port = 16660;
-        this.host = "26.97.230.179";
+        try {
+            this.host = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            erro("Erro ao obter o endereço IP do host: " + e.getMessage());
+            this.host = "26.137.178.91";
+        }
         this.treeAVL = new TreeAVL();
         this.actions = new Menu();
         configurarRMI();
